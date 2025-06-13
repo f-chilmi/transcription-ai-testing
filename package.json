@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@deepgram/sdk": "^4.4.0",
+    "assemblyai": "^4.13.2"
+  },
+  "scripts": {
+    "start": "node --loader ts-node/esm index.ts"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
