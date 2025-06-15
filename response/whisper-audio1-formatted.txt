@@ -1,0 +1,1099 @@
+=== GROUPED BY SPEAKER ===
+
+Speaker 00
+Yeah, we're also seeing some success with, uh, we've implemented like a weekly refinement meeting to kind of check in, make sure that, uh, stories are broken down tiny enough. I think with smaller bits of work, we're seeing a higher MR rate. Um, it's debatable whether or not that's like just inflated, right? Like you can work on a small piece of code and ship it and you can do that a lot of times you're going to get a higher MR rate. We're trying to be reasonable with that. I am noticing a nice tick up after implementing the refinement meeting, so let's hope for the best.
+
+Speaker 02
+Kind of a thankless role, honestly. And I volunteer because of the exposure I get from it. It's nice to be part of a different collective group of people. I was going to mention, I'll type this in here, but Tiago had set up for container security, a bot that weekly, I think it's Mondays or like Sunday, will ping the team and ask for a volunteer to go and resource that data. And we just enabled it for Threat Insights. It's actually pretty sweet. And it just, it does all the work for you, Thomas, right? We don't have to ping people ourselves. Yeah, I don't know if there's another T color, Thomas. I struggled with that one. But that's the theme. Tomato. Yeah, I'm hoping that MR-RAID is kind of an artifact or a byproduct of some other actions. The big thing we're doing is more whole type of work, like random, miscellaneous, not scheduled, not PM necessarily, actions or issues. And that actually is creating some more additional work. Like it's just like free time work. I want to change the pace, move to something else momentarily. And these are generally smaller types of issues too, so they're quicker to knock out. Therefore they create more MRs, which has been a cool byproduct. So I think that's helping us succeed there. I mean, just last week, I think it was Phil celebrated his third year, and I congratulated him, but then I missed another team member in SEC, you know, because there's like 20 people on that list. Plus, it's team member updates. That's not a channel I look at a lot, like weekly. I just happen to see that the day of, so. I do like being able to celebrate together in this group.
+
+Speaker 03
+In my opinion, yeah, oh, sorry and hey, uh, fernando here. So i'm shadowing, uh, wayne now just to introduce myself, um from the technical marketing team Um, and i'm i'll send a document right now, which is something that we do for our um kind of get together team meetings And it kind of shows. Um, you can you can look through it. I shared it to everyone on the zoom chat But you can see that we provide updates, the new team members, and small little introductions. And you can see sections that we have on gratitude and actual spotlights that we show like who we're actually praising, what they've done that's good, and how we can highlight that, because that will motivate employees, kind of really increase that morale, because what we're seeing is these employees are actually getting recognized for good work that they've done. And they're getting shout outs, because a lot of times, at least in our team, the case is we don't really, although we work with each other, we sometimes are kind of siloed, busy working on different things. So it's good to know what everyone's working on and what everyone's doing. So somewhat related to what you were just speaking on, but just thought I'd share that.
+
+Speaker 04
+Got to give Neil a high five, too. He does half of these now. And apologies for the noise if I keep asking for what's the story behind what's going on with reliability or error budget stuff, just trying to provide air cover. And Thomas, you've got item K. Yeah. Apologies for the late, like, live addition to the agenda on this one. But one more note on a change we're rolling out within Secure, pretty lightweight, in that we're establishing a second team within dynamic analysis. And so, issue is there if folks want to play – that would like to follow along or ask any questions about it. The plan for right now is I'm going to be serving as the team's acting EM and in addition to normally scheduled some duties for lack of a better way of putting it. I'm so happy to answer any questions that folks have about that. was not planning to differentiate it. It's just a second team within Dynamic Analysis. We're not creating a new group, which I think is the same pattern that's happening within Threat Insights as well. It's just two teams. I know that there's Tangerine and there's Navy. I'm not a Tangerine person myself, so we'll have to figure it out. I don't know. We'll figure it out. We'll figure it out. We'll figure it out. The differentiation – I think the difference between what's happening in Threat Insights and within Dynamic Analysis is that this is a split along feature category, even though we're keeping – we're not spreading a new group. It is – the distinction is along, like, who's working on specific feature categories themselves. So, the – where the fracture point is happening is a little different, but the approach and effect are the same. Yeah, I'll verbalize, and then I'll say more, and then I'll finish writing what I was going to put down underneath it in just a moment. So, this was an agenda item with the EMs. I can say it now, in the secure stage, since that is the analyzer teams now. So, this was a topic yesterday. So, my – I would assume that this is more like it has a chance to read but not digest the content. And what I was about to write, and I am cautious in saying this because it almost comes across as smug, and that is not my intent, in that Looking at the MR rate within SEC compared to company wide, historically it runs two to three MRs per engineer per month higher. And I think a good bit of that has to do with the I mean, we've taken this to be true, or at least asserted it to be true in that it's smaller teams that are working closely together in less busy projects. Then we see within the rails platform itself, which does have an impact. That's not to say that we cannot do better, but the comparison, the favorable comparison, at least to me, and I will admit this, at times will lessen the urgency on this particular topic. And I have to admit that bias that I have. OK. I'll write after this then. All right, FedRAMP and the can't or won't fix security issues that we may be having. So we've got them for security issues that are subject to FedRAMP. If you have a feature category that is FIPS compliant or certified, you're probably going to be part of the FedRAMP evaluation. And any security issue that has a CVE associated with it, which means dependency or container scanning specifically, has to have a remediation plan, even if they're false positives. And so, that's led to a separate discussion on what do we need to do for – do we need to do anything related to security findings on the commercial versions of analyzers specifically. That was the catalyst for this particular conversation because on container scanning, we get a lot of findings related to Debian-based images that that project has not shipped a fix for or won't ship a fix for. So there is a separate thread that is going on here about what to do and can we do deviation requests in bulk for this class of findings. The TLDR is below, and there's a couple of options that are being brainstormed within this particular thread. So, I wanted – and I know I've said a lot of words and I didn't say it well, but I wanted to bring it here in case there was any questions or commentary. There is, I'll link in another issue, a separate issue that has instructions from AppSec on what they would like us to do as far as setting up container scanning. And they have set up a project with a single configuration. that they're asking us to use. There is some debate as to how that project has been configured because it uses a combination of three container scanning tools rather than one. And so they've asked us to use that as a baseline for the FIPS images specifically. since they're UBI – or the UBI-specific images. They're equivalent in my mind, even though they're different meanings. Nikhil. Nikhil George is our stable counterpart, if folks don't know, at least in SEC. And so, he's been quite responsive and keen, and he is also helping chase down answers when he doesn't have them. So, that's a He's been a big help thus far. Yeah, I like it. We don't celebrate enough. We don't do enough for team cohesion, team celebration across the board. And just as a correlate related thing that I haven't communicated well, I was hoping to add this kind of thing to our monthly section wide retrospectives, new hires, discretionary bonuses, work anniversaries, big feature releases. I mean, anything that we want to announce and celebrate, we ought to make sure that it's I don't want to say shout to the rooftops or shout to the heavens, but they're big deals and we undersell. Thomas, you've got E. Yep. All right. Because I cannot remember, and so I'm hoping to crowdsource a little bit of this configuration archaeology, so to speak. Is there a reason that we don't use Reviewer Roulette? if folks can remember. The reason I'm asking is contained within that thread, but that is a tool that actually is being used to track if we have enough maintainers on any given project. And since we don't use it, we're showing up. And so, that's why I'm asking. Yeah, rule a six-sided diet. That's what I kind of think it is. But it's from a larger – like, if the company – like, where do we need more maintainers is the question that the organization is asking. Well, we're going to end with the best news of the day. That's all. But the maintainer requirement, yes, it does. I mean, because it's for Senior Plus, going back to that, is just maintaining one or more, I think, is the requirement for Member Berkeley. I was talking about the Olivier news. Yeah, I know. I was just making sure we were finished with the topic above. All right. And we're at time, so I will move on and take that as a prompt. Yeah, Olivier has popped back on Slack to announce that the newest edition of their family is here and happened over the weekend. So big, big congrats to his family for that. And we'll be hoping to celebrate him later when he returns to work.
+
+Speaker 05
+Hi, welcome Alan to the meeting. I've asked Alan to step in as acting full-stack manager for security policies while I hire an EM. Alan has graciously accepted this wonderful opportunity. So welcome, Alan. I've got the next item as well. So anti-abuse is moving product sections from SEC to data science. Data science is effectively a rename of the model ops section. So data science will include two stages, the existing model ops, which has three groups in it, which Mon can talk more about, and the anti-abuse stage, which only currently has one group, which is called anti-abuse. I think at some point there are plans to split anti-abuse into two groups, but that's not in the near term. And we're working through all the changes around there. There's lots of workday changes, lots of handbook changes. Mon, did you want to say anything more about data science or ModelOps? No, I think for us, we just roll up to data science. Everything else stays the same. We still have the two main groups, Applied ML, MLOps, and then later DataOps as part of it. Yeah, talent assessment. So we had an update from Juliana. The dates haven't been confirmed yet, but it'll be sometime from mid-October through to December. I think e-group sign-off is expected to be mid-December before everyone goes on holiday. They've got a draft timeline in there, but the dates aren't in the handbook yet. The big change is we're moving to do it in Workday. That's not available yet. I haven't seen a demo of it. I don't know what questions will be asked, but there's an optional self-evaluation which will move into Workday and the work that we do as managers will also happen in Workday. At the moment, some people are using the Google Doc, which is listed on the talent assessment page for self-evaluations and for the manager work. I'd suggest continuing to use those docs until we get access to Workday and see what the exact differences are. I had a quick question. We've done the same thing in Threat Insights with Neil and Tiago each having teams. What are you going to call your new team or how will you differentiate? I mean, at a high level, Jay, Neil, Tiago, we've talked about changes. I think, Jay, you've already looked at some changes around refinement. That was an area that you were going to look at for anti-abuse and report back by the end of the quarter. Tiago and Neil, I can't remember where we ended up with for Freedom Science. Nothing directly related to what you've just talked about, but sort of related. For FedRAMP, you're looking at any FIPS-related security issues that have been raised. How far are you going in terms of auditing to find anything that hasn't already been identified? So, TLDR, talk to APSIC. Got it. Anecdotally, I've seen a few cases where team members have realized that they need to get an additional approval, but I'm not aware that it's actually slowing things down. Yeah, obviously the other examples relate to either sections or stages, whereas enrichment doesn't. So you'd be introducing something new here. This affects me as well. I have a subset of enrichment, so it would be kind of enrichment light. I'm not sure. I'm not sure we'll—I think you and I have spoken about this. I'm not sure we would get approval to introduce a new name or department level. We'd certainly have to talk to PeopleOps about introducing that in Workday. Are you suggesting that we add new content into this document for that, or that we just link to the Slack announcements that we've already made? I mean, I'd suggest they're looking in the wrong place. If they're looking in Rule 8 to see, To find out the number of maintainers, that's the wrong place. The engineering projects page should list all the maintainers if you set up your team YAML entries correctly. I would have thought that was more than a single source of truth. So, Seth, are you saying you haven't added it to individual team members' YAML files in the handbook yet? I think that should do it. Yeah, well, it should. They shouldn't be using just roulette. They should be using that as a source of truth. And I think if you've listed maintainers, that should cover it. A follow up question would be, does that cover the senior plus engineers must be a maintainer requirement or not?
+
+Speaker 06
+So it is the SEC, meaning Secure and Govern, Growth and Data Science, meaning Applied ML, MLOps, and Anti-Abuse Team Meeting. That's a big mouthful. We might get a better name over time. And that's our meeting for September 14th or 15th in APAC. And hi, Alan. Glad you're here. Why are you here when it's midnight? Glad you're here. Don't make it happen to come to this meeting because it's really late for you. But I'm glad. Thanks for coming at least once. News and events. I've got a lot of things on the agenda today because of some of this. So apologies for that, but I think it's going to go down over time. Based on feedback, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group of people. This will result in, for this group, adding more items to our staff meeting agenda, often as read-only, rather than posting to our Slack channel. And I am going to be assuming that people leaders on the team will attend this meeting or read the notes and not rely on the Slack channel. So keep that in mind. Let's see. B is a read-only item, unless anybody wants to discuss it. So, thanks, Thomas, for continuing to compile and report on across all my teams that I'm responsible for in the engineering allocation meeting on error budgets and reliability and security incidents. I really do appreciate that. And I apologize, Neil, I totally forgot you took half of these since Thomas has been doing it for so long, but I appreciate it, Neil. I know you volunteered for it and we discussed it, but I just forgot. Each I and J are read-only, unless anybody wants to discuss them. I don't know if it's a big rock, but it kind of belongs here perhaps more than other places. So I did that survey where we got an awesome response rate from the team on how to improve the MR rate for the team. And then I took a really long time to go through all the results and summarize and make initial recommendations. So we lost a little bit of momentum. I got caught up in other things like cross-functional prioritization and the customer escalation. So since then, this is actually used by John Hope to lead a discussion at the development off-site last week on just improving engineering velocity as one of the things he used to power it. So it had value there. But I've seen no comments, I think, from anybody in this group, which means either no time, forgot about it, or it doesn't We looked at it, and it doesn't have much value. And any of those things are OK. I'm just curious where the group landed. And if you haven't taken a look yet to see if there's anything you want to take away from it on things you might want to consider, I'm asking you to do so. And to consider, not to do, but to consider. Anybody gotten a chance to read it yet and think about it or not just yet? My guess is perhaps everybody's really busy and they haven't looked yet. Thank you, Omar. Thomas, you want to verbalize your comment? Thanks, Thomas. Thanks, everyone. So, I didn't see any comments on the issue. That's totally fine. People found some of it useful, some of the analysis useful, and that's great. So I will close the issue accordingly and just link to these notes. Good stuff. Thomas, you've got item B. So, in the hallway – so, from the development staff meeting, I copied and pasted the notes in there, but Ned is – the TLDR is, can folks – the request to me and my peers was, can folks check with their teams to see if the approvals are affecting them? So this is the new approval rules on segregation of duties. So this group, not that everybody's here, but in the group, and they shouldn't be, because all meetings are optional, but has this had an impact, these new approvals? No news is good news on this, probably, unless it's happening and we're not noticing it, where it is slowing things down. But just keep an eye on it in case it does. Everyone, please. With recent changes, we've done a couple of different changes with Secure and Govern broken out from Secure and our DataOps team and this and that is, I just compared the name of my team with my peers. My peers have one word team names, ops, dev, create, et cetera. Mine is growth and data science. which is pretty wordy. It also makes it like when I go into dashboards, I have to pull data from multiple places across my teams. So I was thinking about a one-word name. I've started to get feedback on it. Naming things is really important at GitLab to name the right kinds of things and give them good names. So I'm going to run it by David DeSanto tomorrow. He's a great person to bounce such things off of. I landed on enrichment, because what we do makes other things better. We enrich them. It's kind of a very broad term, but it does cover what we do. Not sure we're going to change the name, which I'm not sure it's going to affect anyone but me. That's actually my intent, is it only affects my stuff, not everyone else's. Or at least everyone else's in a small way, or others in a small way, but we'll see. Any thoughts on this? Good idea, bad idea? So a couple of things, you know, these are the kinds of things I would sometimes put in Slack, but I'm trying to avoid a number of distinct Slack messages, so putting it in here, making a lot of read-only when possible. So I've got C, which is not read-only. So I would like to add announcements of work anniversaries and new hires to the meeting template. PM does this. I attended the PM staff meeting. I was a guest speaker there this week. And like the camaraderie, we have good camaraderie. The camaraderie there was pretty good. You know, Fern, who's shadowing me today, I think he sat in on the PM meeting as well. It's a pretty good feel of just people really knowing each other well and getting along well. So those are just two things I took away from it, is anniversaries and new hires. I'll verbalize Tiago's comment. Tiago's not here. Yeah, Tiago's not here. Great idea for new hires. Don't care much about work anniversaries. We already have a bot for that. What I'd say is I always seem to miss the bot announcements. as they cover the whole company versus a bot just announcing for our team. If no interest in that part, I'm happy to exclude. So, Neil, you like the idea of adding? Yeah, I have the same thought. Or you don't? Maybe also thanks or praise section, like, thanks for doing this. Great job on that. To remind ourselves to do that as engineers, we tend to focus on the problems and challenges and not the celebrating the wins. So maybe link to the Slack announcements, but also verbalize it. I know it sounds like a bunch of busy work. I don't want to do things twice. Maybe we add the sections and people use them as they see fit. whatever that happens to be, but please don't over, don't create busy work for yourself either. So judgment call by each person. Thomas, it looks like you had a, Thomas and Mon, you had some thoughts on this too? So in D, so I'm not going to read all of this from Daniel Croft, but summarizing, he is looking for feedback on the development vision and mission and direction. We're brainstorming in the development department on mission and vision in particular. The approach is we want everybody to open up a little spreadsheet and follow the instructions. Anybody interested? So if you're interested in doing so, it should take about 10 to 15 minutes. Please do it in the next week. Good stuff there. So then we covered also the development offsite that Daniel took as an action item to follow up on. Sorry, Seth, I'm reminded of this. I'm reminded of the Spider-Man meme with the two Spider-Men pointing at each other. Who's the reviewer? Who's the author? It's the same person. It's been a long day, so I'm a little punchy. But yes, that makes sense. Thomas, you buried the, what do you call it, buried the lead? I took the read-only off your comment there, so you can announce it.
+
+Speaker 07
+Yeah. When you say reviewer rule, are you talking about on the individual analyzers? Yeah. Speaking only for DASH, we haven't had a need for it because we have six engineers that's just going to rule out the same six people. Yeah, I'm looking at the chart. I mean, I think on some of these projects, we just haven't filled it out. I'll give you, like, we have the API, the HubFuzz, we have one engineer that works on it. So we haven't gone and added a maintainer there because they know who they are. So if we are trying to maintain that as a single source of truth, we need to just go through and scrub it. Right. I believe for that one, there's just no entry for it. I mean, we could.
+
+Speaker 08
+And C, fill house. Thank you. Yeah. So I'll put a note in there for that. Hey, F is read only and Bill, you've got G. I hope. So on to big rocks and hot issues section. Not necessarily any implementation, but just refinement itself. I should stop talking on mute. Thanks for bringing this up, Thomas. Okay. It's good stuff. I'm not wired to this. I'm looking for feedback. I think it's nice to verbalize them. Thanks, Fernando. Apparently not. So yeah. Cool. Thanks, everybody. Have a great day.
+
+Speaker 09
+I was going to say one note on refinement in stack analysis. We're experimenting with the new section in our planning feature. It's called looking forward. And in there, we're using that as like a baseline where we add issues that we think need refinement that will most likely be worked on in the next one to three milestones. So, we're using that as kind of a base cover for some engineer to go in and add their issues and make sure they get refined within this milestone.
+
+Speaker UNKNOWN_SPEAKER
+OK.
+
+
+=== CONVERSATION FLOW ===
+
+[0:00] Speaker 06
+So it is the SEC, meaning Secure and Govern, Growth and Data Science, meaning Applied ML, MLOps, and Anti-Abuse Team Meeting.
+
+[0:15] Speaker 06
+That's a big mouthful.
+
+[0:16] Speaker 06
+We might get a better name over time.
+
+[0:19] Speaker 06
+And that's our meeting for September 14th or 15th in APAC.
+
+[0:26] Speaker 06
+And hi, Alan.
+
+[0:27] Speaker 06
+Glad you're here.
+
+[0:28] Speaker 06
+Why are you here when it's midnight?
+
+[0:31] Speaker 06
+Glad you're here.
+
+[0:32] Speaker 06
+Don't make it happen to come to this meeting because it's really late for you.
+
+[0:37] Speaker 06
+But I'm glad.
+
+[0:37] Speaker 06
+Thanks for coming at least once.
+
+[0:45] Speaker 06
+News and events.
+
+[0:46] Speaker 06
+I've got a lot of things on the agenda today because of some of this.
+
+[0:50] Speaker 06
+So apologies for that, but I think it's going to go down over time.
+
+[0:53] Speaker 06
+Based on feedback, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group of people.
+
+[1:03] Speaker 06
+This will result in, for this group, adding more items to our staff meeting agenda,
+
+[1:07] Speaker 06
+often as read-only, rather than posting to our Slack channel.
+
+[1:11] Speaker 06
+And I am going to be assuming that people leaders on the team will attend this meeting or read the notes and not rely on the Slack channel.
+
+[1:16] Speaker 06
+So keep that in mind.
+
+[1:19] Speaker 06
+Let's see.
+
+[1:20] Speaker 06
+B is a read-only item, unless anybody wants to discuss it.
+
+[1:24] Speaker 08
+And C, fill house.
+
+[1:28] Speaker 05
+Hi, welcome Alan to the meeting.
+
+[1:31] Speaker 05
+I've asked Alan to step in as acting full-stack manager for security policies while I hire an EM.
+
+[1:38] Speaker 05
+Alan has graciously accepted this wonderful opportunity.
+
+[1:43] Speaker 05
+So welcome, Alan.
+
+[1:45] Speaker 08
+Thank you.
+
+[1:50] Speaker 05
+I've got the next item as well.
+
+[1:53] Speaker 05
+So anti-abuse is moving product sections from SEC to data science.
+
+[1:59] Speaker 05
+Data science is effectively a rename of the model ops section.
+
+[2:04] Speaker 05
+So data science will include two stages, the existing model ops, which has three groups in it, which Mon can talk more about, and the anti-abuse stage, which only currently has one group, which is called anti-abuse.
+
+[2:21] Speaker 05
+I think at some point there are plans to split anti-abuse into two groups, but that's not in the near term.
+
+[2:30] Speaker 05
+And we're working through all the changes around there.
+
+[2:32] Speaker 05
+There's lots of workday changes, lots of handbook changes.
+
+[2:36] Speaker 05
+Mon, did you want to say anything more about data science or ModelOps?
+
+[2:42] Speaker 05
+No, I think for us, we just roll up to data science.
+
+[2:46] Speaker 05
+Everything else stays the same.
+
+[2:48] Speaker 05
+We still have the two main groups, Applied ML, MLOps, and then later DataOps as part of it.
+
+[2:55] Speaker 08
+Yeah.
+
+[2:58] Speaker 06
+So, thanks, Thomas, for continuing to compile and report on across all my teams that I'm responsible for in the engineering allocation meeting on error budgets and reliability and security incidents.
+
+[3:12] Speaker 06
+I really do appreciate that.
+
+[3:16] Speaker 04
+Got to give Neil a high five, too.
+
+[3:17] Speaker 04
+He does half of these now.
+
+[3:20] Speaker 04
+And apologies for the noise if I keep asking for what's the story behind what's going on with reliability or error budget stuff, just trying to provide air cover.
+
+[3:31] Speaker 06
+And I apologize, Neil, I totally forgot you took half of these since Thomas has been doing it for so long, but I appreciate it, Neil.
+
+[3:37] Speaker 06
+I know you volunteered for it and we discussed it, but I just forgot.
+
+[3:40] Speaker 02
+Kind of a thankless role, honestly.
+
+[3:42] Speaker 02
+And I volunteer because of the exposure I get from it.
+
+[3:45] Speaker 02
+It's nice to be part of a different collective group of people.
+
+[3:49] Speaker 02
+I was going to mention, I'll type this in here, but Tiago had
+
+[3:53] Speaker 02
+set up for container security, a bot that weekly, I think it's Mondays or like Sunday, will ping the team and ask for a volunteer to go and resource that data.
+
+[4:03] Speaker 02
+And we just enabled it for Threat Insights.
+
+[4:06] Speaker 02
+It's actually pretty sweet.
+
+[4:07] Speaker 02
+And it just, it does all the work for you, Thomas, right?
+
+[4:09] Speaker 02
+We don't have to ping people ourselves.
+
+[4:11] Speaker 08
+So I'll put a note in there for that.
+
+[4:15] Speaker 08
+Hey, F is read only and Bill, you've got G.
+
+[4:22] Speaker 05
+Yeah, talent assessment.
+
+[4:24] Speaker 05
+So we had an update from Juliana.
+
+[4:27] Speaker 05
+The dates haven't been confirmed yet, but it'll be sometime from mid-October through to December.
+
+[4:33] Speaker 05
+I think e-group sign-off is expected to be mid-December before everyone goes on holiday.
+
+[4:39] Speaker 05
+They've got a draft timeline in there, but the dates aren't in the handbook yet.
+
+[4:45] Speaker 05
+The big change is we're moving to do it in Workday.
+
+[4:48] Speaker 05
+That's not available yet.
+
+[4:51] Speaker 05
+I haven't seen a demo of it.
+
+[4:52] Speaker 05
+I don't know what questions will be asked, but there's an optional self-evaluation which will move into Workday and the work that we do as managers will also happen in Workday.
+
+[5:05] Speaker 05
+At the moment, some people are using the Google Doc, which is listed on the talent assessment page for self-evaluations and for the manager work.
+
+[5:15] Speaker 05
+I'd suggest continuing to use those docs until we get access to Workday and see what the exact differences are.
+
+[5:25] Speaker 06
+Each I and J are read-only, unless anybody wants to discuss them.
+
+[5:31] Speaker 04
+And Thomas, you've got item K. Yeah.
+
+[5:34] Speaker 04
+Apologies for the late, like, live addition to the agenda on this one.
+
+[5:38] Speaker 04
+But one more note on a change we're rolling out within Secure, pretty lightweight, in that we're establishing a second team within dynamic analysis.
+
+[5:47] Speaker 04
+And so, issue is there if folks want to play – that would like to follow along or ask any questions about it.
+
+[5:55] Speaker 04
+The plan for right now is I'm going to be serving as the team's acting EM and in addition to normally scheduled some duties for lack of a better way of putting it.
+
+[6:07] Speaker 04
+I'm so happy to answer any questions that folks have about that.
+
+[6:13] Speaker 05
+I had a quick question.
+
+[6:14] Speaker 05
+We've done the same thing in Threat Insights with Neil and Tiago each having teams.
+
+[6:20] Speaker 05
+What are you going to call your new team or how will you differentiate?
+
+[6:24] Speaker 04
+was not planning to differentiate it.
+
+[6:26] Speaker 04
+It's just a second team within Dynamic Analysis.
+
+[6:28] Speaker 04
+We're not creating a new group, which I think is the same pattern that's happening within Threat Insights as well.
+
+[6:33] Speaker 04
+It's just two teams.
+
+[6:35] Speaker 04
+I know that there's Tangerine and there's Navy.
+
+[6:38] Speaker 04
+I'm not a Tangerine person myself, so we'll have to figure it out.
+
+[6:46] Speaker 02
+Yeah, I don't know if there's another T color, Thomas.
+
+[6:48] Speaker 02
+I struggled with that one.
+
+[6:49] Speaker 02
+But that's the theme.
+
+[6:51] Speaker 02
+Tomato.
+
+[6:51] Speaker 04
+I don't know.
+
+[6:52] Speaker 04
+We'll figure it out.
+
+[6:56] Speaker 04
+We'll figure it out.
+
+[6:58] Speaker 04
+We'll figure it out.
+
+[6:59] Speaker 04
+The differentiation – I think the difference between what's happening in Threat Insights and within Dynamic Analysis is that this is a split along feature category, even though we're keeping – we're not spreading a new group.
+
+[7:10] Speaker 04
+It is – the distinction is along, like, who's working on specific feature categories themselves.
+
+[7:15] Speaker 04
+So, the – where the fracture point is happening is a little different, but the approach and effect are the same.
+
+[7:30] Speaker 08
+I hope.
+
+[7:38] Speaker 08
+So on to big rocks and hot issues section.
+
+[7:41] Speaker 06
+I don't know if it's a big rock, but it kind of belongs here perhaps more than other places.
+
+[7:46] Speaker 06
+So I did that survey where we got an awesome response rate from the team on how to improve the MR rate for the team.
+
+[7:53] Speaker 06
+And then I took a really long time to go through all the results and summarize and make
+
+[7:58] Speaker 06
+initial recommendations.
+
+[8:00] Speaker 06
+So we lost a little bit of momentum.
+
+[8:02] Speaker 06
+I got caught up in other things like cross-functional prioritization and the customer escalation.
+
+[8:06] Speaker 06
+So since then, this is actually used by John Hope to lead a discussion at the development off-site last week on just improving engineering velocity as one of the things he used to power it.
+
+[8:16] Speaker 06
+So it had value there.
+
+[8:17] Speaker 06
+But I've seen no comments, I think, from anybody in this group, which means either no time, forgot about it, or it doesn't
+
+[8:25] Speaker 06
+We looked at it, and it doesn't have much value.
+
+[8:27] Speaker 06
+And any of those things are OK.
+
+[8:29] Speaker 06
+I'm just curious where the group landed.
+
+[8:36] Speaker 06
+And if you haven't taken a look yet to see if there's anything you want to take away from it on things you might want to consider, I'm asking you to do so.
+
+[8:42] Speaker 06
+And to consider, not to do, but to consider.
+
+[8:47] Speaker 06
+Anybody gotten a chance to read it yet and think about it or not just yet?
+
+[8:52] Speaker 06
+My guess is perhaps everybody's really busy and they haven't looked yet.
+
+[9:00] Speaker 05
+I mean, at a high level, Jay, Neil, Tiago, we've talked about changes.
+
+[9:06] Speaker 05
+I think, Jay, you've already looked at some changes around refinement.
+
+[9:09] Speaker 05
+That was an area that you were going to look at for anti-abuse and report back by the end of the quarter.
+
+[9:14] Speaker 05
+Tiago and Neil, I can't remember where we ended up with for Freedom Science.
+
+[9:20] Speaker 02
+Yeah, I'm hoping that MR-RAID is kind of an artifact or a byproduct of some other actions.
+
+[9:26] Speaker 02
+The big thing we're doing is more whole type of work, like random, miscellaneous, not scheduled, not PM necessarily, actions or issues.
+
+[9:36] Speaker 02
+And that actually is creating some more additional work.
+
+[9:40] Speaker 02
+Like it's just like free time work.
+
+[9:42] Speaker 02
+I want to change the pace, move to something else momentarily.
+
+[9:45] Speaker 02
+And these are generally smaller types of issues too, so they're quicker to knock out.
+
+[9:48] Speaker 02
+Therefore they create more MRs, which has been a cool byproduct.
+
+[9:52] Speaker 02
+So I think that's helping us succeed there.
+
+[9:57] Speaker 00
+Yeah, we're also seeing some success with, uh, we've implemented like a weekly refinement meeting to kind of check in, make sure that, uh, stories are broken down tiny enough.
+
+[10:09] Speaker 00
+I think with smaller bits of work, we're seeing a higher MR rate.
+
+[10:12] Speaker 00
+Um, it's debatable whether or not that's like just inflated, right?
+
+[10:17] Speaker 00
+Like you can work on a small piece of code and ship it and you can do that a lot of times you're going to get a higher MR rate.
+
+[10:23] Speaker 00
+We're trying to be reasonable with that.
+
+[10:25] Speaker 00
+I am noticing a nice tick up after implementing the refinement meeting, so let's hope for the best.
+
+[10:39] Speaker 09
+I was going to say one note on refinement in stack analysis.
+
+[10:46] Speaker 09
+We're experimenting with the new section in our planning feature.
+
+[10:49] Speaker 09
+It's called looking forward.
+
+[10:51] Speaker 09
+And in there, we're using that as like a baseline where we add issues that we think need refinement that will most likely be worked on in the next one to three milestones.
+
+[11:03] Speaker 09
+So, we're using that as kind of a base cover for some engineer to go in and add their issues and make sure they get refined within this milestone.
+
+[11:13] Speaker 08
+Not necessarily any implementation, but just refinement itself.
+
+[11:23] Speaker 08
+I should stop talking on mute.
+
+[11:24] Speaker 06
+Thank you, Omar.
+
+[11:26] Speaker 06
+Thomas, you want to verbalize your comment?
+
+[11:27] Speaker 04
+Yeah, I'll verbalize, and then I'll say more, and then I'll finish writing what I was going to put down underneath it in just a moment.
+
+[11:34] Speaker 04
+So, this was an agenda item with the EMs.
+
+[11:38] Speaker 04
+I can say it now, in the secure stage, since that is the analyzer teams now.
+
+[11:44] Speaker 04
+So, this was a topic yesterday.
+
+[11:46] Speaker 04
+So, my – I would assume that this is more like it has a chance to read but not digest the content.
+
+[11:52] Speaker 04
+And what I was about to write, and I am cautious in saying this because it almost comes across as smug, and that is not my intent, in that
+
+[12:04] Speaker 04
+Looking at the MR rate within SEC compared to company wide, historically it runs two to three MRs per engineer per month higher.
+
+[12:15] Speaker 04
+And I think a good bit of that has to do with the
+
+[12:21] Speaker 04
+I mean, we've taken this to be true, or at least asserted it to be true in that it's smaller teams that are working closely together in less busy projects.
+
+[12:32] Speaker 04
+Then we see within the rails platform itself, which does have an impact.
+
+[12:36] Speaker 04
+That's not to say that we cannot do better, but the comparison, the favorable comparison, at least to me, and I will admit this, at times will lessen the urgency on this particular topic.
+
+[12:55] Speaker 04
+And I have to admit that bias that I have.
+
+[13:00] Speaker 06
+Thanks, Thomas.
+
+[13:00] Speaker 06
+Thanks, everyone.
+
+[13:01] Speaker 06
+So, I didn't see any comments on the issue.
+
+[13:03] Speaker 06
+That's totally fine.
+
+[13:04] Speaker 06
+People found some of it useful, some of the analysis useful, and that's great.
+
+[13:08] Speaker 06
+So I will close the issue accordingly and just link to these notes.
+
+[13:12] Speaker 06
+Good stuff.
+
+[13:12] Speaker 06
+Thomas, you've got item B.
+
+[13:15] Speaker 04
+OK.
+
+[13:16] Speaker 04
+I'll write after this then.
+
+[13:18] Speaker 04
+All right, FedRAMP and the can't or won't fix security issues that we may be having.
+
+[13:23] Speaker 04
+So we've got them for security issues that are subject to FedRAMP.
+
+[13:29] Speaker 04
+If you have a feature category that is FIPS compliant or certified, you're probably going to be part of the FedRAMP evaluation.
+
+[13:37] Speaker 04
+And any security issue that has a CVE associated with it, which means dependency or container scanning specifically,
+
+[13:44] Speaker 04
+has to have a remediation plan, even if they're false positives.
+
+[13:49] Speaker 04
+And so, that's led to a separate discussion on what do we need to do for – do we need to do anything related to security findings on the commercial versions of analyzers specifically.
+
+[14:05] Speaker 04
+That was the catalyst for this particular conversation because on container scanning,
+
+[14:09] Speaker 04
+we get a lot of findings related to Debian-based images that that project has not shipped a fix for or won't ship a fix for.
+
+[14:19] Speaker 04
+So there is a separate thread that is going on here about what to do and can we do deviation requests in bulk for this class of findings.
+
+[14:30] Speaker 04
+The TLDR is below, and there's a couple of options that are being brainstormed within this particular thread.
+
+[14:39] Speaker 04
+So, I wanted – and I know I've said a lot of words and I didn't say it well, but I wanted to bring it here in case there was any questions or commentary.
+
+[14:56] Speaker 05
+Nothing directly related to what you've just talked about, but sort of related.
+
+[15:00] Speaker 05
+For FedRAMP, you're looking at any FIPS-related security issues that have been raised.
+
+[15:09] Speaker 05
+How far are you going in terms of auditing to find anything that hasn't already been identified?
+
+[15:16] Speaker 04
+There is, I'll link in another issue, a separate issue that has instructions from AppSec on what they would like us to do as far as setting up container scanning.
+
+[15:28] Speaker 04
+And they have set up a project with a single configuration.
+
+[15:34] Speaker 04
+that they're asking us to use.
+
+[15:37] Speaker 04
+There is some debate as to how that project has been configured because it uses a combination of three container scanning tools rather than one.
+
+[15:49] Speaker 04
+And so they've asked us to use that as a baseline for the FIPS images specifically.
+
+[15:59] Speaker 04
+since they're UBI – or the UBI-specific images.
+
+[16:03] Speaker 04
+They're equivalent in my mind, even though they're different meanings.
+
+[16:11] Speaker 05
+So, TLDR, talk to APSIC.
+
+[16:13] Speaker 05
+Got it.
+
+[16:14] Speaker 04
+Nikhil.
+
+[16:15] Speaker 04
+Nikhil George is our stable counterpart, if folks don't know, at least in SEC.
+
+[16:19] Speaker 04
+And so, he's been quite responsive and keen, and he is also helping chase down answers when he doesn't have them.
+
+[16:25] Speaker 04
+So, that's a
+
+[16:28] Speaker 04
+He's been a big help thus far.
+
+[16:43] Speaker 08
+Thanks for bringing this up, Thomas.
+
+[16:47] Speaker 06
+So, in the hallway – so, from the development staff meeting, I copied and pasted the notes in there, but Ned is – the TLDR is, can folks – the request to me and my peers was, can folks check with their teams to see if the approvals are affecting them?
+
+[17:08] Speaker 06
+So this is the new approval rules on segregation of duties.
+
+[17:12] Speaker 06
+So this group, not that everybody's here, but in the group, and they shouldn't be, because all meetings are optional, but has this had an impact, these new approvals?
+
+[17:29] Speaker 05
+Anecdotally, I've seen a few cases where team members have realized that they need to get an additional approval, but I'm not aware that it's actually slowing things down.
+
+[17:45] Speaker 08
+Okay.
+
+[17:47] Speaker 06
+No news is good news on this, probably, unless it's happening and we're not noticing it, where it is slowing things down.
+
+[17:53] Speaker 06
+But just keep an eye on it in case it does.
+
+[17:55] Speaker 06
+Everyone, please.
+
+[17:56] Speaker 08
+It's good stuff.
+
+[18:03] Speaker 06
+With recent changes, we've done a couple of different changes with Secure and Govern broken out from Secure and our DataOps team and this and that is, I just compared the name of my team with my peers.
+
+[18:17] Speaker 06
+My peers have one word team names, ops, dev, create, et cetera.
+
+[18:21] Speaker 06
+Mine is growth and data science.
+
+[18:24] Speaker 06
+which is pretty wordy.
+
+[18:26] Speaker 06
+It also makes it like when I go into dashboards, I have to pull data from multiple places across my teams.
+
+[18:32] Speaker 06
+So I was thinking about a one-word name.
+
+[18:34] Speaker 06
+I've started to get feedback on it.
+
+[18:37] Speaker 06
+Naming things is really important at GitLab to name the right kinds of things and give them good names.
+
+[18:43] Speaker 06
+So I'm going to run it by David DeSanto tomorrow.
+
+[18:45] Speaker 06
+He's a great person to bounce such things off of.
+
+[18:49] Speaker 06
+I landed on enrichment, because what we do makes other things better.
+
+[18:53] Speaker 06
+We enrich them.
+
+[18:55] Speaker 06
+It's kind of a very broad term, but it does cover what we do.
+
+[18:59] Speaker 06
+Not sure we're going to change the name, which I'm not sure it's going to affect anyone but me.
+
+[19:04] Speaker 06
+That's actually my intent, is it only affects my stuff, not everyone else's.
+
+[19:10] Speaker 06
+Or at least everyone else's in a small way, or others in a small way, but we'll see.
+
+[19:14] Speaker 06
+Any thoughts on this?
+
+[19:16] Speaker 06
+Good idea, bad idea?
+
+[19:18] Speaker 08
+I'm not wired to this.
+
+[19:19] Speaker 08
+I'm looking for feedback.
+
+[19:25] Speaker 05
+Yeah, obviously the other examples relate to either sections or stages, whereas enrichment doesn't.
+
+[19:31] Speaker 05
+So you'd be introducing something new here.
+
+[19:36] Speaker 05
+This affects me as well.
+
+[19:37] Speaker 05
+I have a subset of enrichment, so it would be kind of enrichment light.
+
+[19:41] Speaker 05
+I'm not sure.
+
+[19:42] Speaker 05
+I'm not sure we'll—I think you and I have spoken about this.
+
+[19:45] Speaker 05
+I'm not sure we would get approval to introduce a new name or department level.
+
+[19:51] Speaker 05
+We'd certainly have to talk to PeopleOps about introducing that in Workday.
+
+[19:59] Speaker UNKNOWN_SPEAKER
+OK.
+
+[20:03] Speaker 06
+So a couple of things, you know, these are the kinds of things I would sometimes put in Slack, but I'm trying to avoid a number of distinct Slack messages, so putting it in here, making a lot of read-only when possible.
+
+[20:12] Speaker 06
+So I've got C, which is not read-only.
+
+[20:14] Speaker 06
+So I would like to add announcements of work anniversaries and new hires to the meeting template.
+
+[20:18] Speaker 06
+PM does this.
+
+[20:19] Speaker 06
+I attended the PM staff meeting.
+
+[20:21] Speaker 06
+I was a guest speaker there this week.
+
+[20:23] Speaker 06
+And like the camaraderie, we have good camaraderie.
+
+[20:25] Speaker 06
+The camaraderie there was pretty good.
+
+[20:27] Speaker 06
+You know, Fern, who's shadowing me today, I think he sat in on the PM meeting as well.
+
+[20:31] Speaker 06
+It's a pretty good feel of just people really knowing each other well and getting along well.
+
+[20:37] Speaker 06
+So those are just two things I took away from it, is anniversaries and new hires.
+
+[20:42] Speaker 06
+I'll verbalize Tiago's comment.
+
+[20:46] Speaker 06
+Tiago's not here.
+
+[20:47] Speaker 06
+Yeah, Tiago's not here.
+
+[20:47] Speaker 06
+Great idea for new hires.
+
+[20:49] Speaker 06
+Don't care much about work anniversaries.
+
+[20:50] Speaker 06
+We already have a bot for that.
+
+[20:53] Speaker 06
+What I'd say is I always seem to miss the bot announcements.
+
+[20:56] Speaker 06
+as they cover the whole company versus a bot just announcing for our team.
+
+[20:59] Speaker 06
+If no interest in that part, I'm happy to exclude.
+
+[21:02] Speaker 06
+So, Neil, you like the idea of adding?
+
+[21:04] Speaker 06
+Yeah, I have the same thought.
+
+[21:05] Speaker 06
+Or you don't?
+
+[21:07] Speaker 02
+I mean, just last week, I think it was Phil celebrated his third year, and I congratulated him, but then I missed another team member in SEC, you know, because there's like 20 people on that list.
+
+[21:17] Speaker 02
+Plus, it's team member updates.
+
+[21:18] Speaker 02
+That's not a channel I look at a lot, like weekly.
+
+[21:22] Speaker 02
+I just happen to see that the day of, so.
+
+[21:24] Speaker 02
+I do like being able to celebrate together in this group.
+
+[21:28] Speaker 06
+Maybe also thanks or praise section, like, thanks for doing this.
+
+[21:33] Speaker 06
+Great job on that.
+
+[21:38] Speaker 06
+To remind ourselves to do that as engineers, we tend to focus on the problems and challenges and not the celebrating the wins.
+
+[21:46] Speaker 05
+Are you suggesting that we add new content into this document for that, or that we just link to the Slack announcements that we've already made?
+
+[21:57] Speaker 08
+I think it's nice to verbalize them.
+
+[22:00] Speaker 06
+So maybe link to the Slack announcements, but also verbalize it.
+
+[22:03] Speaker 06
+I know it sounds like a bunch of busy work.
+
+[22:06] Speaker 06
+I don't want to do things twice.
+
+[22:10] Speaker 06
+Maybe we add the sections and people use them as they see fit.
+
+[22:14] Speaker 06
+whatever that happens to be, but please don't over, don't create busy work for yourself either.
+
+[22:20] Speaker 06
+So judgment call by each person.
+
+[22:25] Speaker 06
+Thomas, it looks like you had a, Thomas and Mon, you had some thoughts on this too?
+
+[22:29] Speaker 04
+Yeah, I like it.
+
+[22:31] Speaker 04
+We don't celebrate enough.
+
+[22:32] Speaker 04
+We don't do enough for team cohesion, team celebration across the board.
+
+[22:39] Speaker 04
+And just as a correlate related thing that I haven't communicated well, I was hoping to add this kind of thing to our monthly section wide retrospectives, new hires, discretionary bonuses, work anniversaries, big feature releases.
+
+[22:52] Speaker 04
+I mean, anything that we want to announce and celebrate, we ought to make sure that it's
+
+[22:59] Speaker 04
+I don't want to say shout to the rooftops or shout to the heavens, but they're big deals and we undersell.
+
+[23:09] Speaker 03
+In my opinion, yeah, oh, sorry and hey, uh, fernando here.
+
+[23:12] Speaker 03
+So i'm shadowing, uh, wayne now just to introduce myself, um from the technical marketing team Um, and i'm i'll send a document right now, which is something that we do for our um kind of get together team meetings And it kind of shows.
+
+[23:28] Speaker 03
+Um, you can you can look through it.
+
+[23:30] Speaker 03
+I shared it to everyone on the zoom chat
+
+[23:32] Speaker 03
+But you can see that we provide updates, the new team members, and small little introductions.
+
+[23:38] Speaker 03
+And you can see sections that we have on gratitude and actual spotlights that we show like who we're actually praising, what they've done that's good, and how we can highlight that, because that will motivate employees, kind of really increase that morale, because what we're seeing is these employees are actually getting recognized for good work that they've done.
+
+[24:00] Speaker 03
+And they're getting shout outs, because a lot of times, at least in our team, the case is we don't really, although we work with each other, we sometimes are kind of siloed, busy working on different things.
+
+[24:12] Speaker 03
+So it's good to know what everyone's working on and what everyone's doing.
+
+[24:15] Speaker 03
+So somewhat related to what you were just speaking on, but just thought I'd share that.
+
+[24:23] Speaker 08
+Thanks, Fernando.
+
+[24:26] Speaker 06
+So in D, so I'm not going to read all of this from Daniel Croft, but summarizing, he is looking for feedback on the development vision and mission and direction.
+
+[24:38] Speaker 06
+We're brainstorming in the development department on mission and vision in particular.
+
+[24:42] Speaker 06
+The approach is we want everybody to open up a little spreadsheet and follow the instructions.
+
+[24:47] Speaker 06
+Anybody interested?
+
+[24:48] Speaker 06
+So if you're interested in doing so, it should take about 10 to 15 minutes.
+
+[24:52] Speaker 06
+Please do it in the next week.
+
+[24:55] Speaker 06
+Good stuff there.
+
+[24:57] Speaker 06
+So then we covered also the development offsite that Daniel took as an action item to follow up on.
+
+[25:04] Speaker 04
+Thomas, you've got E. Yep.
+
+[25:06] Speaker 04
+All right.
+
+[25:07] Speaker 04
+Because I cannot remember, and so I'm hoping to crowdsource a little bit of this configuration archaeology, so to speak.
+
+[25:15] Speaker 04
+Is there a reason that we don't use Reviewer Roulette?
+
+[25:24] Speaker 04
+if folks can remember.
+
+[25:25] Speaker 04
+The reason I'm asking is contained within that thread, but that is a tool that actually is being used to track if we have enough maintainers on any given project.
+
+[25:34] Speaker 04
+And since we don't use it, we're showing up.
+
+[25:37] Speaker 04
+And so, that's why I'm asking.
+
+[25:41] Speaker 07
+Yeah.
+
+[25:41] Speaker 07
+When you say reviewer rule, are you talking about on the individual analyzers?
+
+[25:45] Speaker 07
+Yeah.
+
+[25:49] Speaker 07
+Speaking only for DASH, we haven't had a need for it because we have
+
+[25:53] Speaker 07
+six engineers that's just going to rule out the same six people.
+
+[25:57] Speaker 04
+Yeah, rule a six-sided diet.
+
+[25:59] Speaker 04
+That's what I kind of think it is.
+
+[26:00] Speaker 04
+But it's from a larger – like, if the company – like, where do we need more maintainers is the question that the organization is asking.
+
+[26:14] Speaker 05
+I mean, I'd suggest they're looking in the wrong place.
+
+[26:16] Speaker 05
+If they're looking in Rule 8 to see,
+
+[26:19] Speaker 05
+To find out the number of maintainers, that's the wrong place.
+
+[26:21] Speaker 05
+The engineering projects page should list all the maintainers if you set up your team YAML entries correctly.
+
+[26:28] Speaker 05
+I would have thought that was more than a single source of truth.
+
+[26:36] Speaker 08
+Apparently not.
+
+[26:42] Speaker 08
+So yeah.
+
+[26:45] Speaker 07
+Yeah, I'm looking at the chart.
+
+[26:46] Speaker 07
+I mean, I think on some of these projects, we just haven't filled it out.
+
+[26:50] Speaker 07
+I'll give you, like, we have the API, the HubFuzz, we have one engineer that works on it.
+
+[26:56] Speaker 07
+So we haven't gone and added a maintainer there because they know who they are.
+
+[27:02] Speaker 07
+So if we are trying to maintain that as a single source of truth, we need to just go through and scrub it.
+
+[27:07] Speaker 06
+Sorry, Seth, I'm reminded of this.
+
+[27:09] Speaker 06
+I'm reminded of the Spider-Man meme with the two Spider-Men pointing at each other.
+
+[27:14] Speaker 06
+Who's the reviewer?
+
+[27:15] Speaker 06
+Who's the author?
+
+[27:16] Speaker 06
+It's the same person.
+
+[27:18] Speaker 06
+It's been a long day, so I'm a little punchy.
+
+[27:21] Speaker 06
+But yes, that makes sense.
+
+[27:24] Speaker 05
+So, Seth, are you saying you haven't added it to individual team members' YAML files in the handbook yet?
+
+[27:31] Speaker 07
+Right.
+
+[27:31] Speaker 07
+I believe for that one, there's just no entry for it.
+
+[27:34] Speaker 07
+I mean, we could.
+
+[27:35] Speaker 05
+I think that should do it.
+
+[27:38] Speaker 05
+Yeah, well, it should.
+
+[27:39] Speaker 05
+They shouldn't be using just roulette.
+
+[27:41] Speaker 05
+They should be using that as a source of truth.
+
+[27:43] Speaker 05
+And I think if you've listed maintainers, that should cover it.
+
+[27:48] Speaker 05
+A follow up question would be, does that cover the senior plus engineers must be a maintainer requirement or not?
+
+[28:00] Speaker 06
+Thomas, you buried the, what do you call it, buried the lead?
+
+[28:05] Speaker 06
+I took the read-only off your comment there, so you can announce it.
+
+[28:09] Speaker 04
+Well, we're going to end with the best news of the day.
+
+[28:12] Speaker 04
+That's all.
+
+[28:14] Speaker 04
+But the maintainer requirement, yes, it does.
+
+[28:19] Speaker 04
+I mean, because it's for Senior Plus, going back to that, is just maintaining one or more, I think, is the requirement for Member Berkeley.
+
+[28:29] Speaker 04
+I was talking about the Olivier news.
+
+[28:31] Speaker 04
+Yeah, I know.
+
+[28:31] Speaker 04
+I was just making sure we were finished with the topic above.
+
+[28:34] Speaker 04
+All right.
+
+[28:36] Speaker 04
+And we're at time, so I will move on and take that as a prompt.
+
+[28:39] Speaker 04
+Yeah, Olivier has popped back on Slack to announce that the newest edition of their family is here and happened over the weekend.
+
+[28:46] Speaker 04
+So big, big congrats to his family for that.
+
+[28:51] Speaker 04
+And we'll be hoping to celebrate him later when he returns to work.
+
+[29:01] Speaker 08
+Cool.
+
+[29:02] Speaker 08
+Thanks, everybody.
+
+[29:02] Speaker 08
+Have a great day.

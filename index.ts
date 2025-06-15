@@ -1,9 +1,15 @@
-import { runAssemblyAI, runDeepgram } from "./apis/index.js";
+import {
+  runAssemblyAI,
+  runDeepgram,
+  formatWhisperXJson,
+} from "./apis/index.js";
 
 const run = () => {
-  runAssemblyAI();
+  // runAssemblyAI();
 
   // runDeepgram();
+
+  formatWhisperXJson();
 };
 
 run();
