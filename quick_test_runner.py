@@ -1,6 +1,9 @@
 # Quick Test Runner - Run this to start testing immediately
 import os
+os.environ['USE_NNPACK'] = '0'
 from services.audio_transcription_tester import AudioTranscriptionTester
+import torch
+torch.backends.nnpack.enabled = False
 from config import AUDIO_FILES, HUGGING_FACE_TOKEN, OUTPUT_CONFIG
 
 

@@ -1,5 +1,6 @@
 # config.py - Configuration for Audio Transcription Testing
-
+import os
+os.environ['USE_NNPACK'] = '0'
 # =============================================================================
 # REQUIRED SETTINGS - UPDATE THESE
 # =============================================================================
@@ -7,9 +8,11 @@
 # Your Hugging Face token (required for diarization)
 # Get it from: https://huggingface.co/settings/tokens
 from datetime import datetime
+import torch
+torch.backends.nnpack.enabled = False
+from config import OUTPUT_CONFIG
 
-
-HUGGING_FACE_TOKEN = ""
+HUGGING_FACE_TOKEN = "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"
 
 # Your audio file paths (update these with your actual file paths)
 AUDIO_FILES = {

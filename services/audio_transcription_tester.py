@@ -1,4 +1,5 @@
 import os
+os.environ['USE_NNPACK'] = '0'
 import time
 import json
 import logging
@@ -9,6 +10,7 @@ from typing import Dict, List, Any, Optional
 import whisperx
 import gc
 import torch
+torch.backends.nnpack.enabled = False
 
 from config import OUTPUT_CONFIG
 
@@ -86,15 +88,22 @@ class AudioTranscriptionTester:
             model = whisperx.load_model("base", device, compute_type=compute_type)  # Using base for speed
             audio = whisperx.load_audio(audio_path)
             result = model.transcribe(audio, batch_size=4)
+
+            print(90, result)
             
             # Align
             model_a, metadata = whisperx.load_align_model(language_code="ar", device=device)
             result = whisperx.align(result["segments"], model_a, metadata, audio, device)
             
+            print(96)
+
             # Diarization
             diarize_model = whisperx.diarize.DiarizationPipeline(use_auth_token=self.hf_token, device=device)
+            print(100)
             diarize_segments = diarize_model(audio)
+            print(102)
             result = whisperx.assign_word_speakers(diarize_segments, result)
+            print(104)
             
             # Cleanup
             del model, model_a, diarize_model
