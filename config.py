@@ -10,7 +10,6 @@ os.environ['USE_NNPACK'] = '0'
 from datetime import datetime
 import torch
 torch.backends.nnpack.enabled = False
-from config import OUTPUT_CONFIG
 
 HUGGING_FACE_TOKEN = "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"
 
