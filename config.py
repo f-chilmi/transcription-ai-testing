@@ -6,6 +6,9 @@
 
 # Your Hugging Face token (required for diarization)
 # Get it from: https://huggingface.co/settings/tokens
+from datetime import datetime
+
+
 HUGGING_FACE_TOKEN = ""
 
 # Your audio file paths (update these with your actual file paths)
@@ -51,7 +54,7 @@ MONITORING_CONFIG = {
 
 # Output settings
 OUTPUT_CONFIG = {
-    "results_filename": "transcription_test_results.json",
+    "results_filename": f"transcription_test_results_{datetime.now().strftime("%d-%m-%Y %H:%M:%S")}.json",
     "save_segments_sample": 3,  # Number of segments to save for quality checking
     "print_progress": True,
     "save_intermediate_results": True

@@ -10,6 +10,8 @@ import whisperx
 import gc
 import torch
 
+from config import OUTPUT_CONFIG
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -386,8 +388,21 @@ class AudioTranscriptionTester:
         
         return all_results
     
-    def save_results(self, results: Dict[str, Any], filename: str = "transcription_test_results.json"):
+    # def save_results(self, results: Dict[str, Any], filename: str = OUTPUT_CONFIG.results_filename):
+    #     """Save test results to JSON file"""
+    #     with open(filename, 'w', encoding='utf-8') as f:
+    #         json.dump(results, f, indent=2, ensure_ascii=False)
+    #     logger.info(f"Results saved to {filename}")
+    def save_results(self, results: Dict[str, Any], filename: str = OUTPUT_CONFIG["results_filename"]):
         """Save test results to JSON file"""
+
+        # Remove 'words' from each segment (if exists)
+        for test in results.get("results", {}).values():
+            for variant in test.values():
+                for segment in variant.get("segments", []):
+                    segment.pop("words", None)
+
+        # Save to file
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
         logger.info(f"Results saved to {filename}")
@@ -460,4 +475,4 @@ if __name__ == "__main__":
     tester.save_results(results)
     tester.print_summary(results)
     
-    print(f"\n📄 Detailed results saved to: transcription_test_results.json")
+    print(f"\n📄 Detailed results saved to: {OUTPUT_CONFIG.results_filename}")

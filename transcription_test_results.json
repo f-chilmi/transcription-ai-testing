@@ -1,0 +1,3315 @@
+{
+  "test_start_time": "2025-06-22T19:43:06.876863",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 8.0,
+    "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "audio_files": {
+    "mono": "audio_mono_arabic.mp3",
+    "multi": "audio_multi_arabic.mp3",
+    "noisy": "audio_noisy_arabic.mp3"
+  },
+  "results": {
+    "mono": {
+      "baseline_6_threads": {
+        "method": "baseline_full_whisperx",
+        "threads": 6,
+        "processing_time": 257.0978829860687,
+        "segments_count": 35,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            55.471905697445976,
+            50.11021611001964,
+            36.23398821218074,
+            32.81277013752456,
+            72.58172888015717,
+            69.6483300589391,
+            61.652259332023576,
+            58.6581532416503
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0,
+            98.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 77.59528487229862,
+          "max_memory": 85.1,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 256.69134306907654
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.031,
+            "end": 11.551,
+            "text": " كنت بعد نتفلز غيري والواعي طبعي إنه في أكس رمل في Snipers.",
+            "words": [
+              {
+                "word": "كنت",
+                "start": 0.031,
+                "end": 2.195,
+                "score": 0.935,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بعد",
+                "start": 2.235,
+                "end": 2.475,
+                "score": 0.671,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "نتفلز",
+                "start": 2.555,
+                "end": 2.956,
+                "score": 0.864,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "غيري",
+                "start": 2.976,
+                "end": 3.457,
+                "score": 0.96,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "والواعي",
+                "start": 3.577,
+                "end": 3.978,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "طبعي",
+                "start": 4.058,
+                "end": 4.599,
+                "score": 0.909,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إنه",
+                "start": 4.699,
+                "end": 5.481,
+                "score": 0.94,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 6.242,
+                "end": 6.723,
+                "score": 0.952,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أكس",
+                "start": 7.745,
+                "end": 8.446,
+                "score": 0.853,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "رمل",
+                "start": 8.466,
+                "end": 8.947,
+                "score": 0.969,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 9.528,
+                "end": 10.63,
+                "score": 0.976,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "Snipers.",
+                "start": 10.65,
+                "end": 11.551,
+                "score": 0.969,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 11.832,
+            "end": 13.715,
+            "text": "أنا بأوصول حتى أنت بها قناس.",
+            "words": [
+              {
+                "word": "أنا",
+                "start": 11.832,
+                "end": 12.333,
+                "score": 0.903,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بأوصول",
+                "start": 12.413,
+                "end": 13.194,
+                "score": 0.846,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حتى",
+                "start": 13.214,
+                "end": 13.334,
+                "score": 0.25,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أنت",
+                "start": 13.354,
+                "end": 13.515,
+                "score": 0.51,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بها",
+                "start": 13.535,
+                "end": 13.595,
+                "score": 0.0,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قناس.",
+                "start": 13.615,
+                "end": 13.715,
+                "score": 0.374,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 13.735,
+            "end": 13.996,
+            "text": "أنت بها قناس.",
+            "words": [
+              {
+                "word": "أنت",
+                "start": 13.735,
+                "end": 13.795,
+                "score": 0.0,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بها",
+                "start": 13.815,
+                "end": 13.875,
+                "score": 0.226,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قناس.",
+                "start": 13.895,
+                "end": 13.996,
+                "score": 0.004,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      },
+      "baseline_1_thread": {
+        "method": "baseline_full_whisperx",
+        "threads": 1,
+        "processing_time": 257.86115884780884,
+        "segments_count": 35,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            43.53013698630137,
+            38.12720156555773,
+            23.5412915851272,
+            19.737377690802347,
+            67.35048923679061,
+            62.33483365949119,
+            57.90665362035225,
+            55.29843444227006
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            98.1,
+            100.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 73.33131115459884,
+          "max_memory": 81.1,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 257.3903670310974
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.031,
+            "end": 11.551,
+            "text": " كنت بعد نتفلز غيري والواعي طبعي إنه في أكس رمل في Snipers.",
+            "words": [
+              {
+                "word": "كنت",
+                "start": 0.031,
+                "end": 2.195,
+                "score": 0.935,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بعد",
+                "start": 2.235,
+                "end": 2.475,
+                "score": 0.671,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "نتفلز",
+                "start": 2.555,
+                "end": 2.956,
+                "score": 0.864,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "غيري",
+                "start": 2.976,
+                "end": 3.457,
+                "score": 0.96,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "والواعي",
+                "start": 3.577,
+                "end": 3.978,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "طبعي",
+                "start": 4.058,
+                "end": 4.599,
+                "score": 0.909,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إنه",
+                "start": 4.699,
+                "end": 5.481,
+                "score": 0.94,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 6.242,
+                "end": 6.723,
+                "score": 0.952,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أكس",
+                "start": 7.745,
+                "end": 8.446,
+                "score": 0.853,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "رمل",
+                "start": 8.466,
+                "end": 8.947,
+                "score": 0.969,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 9.528,
+                "end": 10.63,
+                "score": 0.976,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "Snipers.",
+                "start": 10.65,
+                "end": 11.551,
+                "score": 0.969,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 11.832,
+            "end": 13.715,
+            "text": "أنا بأوصول حتى أنت بها قناس.",
+            "words": [
+              {
+                "word": "أنا",
+                "start": 11.832,
+                "end": 12.333,
+                "score": 0.903,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بأوصول",
+                "start": 12.413,
+                "end": 13.194,
+                "score": 0.846,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حتى",
+                "start": 13.214,
+                "end": 13.334,
+                "score": 0.25,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أنت",
+                "start": 13.354,
+                "end": 13.515,
+                "score": 0.51,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بها",
+                "start": 13.535,
+                "end": 13.595,
+                "score": 0.0,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قناس.",
+                "start": 13.615,
+                "end": 13.715,
+                "score": 0.374,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 13.735,
+            "end": 13.996,
+            "text": "أنت بها قناس.",
+            "words": [
+              {
+                "word": "أنت",
+                "start": 13.735,
+                "end": 13.795,
+                "score": 0.0,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بها",
+                "start": 13.815,
+                "end": 13.875,
+                "score": 0.226,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قناس.",
+                "start": 13.895,
+                "end": 13.996,
+                "score": 0.004,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      },
+      "whisper_only": {
+        "method": "whisper_only",
+        "threads": 6,
+        "processing_time": 148.32694387435913,
+        "segments_count": 9,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            18.420068027210885,
+            16.145918367346937,
+            12.934013605442177,
+            10.343197278911566,
+            16.331972789115646,
+            15.698639455782311,
+            13.944557823129252,
+            12.870748299319727
+          ],
+          "max_cpu_per_core": [
+            70.0,
+            60.0,
+            56.0,
+            58.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 71.29353741496598,
+          "max_memory": 76.7,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 148.1555519104004
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " كنت بعد نتفلز غيري والواعي طبعي إنه في أكس رمل في Snipers. أنا بأوصول حتى أنت بها قناس. أنت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس.",
+            "start": 0.031,
+            "end": 20.467,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " أنا أولدت بمنطقة الجمايزي ببيروت يليه يتحولت لحقان ب1975 لا خطو التمس بها دا كوان شخصيت بنتيجة إنه فتأت الحرب والدكت سنوات قليل قبل الحرب وبعدنا عشطاب تفاصيلة المؤلمة والموجع",
+            "start": 22.07,
+            "end": 44.193,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " ولم أررت أدروس أهلاب بعضنا كان من الطبيعي أنه ميل نحو الأهلاب العالم سياسي لأنه ربيت العائلة بي وأخمت أفيد سوى كان عائلة من أم وثلاث فتاياه كان من الطبيعي أنه تكلم على أنفسنا ما كيف مجال أقول أنه لا هذا الشغل ممكن يعمل الرجل ممكن تعالى الأمراء هل مشكلة أنه بلبنين عن الكثير من الحرية والقليل من الدمقراتية؟",
+            "start": 44.378,
+            "end": 72.914,
+            "speaker": "Speaker_1"
+          }
+        ]
+      },
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 197.97690892219543,
+        "whisper_time": 27.295042991638184,
+        "diarize_time": 170.68186593055725,
+        "segments_count": 9,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            52.56335877862596,
+            46.341475826972015,
+            30.12468193384224,
+            25.552162849872772,
+            82.40203562340967,
+            76.64478371501272,
+            72.16793893129771,
+            68.90229007633587
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            98.0,
+            100.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 74.67557251908397,
+          "max_memory": 82.8,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 197.71701908111572
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " كنت بعد نتفلز غيري والواعي طبعي إنه في أكس رمل في Snipers. أنا بأوصول حتى أنت بها قناس. أنت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس. انت بها قناس.",
+            "start": 0.031,
+            "end": 20.467,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " أنا أولدت بمنطقة الجمايزي ببيروت يليه يتحولت لحقان ب1975 لا خطو التمس بها دا كوان شخصيت بنتيجة إنه فتأت الحرب والدكت سنوات قليل قبل الحرب وبعدنا عشطاب تفاصيلة المؤلمة والموجع",
+            "start": 22.07,
+            "end": 44.193,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " ولم أررت أدروس أهلاب بعضنا كان من الطبيعي أنه ميل نحو الأهلاب العالم سياسي لأنه ربيت العائلة بي وأخمت أفيد سوى كان عائلة من أم وثلاث فتاياه كان من الطبيعي أنه تكلم على أنفسنا ما كيف مجال أقول أنه لا هذا الشغل ممكن يعمل الرجل ممكن تعالى الأمراء هل مشكلة أنه بلبنين عن الكثير من الحرية والقليل من الدمقراتية؟",
+            "start": 44.378,
+            "end": 72.914,
+            "speaker": "Speaker_1"
+          }
+        ]
+      },
+      "thread_scaling": {
+        "method": "thread_scaling",
+        "results": {
+          "1": {
+            "processing_time": 80.0559458732605,
+            "segments_count": 9,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                33.40691823899371,
+                30.68301886792453,
+                27.218867924528304,
+                23.938993710691825,
+                33.20754716981132,
+                31.942138364779876,
+                29.257861635220127,
+                27.17295597484277
+              ],
+              "max_cpu_per_core": [
+                100.0,
+                100.0,
+                100.0,
+                100.0,
+                100.0,
+                98.0,
+                98.0,
+                98.0
+              ],
+              "avg_memory": 74.81572327044026,
+              "max_memory": 78.1,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 79.68595933914185
+            },
+            "success": true
+          },
+          "2": {
+            "processing_time": 28.50972318649292,
+            "segments_count": 9,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                36.81929824561403,
+                31.778947368421054,
+                27.387719298245614,
+                22.017543859649123,
+                80.82280701754385,
+                79.80877192982457,
+                75.61228070175439,
+                70.46315789473684
+              ],
+              "max_cpu_per_core": [
+                96.1,
+                95.9,
+                94.0,
+                92.2,
+                98.0,
+                100.0,
+                98.0,
+                100.0
+              ],
+              "avg_memory": 78.89122807017544,
+              "max_memory": 81.4,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 28.234233856201172
+            },
+            "success": true
+          },
+          "4": {
+            "processing_time": 28.158363103866577,
+            "segments_count": 9,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                34.105357142857144,
+                28.635714285714283,
+                22.84107142857143,
+                18.37857142857143,
+                81.31785714285715,
+                80.53571428571429,
+                75.45178571428572,
+                70.81071428571428
+              ],
+              "max_cpu_per_core": [
+                66.7,
+                60.4,
+                54.2,
+                53.1,
+                100.0,
+                100.0,
+                98.0,
+                100.0
+              ],
+              "avg_memory": 78.63035714285715,
+              "max_memory": 81.6,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 27.740126848220825
+            },
+            "success": true
+          },
+          "6": {
+            "processing_time": 27.851223945617676,
+            "segments_count": 9,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                31.323214285714283,
+                25.675,
+                20.098214285714285,
+                15.357142857142858,
+                81.74285714285715,
+                80.90892857142856,
+                76.92857142857143,
+                71.84107142857142
+              ],
+              "max_cpu_per_core": [
+                72.0,
+                70.0,
+                67.3,
+                60.4,
+                98.0,
+                98.0,
+                98.0,
+                98.3
+              ],
+              "avg_memory": 74.39464285714287,
+              "max_memory": 75.6,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 27.836675882339478
+            },
+            "success": true
+          }
+        }
+      }
+    },
+    "multi": {
+      "baseline_6_threads": {
+        "method": "baseline_full_whisperx",
+        "threads": 6,
+        "processing_time": 431.56973528862,
+        "segments_count": 24,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            51.800233918128654,
+            45.9638596491228,
+            29.879064327485377,
+            25.021286549707604,
+            80.01415204678364,
+            74.30584795321637,
+            68.78877192982456,
+            65.77087719298245
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0
+          ],
+          "avg_memory": 74.93391812865497,
+          "max_memory": 84.9,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 431.30532479286194
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 1.533,
+            "end": 26.663,
+            "text": " نقلت سحفة Washington Post سورة أقمار سنعية تظهروا نشاطن وصفتوا بغير العديل شحنات ومركبات في منشاءة فرد قبل يومين من الهجوم الأمريكية اليوم على المشاء وأدهرة السور التي تقضت في تسعشر من ينجاري ستعشر تاشاهنا على طول الطريق المؤدية إلى مجمع عسكري تحت الأرض",
+            "words": [
+              {
+                "word": "نقلت",
+                "start": 1.533,
+                "end": 2.074,
+                "score": 0.931,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سحفة",
+                "start": 2.114,
+                "end": 2.674,
+                "score": 0.942,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "Washington",
+                "start": 2.694,
+                "end": 3.255,
+                "score": 0.929,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "Post",
+                "start": 3.275,
+                "end": 3.696,
+                "score": 0.88,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سورة",
+                "start": 3.796,
+                "end": 4.236,
+                "score": 0.922,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "أقمار",
+                "start": 4.316,
+                "end": 4.917,
+                "score": 0.924,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سنعية",
+                "start": 5.017,
+                "end": 5.978,
+                "score": 0.996,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تظهروا",
+                "start": 6.058,
+                "end": 6.619,
+                "score": 0.723,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نشاطن",
+                "start": 6.739,
+                "end": 7.16,
+                "score": 0.911,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وصفتوا",
+                "start": 7.24,
+                "end": 7.74,
+                "score": 0.733,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بغير",
+                "start": 7.8,
+                "end": 8.221,
+                "score": 0.997,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "العديل",
+                "start": 8.261,
+                "end": 8.862,
+                "score": 0.92,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "شحنات",
+                "start": 8.962,
+                "end": 9.843,
+                "score": 0.989,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ومركبات",
+                "start": 9.983,
+                "end": 10.884,
+                "score": 0.968,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "في",
+                "start": 10.944,
+                "end": 11.024,
+                "score": 0.994,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "منشاءة",
+                "start": 11.104,
+                "end": 11.605,
+                "score": 0.976,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "فرد",
+                "start": 11.725,
+                "end": 12.186,
+                "score": 0.685,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قبل",
+                "start": 12.286,
+                "end": 12.847,
+                "score": 0.983,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "يومين",
+                "start": 12.987,
+                "end": 13.848,
+                "score": 0.958,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 13.948,
+                "end": 14.088,
+                "score": 0.97,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الهجوم",
+                "start": 14.128,
+                "end": 14.468,
+                "score": 0.792,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأمريكية",
+                "start": 14.509,
+                "end": 15.009,
+                "score": 0.885,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "اليوم",
+                "start": 15.049,
+                "end": 15.57,
+                "score": 0.971,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 15.67,
+                "end": 15.81,
+                "score": 0.859,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المشاء",
+                "start": 15.85,
+                "end": 16.631,
+                "score": 0.872,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وأدهرة",
+                "start": 16.751,
+                "end": 17.232,
+                "score": 0.857,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "السور",
+                "start": 17.292,
+                "end": 17.712,
+                "score": 0.57,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "التي",
+                "start": 17.772,
+                "end": 18.073,
+                "score": 0.69,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تقضت",
+                "start": 18.093,
+                "end": 18.493,
+                "score": 0.777,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "في",
+                "start": 18.613,
+                "end": 18.653,
+                "score": 0.0,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تسعشر",
+                "start": 18.673,
+                "end": 19.234,
+                "score": 0.936,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 19.294,
+                "end": 19.394,
+                "score": 0.662,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ينجاري",
+                "start": 19.474,
+                "end": 20.396,
+                "score": 0.872,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ستعشر",
+                "start": 20.516,
+                "end": 21.517,
+                "score": 0.929,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تاشاهنا",
+                "start": 21.737,
+                "end": 22.158,
+                "score": 0.642,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 22.218,
+                "end": 22.418,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "طول",
+                "start": 22.498,
+                "end": 22.718,
+                "score": 0.981,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الطريق",
+                "start": 22.778,
+                "end": 23.139,
+                "score": 0.786,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المؤدية",
+                "start": 23.179,
+                "end": 23.88,
+                "score": 0.884,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إلى",
+                "start": 23.96,
+                "end": 24.18,
+                "score": 0.893,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مجمع",
+                "start": 24.26,
+                "end": 24.701,
+                "score": 0.966,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "عسكري",
+                "start": 24.781,
+                "end": 25.321,
+                "score": 0.912,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تحت",
+                "start": 25.422,
+                "end": 25.702,
+                "score": 0.944,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأرض",
+                "start": 25.722,
+                "end": 26.663,
+                "score": 0.856,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          },
+          {
+            "start": 26.643,
+            "end": 40.213,
+            "text": " فيما أظهرت صور اليوم الذي تلاها تحرك معظم تلك الشحنات نحو الشمال الغربي وذلك بعيدا عن المنشاء وتمركز حدد من الشحنات والجرفات قربة مدخل الموقع",
+            "words": [
+              {
+                "word": "فيما",
+                "start": 26.643,
+                "end": 26.924,
+                "score": 0.729,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "أظهرت",
+                "start": 26.964,
+                "end": 27.345,
+                "score": 0.851,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "صور",
+                "start": 27.705,
+                "end": 28.166,
+                "score": 0.864,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "اليوم",
+                "start": 28.287,
+                "end": 28.607,
+                "score": 0.698,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الذي",
+                "start": 28.647,
+                "end": 28.868,
+                "score": 0.858,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تلاها",
+                "start": 28.928,
+                "end": 29.449,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تحرك",
+                "start": 29.569,
+                "end": 30.131,
+                "score": 0.836,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "معظم",
+                "start": 30.271,
+                "end": 30.632,
+                "score": 0.741,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تلك",
+                "start": 30.712,
+                "end": 30.892,
+                "score": 0.796,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشحنات",
+                "start": 30.932,
+                "end": 31.474,
+                "score": 0.803,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نحو",
+                "start": 31.534,
+                "end": 31.814,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشمال",
+                "start": 31.855,
+                "end": 32.175,
+                "score": 0.748,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الغربي",
+                "start": 32.215,
+                "end": 32.977,
+                "score": 0.846,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وذلك",
+                "start": 33.137,
+                "end": 33.458,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بعيدا",
+                "start": 33.518,
+                "end": 34.039,
+                "score": 0.927,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "عن",
+                "start": 34.18,
+                "end": 34.34,
+                "score": 0.849,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المنشاء",
+                "start": 34.4,
+                "end": 35.142,
+                "score": 0.818,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وتمركز",
+                "start": 35.282,
+                "end": 35.944,
+                "score": 0.916,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "حدد",
+                "start": 36.004,
+                "end": 36.264,
+                "score": 0.846,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 36.324,
+                "end": 36.465,
+                "score": 0.923,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشحنات",
+                "start": 36.485,
+                "end": 37.387,
+                "score": 0.862,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "والجرفات",
+                "start": 37.527,
+                "end": 38.229,
+                "score": 0.884,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قربة",
+                "start": 38.309,
+                "end": 38.79,
+                "score": 0.739,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مدخل",
+                "start": 39.05,
+                "end": 39.552,
+                "score": 0.787,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الموقع",
+                "start": 39.572,
+                "end": 40.213,
+                "score": 0.86,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          },
+          {
+            "start": 41.999,
+            "end": 52.563,
+            "text": " من جانبنا آخر نقلت رويته رزعاً مزرًا إرانياً كبير قوله إنه تمانقل ماذا مليورانيوم على تخصيب بفرده إلى مكان غير معلن قبل الهجوم الأمركي.",
+            "words": [
+              {
+                "word": "من",
+                "start": 41.999,
+                "end": 42.139,
+                "score": 0.21,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "جانبنا",
+                "start": 42.179,
+                "end": 42.56,
+                "score": 0.767,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "آخر",
+                "start": 42.6,
+                "end": 42.861,
+                "score": 0.684,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نقلت",
+                "start": 42.921,
+                "end": 43.282,
+                "score": 0.734,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "رويته",
+                "start": 43.322,
+                "end": 43.583,
+                "score": 0.534,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "رزعاً",
+                "start": 43.603,
+                "end": 43.903,
+                "score": 0.612,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مزرًا",
+                "start": 43.964,
+                "end": 44.324,
+                "score": 0.545,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إرانياً",
+                "start": 44.364,
+                "end": 44.805,
+                "score": 0.682,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "كبير",
+                "start": 44.866,
+                "end": 45.246,
+                "score": 0.837,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قوله",
+                "start": 45.287,
+                "end": 46.008,
+                "score": 0.909,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إنه",
+                "start": 46.088,
+                "end": 46.369,
+                "score": 0.838,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تمانقل",
+                "start": 46.449,
+                "end": 47.051,
+                "score": 0.732,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ماذا",
+                "start": 47.131,
+                "end": 47.431,
+                "score": 0.371,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مليورانيوم",
+                "start": 47.492,
+                "end": 48.013,
+                "score": 0.77,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 48.073,
+                "end": 48.233,
+                "score": 0.703,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تخصيب",
+                "start": 48.313,
+                "end": 48.694,
+                "score": 0.856,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بفرده",
+                "start": 48.714,
+                "end": 49.276,
+                "score": 0.796,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إلى",
+                "start": 49.336,
+                "end": 49.516,
+                "score": 0.994,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مكان",
+                "start": 49.556,
+                "end": 49.957,
+                "score": 0.818,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "غير",
+                "start": 50.098,
+                "end": 50.378,
+                "score": 0.807,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "معلن",
+                "start": 50.458,
+                "end": 50.899,
+                "score": 0.79,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قبل",
+                "start": 51.04,
+                "end": 51.24,
+                "score": 0.772,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الهجوم",
+                "start": 51.28,
+                "end": 51.601,
+                "score": 0.776,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأمركي.",
+                "start": 51.621,
+                "end": 52.563,
+                "score": 0.77,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          }
+        ]
+      },
+      "baseline_1_thread": {
+        "method": "baseline_full_whisperx",
+        "threads": 1,
+        "processing_time": 487.86112689971924,
+        "segments_count": 24,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            48.33336787564767,
+            43.443108808290155,
+            30.640310880829016,
+            26.466217616580312,
+            70.50072538860104,
+            65.02839378238342,
+            60.339481865284974,
+            57.751502590673574
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0,
+            98.0,
+            100.0,
+            98.0
+          ],
+          "avg_memory": 74.45056994818653,
+          "max_memory": 85.8,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 487.6994061470032
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 1.533,
+            "end": 26.663,
+            "text": " نقلت سحفة Washington Post سورة أقمار سنعية تظهروا نشاطن وصفتوا بغير العديل شحنات ومركبات في منشاءة فرد قبل يومين من الهجوم الأمريكية اليوم على المشاء وأدهرة السور التي تقضت في تسعشر من ينجاري ستعشر تاشاهنا على طول الطريق المؤدية إلى مجمع عسكري تحت الأرض",
+            "words": [
+              {
+                "word": "نقلت",
+                "start": 1.533,
+                "end": 2.074,
+                "score": 0.931,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سحفة",
+                "start": 2.114,
+                "end": 2.674,
+                "score": 0.942,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "Washington",
+                "start": 2.694,
+                "end": 3.255,
+                "score": 0.929,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "Post",
+                "start": 3.275,
+                "end": 3.696,
+                "score": 0.88,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سورة",
+                "start": 3.796,
+                "end": 4.236,
+                "score": 0.922,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "أقمار",
+                "start": 4.316,
+                "end": 4.917,
+                "score": 0.924,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "سنعية",
+                "start": 5.017,
+                "end": 5.978,
+                "score": 0.996,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تظهروا",
+                "start": 6.058,
+                "end": 6.619,
+                "score": 0.723,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نشاطن",
+                "start": 6.739,
+                "end": 7.16,
+                "score": 0.911,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وصفتوا",
+                "start": 7.24,
+                "end": 7.74,
+                "score": 0.733,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بغير",
+                "start": 7.8,
+                "end": 8.221,
+                "score": 0.997,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "العديل",
+                "start": 8.261,
+                "end": 8.862,
+                "score": 0.92,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "شحنات",
+                "start": 8.962,
+                "end": 9.843,
+                "score": 0.989,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ومركبات",
+                "start": 9.983,
+                "end": 10.884,
+                "score": 0.968,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "في",
+                "start": 10.944,
+                "end": 11.024,
+                "score": 0.994,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "منشاءة",
+                "start": 11.104,
+                "end": 11.605,
+                "score": 0.976,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "فرد",
+                "start": 11.725,
+                "end": 12.186,
+                "score": 0.685,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قبل",
+                "start": 12.286,
+                "end": 12.847,
+                "score": 0.983,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "يومين",
+                "start": 12.987,
+                "end": 13.848,
+                "score": 0.958,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 13.948,
+                "end": 14.088,
+                "score": 0.97,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الهجوم",
+                "start": 14.128,
+                "end": 14.468,
+                "score": 0.792,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأمريكية",
+                "start": 14.509,
+                "end": 15.009,
+                "score": 0.885,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "اليوم",
+                "start": 15.049,
+                "end": 15.57,
+                "score": 0.971,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 15.67,
+                "end": 15.81,
+                "score": 0.859,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المشاء",
+                "start": 15.85,
+                "end": 16.631,
+                "score": 0.872,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وأدهرة",
+                "start": 16.751,
+                "end": 17.232,
+                "score": 0.857,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "السور",
+                "start": 17.292,
+                "end": 17.712,
+                "score": 0.57,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "التي",
+                "start": 17.772,
+                "end": 18.073,
+                "score": 0.69,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تقضت",
+                "start": 18.093,
+                "end": 18.493,
+                "score": 0.777,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "في",
+                "start": 18.613,
+                "end": 18.653,
+                "score": 0.0,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تسعشر",
+                "start": 18.673,
+                "end": 19.234,
+                "score": 0.936,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 19.294,
+                "end": 19.394,
+                "score": 0.662,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ينجاري",
+                "start": 19.474,
+                "end": 20.396,
+                "score": 0.872,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ستعشر",
+                "start": 20.516,
+                "end": 21.517,
+                "score": 0.929,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تاشاهنا",
+                "start": 21.737,
+                "end": 22.158,
+                "score": 0.642,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 22.218,
+                "end": 22.418,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "طول",
+                "start": 22.498,
+                "end": 22.718,
+                "score": 0.981,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الطريق",
+                "start": 22.778,
+                "end": 23.139,
+                "score": 0.786,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المؤدية",
+                "start": 23.179,
+                "end": 23.88,
+                "score": 0.884,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إلى",
+                "start": 23.96,
+                "end": 24.18,
+                "score": 0.893,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مجمع",
+                "start": 24.26,
+                "end": 24.701,
+                "score": 0.966,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "عسكري",
+                "start": 24.781,
+                "end": 25.321,
+                "score": 0.912,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تحت",
+                "start": 25.422,
+                "end": 25.702,
+                "score": 0.944,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأرض",
+                "start": 25.722,
+                "end": 26.663,
+                "score": 0.856,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          },
+          {
+            "start": 26.643,
+            "end": 40.213,
+            "text": " فيما أظهرت صور اليوم الذي تلاها تحرك معظم تلك الشحنات نحو الشمال الغربي وذلك بعيدا عن المنشاء وتمركز حدد من الشحنات والجرفات قربة مدخل الموقع",
+            "words": [
+              {
+                "word": "فيما",
+                "start": 26.643,
+                "end": 26.924,
+                "score": 0.729,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "أظهرت",
+                "start": 26.964,
+                "end": 27.345,
+                "score": 0.851,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "صور",
+                "start": 27.705,
+                "end": 28.166,
+                "score": 0.864,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "اليوم",
+                "start": 28.287,
+                "end": 28.607,
+                "score": 0.698,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الذي",
+                "start": 28.647,
+                "end": 28.868,
+                "score": 0.858,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تلاها",
+                "start": 28.928,
+                "end": 29.449,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تحرك",
+                "start": 29.569,
+                "end": 30.131,
+                "score": 0.836,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "معظم",
+                "start": 30.271,
+                "end": 30.632,
+                "score": 0.741,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تلك",
+                "start": 30.712,
+                "end": 30.892,
+                "score": 0.796,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشحنات",
+                "start": 30.932,
+                "end": 31.474,
+                "score": 0.803,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نحو",
+                "start": 31.534,
+                "end": 31.814,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشمال",
+                "start": 31.855,
+                "end": 32.175,
+                "score": 0.748,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الغربي",
+                "start": 32.215,
+                "end": 32.977,
+                "score": 0.846,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وذلك",
+                "start": 33.137,
+                "end": 33.458,
+                "score": 0.907,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بعيدا",
+                "start": 33.518,
+                "end": 34.039,
+                "score": 0.927,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "عن",
+                "start": 34.18,
+                "end": 34.34,
+                "score": 0.849,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "المنشاء",
+                "start": 34.4,
+                "end": 35.142,
+                "score": 0.818,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "وتمركز",
+                "start": 35.282,
+                "end": 35.944,
+                "score": 0.916,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "حدد",
+                "start": 36.004,
+                "end": 36.264,
+                "score": 0.846,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "من",
+                "start": 36.324,
+                "end": 36.465,
+                "score": 0.923,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الشحنات",
+                "start": 36.485,
+                "end": 37.387,
+                "score": 0.862,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "والجرفات",
+                "start": 37.527,
+                "end": 38.229,
+                "score": 0.884,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قربة",
+                "start": 38.309,
+                "end": 38.79,
+                "score": 0.739,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مدخل",
+                "start": 39.05,
+                "end": 39.552,
+                "score": 0.787,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الموقع",
+                "start": 39.572,
+                "end": 40.213,
+                "score": 0.86,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          },
+          {
+            "start": 41.999,
+            "end": 52.563,
+            "text": " من جانبنا آخر نقلت رويته رزعاً مزرًا إرانياً كبير قوله إنه تمانقل ماذا مليورانيوم على تخصيب بفرده إلى مكان غير معلن قبل الهجوم الأمركي.",
+            "words": [
+              {
+                "word": "من",
+                "start": 41.999,
+                "end": 42.139,
+                "score": 0.21,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "جانبنا",
+                "start": 42.179,
+                "end": 42.56,
+                "score": 0.767,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "آخر",
+                "start": 42.6,
+                "end": 42.861,
+                "score": 0.684,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "نقلت",
+                "start": 42.921,
+                "end": 43.282,
+                "score": 0.734,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "رويته",
+                "start": 43.322,
+                "end": 43.583,
+                "score": 0.534,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "رزعاً",
+                "start": 43.603,
+                "end": 43.903,
+                "score": 0.612,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مزرًا",
+                "start": 43.964,
+                "end": 44.324,
+                "score": 0.545,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إرانياً",
+                "start": 44.364,
+                "end": 44.805,
+                "score": 0.682,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "كبير",
+                "start": 44.866,
+                "end": 45.246,
+                "score": 0.837,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قوله",
+                "start": 45.287,
+                "end": 46.008,
+                "score": 0.909,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إنه",
+                "start": 46.088,
+                "end": 46.369,
+                "score": 0.838,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تمانقل",
+                "start": 46.449,
+                "end": 47.051,
+                "score": 0.732,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "ماذا",
+                "start": 47.131,
+                "end": 47.431,
+                "score": 0.371,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مليورانيوم",
+                "start": 47.492,
+                "end": 48.013,
+                "score": 0.77,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "على",
+                "start": 48.073,
+                "end": 48.233,
+                "score": 0.703,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "تخصيب",
+                "start": 48.313,
+                "end": 48.694,
+                "score": 0.856,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "بفرده",
+                "start": 48.714,
+                "end": 49.276,
+                "score": 0.796,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "إلى",
+                "start": 49.336,
+                "end": 49.516,
+                "score": 0.994,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "مكان",
+                "start": 49.556,
+                "end": 49.957,
+                "score": 0.818,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "غير",
+                "start": 50.098,
+                "end": 50.378,
+                "score": 0.807,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "معلن",
+                "start": 50.458,
+                "end": 50.899,
+                "score": 0.79,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "قبل",
+                "start": 51.04,
+                "end": 51.24,
+                "score": 0.772,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الهجوم",
+                "start": 51.28,
+                "end": 51.601,
+                "score": 0.776,
+                "speaker": "SPEAKER_02"
+              },
+              {
+                "word": "الأمركي.",
+                "start": 51.621,
+                "end": 52.563,
+                "score": 0.77,
+                "speaker": "SPEAKER_02"
+              }
+            ],
+            "speaker": "SPEAKER_02"
+          }
+        ]
+      },
+      "whisper_only": {
+        "method": "whisper_only",
+        "threads": 6,
+        "processing_time": 122.99103999137878,
+        "segments_count": 17,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            31.104098360655737,
+            27.84139344262295,
+            23.07704918032787,
+            20.38073770491803,
+            33.54344262295082,
+            31.974590163934426,
+            28.534426229508195,
+            25.910245901639346
+          ],
+          "max_cpu_per_core": [
+            98.0,
+            98.0,
+            98.0,
+            96.2,
+            98.0,
+            98.1,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 72.26598360655738,
+          "max_memory": 81.6,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 122.56324505805969
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " نقلت سحفة Washington Post سورة أقمار سنعية تظهروا نشاطن وصفتوا بغير العديل شحنات ومركبات في منشاءة فرد قبل يومين من الهجوم الأمريكية اليوم على المشاء وأدهرة السور التي تقضت في تسعشر من ينجاري ستعشر تاشاهنا على طول الطريق المؤدية إلى مجمع عسكري تحت الأرض",
+            "start": 1.533,
+            "end": 26.643,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " فيما أظهرت صور اليوم الذي تلاها تحرك معظم تلك الشحنات نحو الشمال الغربي وذلك بعيدا عن المنشاء وتمركز حدد من الشحنات والجرفات قربة مدخل الموقع",
+            "start": 26.643,
+            "end": 40.193,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " من جانبنا آخر نقلت رويته رزعاً مزرًا إرانياً كبير قوله إنه تمانقل ماذا مليورانيوم على تخصيب بفرده إلى مكان غير معلن قبل الهجوم الأمركي. كما نقلت رويته رزعاً المزرًا إرانيا قوله إنه تم تقلص عدد العملين في موقع فرده إلى الحد الأدناء.",
+            "start": 41.999,
+            "end": 61.203,
+            "speaker": "Speaker_1"
+          }
+        ]
+      },
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 406.90850377082825,
+        "whisper_time": 42.45743012428284,
+        "diarize_time": 364.4510736465454,
+        "segments_count": 17,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            60.495167286245355,
+            55.54969021065675,
+            43.815117719950436,
+            39.75204460966543,
+            84.35377942998761,
+            78.77236679058241,
+            74.49578686493184,
+            71.60408921933086
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 77.2354399008674,
+          "max_memory": 85.0,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 406.5272979736328
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " نقلت سحفة Washington Post سورة أقمار سنعية تظهروا نشاطن وصفتوا بغير العديل شحنات ومركبات في منشاءة فرد قبل يومين من الهجوم الأمريكية اليوم على المشاء وأدهرة السور التي تقضت في تسعشر من ينجاري ستعشر تاشاهنا على طول الطريق المؤدية إلى مجمع عسكري تحت الأرض",
+            "start": 1.533,
+            "end": 26.643,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " فيما أظهرت صور اليوم الذي تلاها تحرك معظم تلك الشحنات نحو الشمال الغربي وذلك بعيدا عن المنشاء وتمركز حدد من الشحنات والجرفات قربة مدخل الموقع",
+            "start": 26.643,
+            "end": 40.193,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " من جانبنا آخر نقلت رويته رزعاً مزرًا إرانياً كبير قوله إنه تمانقل ماذا مليورانيوم على تخصيب بفرده إلى مكان غير معلن قبل الهجوم الأمركي. كما نقلت رويته رزعاً المزرًا إرانيا قوله إنه تم تقلص عدد العملين في موقع فرده إلى الحد الأدناء.",
+            "start": 41.999,
+            "end": 61.203,
+            "speaker": "Speaker_1"
+          }
+        ]
+      }
+    },
+    "noisy": {
+      "baseline_6_threads": {
+        "method": "baseline_full_whisperx",
+        "threads": 6,
+        "processing_time": 555.555588722229,
+        "segments_count": 21,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            48.18802177858439,
+            42.048820326678765,
+            26.03629764065336,
+            22.306170598911073,
+            66.52477313974592,
+            62.737931034482756,
+            56.495916515426494,
+            53.66088929219601
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 76.59927404718692,
+          "max_memory": 85.2,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 555.3738789558411
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.031,
+            "end": 15.964,
+            "text": " على الجشئ إسرائيلي أفادت بأن إران نفذت موجتين من القصف إشتمالة الأولى على 22 سروخاً بينما إشتمالة الدفع أثانية على 5 سباريخ",
+            "words": [
+              {
+                "word": "على",
+                "start": 0.031,
+                "end": 0.151,
+                "score": 0.213,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الجشئ",
+                "start": 0.171,
+                "end": 0.512,
+                "score": 0.701,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائيلي",
+                "start": 0.592,
+                "end": 1.554,
+                "score": 0.842,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أفادت",
+                "start": 1.674,
+                "end": 2.336,
+                "score": 0.863,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بأن",
+                "start": 2.376,
+                "end": 2.676,
+                "score": 0.799,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إران",
+                "start": 2.717,
+                "end": 2.997,
+                "score": 0.659,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "نفذت",
+                "start": 3.057,
+                "end": 3.498,
+                "score": 0.802,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "موجتين",
+                "start": 3.558,
+                "end": 4.661,
+                "score": 0.867,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 4.821,
+                "end": 5.041,
+                "score": 0.962,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "القصف",
+                "start": 5.322,
+                "end": 5.803,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إشتمالة",
+                "start": 5.903,
+                "end": 6.364,
+                "score": 0.7,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الأولى",
+                "start": 6.384,
+                "end": 7.166,
+                "score": 0.747,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 7.286,
+                "end": 7.446,
+                "score": 0.959,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "22",
+                "start": 7.466,
+                "end": 7.887,
+                "score": 0.767,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "سروخاً",
+                "start": 8.168,
+                "end": 9.471,
+                "score": 0.719,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بينما",
+                "start": 9.551,
+                "end": 10.332,
+                "score": 0.875,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إشتمالة",
+                "start": 10.473,
+                "end": 11.054,
+                "score": 0.753,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الدفع",
+                "start": 11.174,
+                "end": 11.615,
+                "score": 0.856,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أثانية",
+                "start": 11.655,
+                "end": 12.657,
+                "score": 0.908,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 12.797,
+                "end": 13.178,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "5",
+                "start": 13.519,
+                "end": 14.18,
+                "score": 0.825,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "سباريخ",
+                "start": 14.922,
+                "end": 15.964,
+                "score": 0.894,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 15.944,
+            "end": 29.786,
+            "text": " وقد أفادت وسائل العلام أيضاً بإصابة 16 شخصًا حتى الآن في الهجوم الصروخي الذي اطلق من إيران بينهم مصبان في حالة خطيرة.",
+            "words": [
+              {
+                "word": "وقد",
+                "start": 15.944,
+                "end": 17.146,
+                "score": 0.961,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أفادت",
+                "start": 17.186,
+                "end": 17.547,
+                "score": 0.806,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "وسائل",
+                "start": 17.587,
+                "end": 17.887,
+                "score": 0.647,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "العلام",
+                "start": 17.927,
+                "end": 18.168,
+                "score": 0.558,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أيضاً",
+                "start": 18.228,
+                "end": 18.528,
+                "score": 0.793,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بإصابة",
+                "start": 18.608,
+                "end": 19.59,
+                "score": 0.951,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "16",
+                "start": 19.61,
+                "end": 19.91,
+                "score": 0.861,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "شخصًا",
+                "start": 19.99,
+                "end": 20.311,
+                "score": 0.872,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حتى",
+                "start": 20.391,
+                "end": 20.631,
+                "score": 0.935,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الآن",
+                "start": 20.651,
+                "end": 21.293,
+                "score": 0.912,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 21.373,
+                "end": 21.553,
+                "score": 0.885,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الهجوم",
+                "start": 21.573,
+                "end": 21.954,
+                "score": 0.849,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الصروخي",
+                "start": 22.054,
+                "end": 23.035,
+                "score": 0.869,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الذي",
+                "start": 23.135,
+                "end": 23.857,
+                "score": 0.931,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "اطلق",
+                "start": 24.057,
+                "end": 24.658,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 24.758,
+                "end": 24.938,
+                "score": 0.978,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إيران",
+                "start": 25.018,
+                "end": 25.439,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بينهم",
+                "start": 25.499,
+                "end": 25.9,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "مصبان",
+                "start": 25.94,
+                "end": 26.982,
+                "score": 0.953,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 27.062,
+                "end": 27.282,
+                "score": 0.99,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حالة",
+                "start": 27.743,
+                "end": 28.724,
+                "score": 0.993,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "خطيرة.",
+                "start": 29.145,
+                "end": 29.786,
+                "score": 0.757,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 29.826,
+            "end": 36.096,
+            "text": "إذا أعجيش إسرائيلي تقول موجتان من قصف من إيران على إسرائي صباح اليوم الأولى بمت",
+            "words": [
+              {
+                "word": "إذا",
+                "start": 29.826,
+                "end": 30.006,
+                "score": 0.821,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أعجيش",
+                "start": 30.026,
+                "end": 30.387,
+                "score": 0.494,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائيلي",
+                "start": 30.407,
+                "end": 30.848,
+                "score": 0.883,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "تقول",
+                "start": 30.928,
+                "end": 31.769,
+                "score": 0.986,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "موجتان",
+                "start": 31.889,
+                "end": 32.771,
+                "score": 0.99,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 32.851,
+                "end": 33.011,
+                "score": 0.948,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قصف",
+                "start": 33.171,
+                "end": 33.492,
+                "score": 0.978,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 33.552,
+                "end": 33.652,
+                "score": 0.863,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إيران",
+                "start": 33.712,
+                "end": 33.953,
+                "score": 0.733,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 34.013,
+                "end": 34.153,
+                "score": 0.747,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائي",
+                "start": 34.293,
+                "end": 34.493,
+                "score": 0.386,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "صباح",
+                "start": 34.554,
+                "end": 34.854,
+                "score": 0.956,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "اليوم",
+                "start": 34.874,
+                "end": 35.114,
+                "score": 0.864,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الأولى",
+                "start": 35.155,
+                "end": 35.395,
+                "score": 0.908,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بمت",
+                "start": 35.475,
+                "end": 36.096,
+                "score": 0.858,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      },
+      "baseline_1_thread": {
+        "method": "baseline_full_whisperx",
+        "threads": 1,
+        "processing_time": 526.8203611373901,
+        "segments_count": 21,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            44.57215311004785,
+            38.57234449760765,
+            22.182870813397127,
+            18.90612440191388,
+            67.63866028708134,
+            63.27626794258373,
+            57.82344497607656,
+            55.14057416267943
+          ],
+          "max_cpu_per_core": [
+            94.0,
+            92.0,
+            92.0,
+            88.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 76.46334928229665,
+          "max_memory": 84.7,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 526.8196740150452
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.031,
+            "end": 15.964,
+            "text": " على الجشئ إسرائيلي أفادت بأن إران نفذت موجتين من القصف إشتمالة الأولى على 22 سروخاً بينما إشتمالة الدفع أثانية على 5 سباريخ",
+            "words": [
+              {
+                "word": "على",
+                "start": 0.031,
+                "end": 0.151,
+                "score": 0.213,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الجشئ",
+                "start": 0.171,
+                "end": 0.512,
+                "score": 0.701,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائيلي",
+                "start": 0.592,
+                "end": 1.554,
+                "score": 0.842,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أفادت",
+                "start": 1.674,
+                "end": 2.336,
+                "score": 0.863,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بأن",
+                "start": 2.376,
+                "end": 2.676,
+                "score": 0.799,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إران",
+                "start": 2.717,
+                "end": 2.997,
+                "score": 0.659,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "نفذت",
+                "start": 3.057,
+                "end": 3.498,
+                "score": 0.802,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "موجتين",
+                "start": 3.558,
+                "end": 4.661,
+                "score": 0.867,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 4.821,
+                "end": 5.041,
+                "score": 0.962,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "القصف",
+                "start": 5.322,
+                "end": 5.803,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إشتمالة",
+                "start": 5.903,
+                "end": 6.364,
+                "score": 0.7,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الأولى",
+                "start": 6.384,
+                "end": 7.166,
+                "score": 0.747,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 7.286,
+                "end": 7.446,
+                "score": 0.959,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "22",
+                "start": 7.466,
+                "end": 7.887,
+                "score": 0.767,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "سروخاً",
+                "start": 8.168,
+                "end": 9.471,
+                "score": 0.719,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بينما",
+                "start": 9.551,
+                "end": 10.332,
+                "score": 0.875,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إشتمالة",
+                "start": 10.473,
+                "end": 11.054,
+                "score": 0.753,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الدفع",
+                "start": 11.174,
+                "end": 11.615,
+                "score": 0.856,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أثانية",
+                "start": 11.655,
+                "end": 12.657,
+                "score": 0.908,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 12.797,
+                "end": 13.178,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "5",
+                "start": 13.519,
+                "end": 14.18,
+                "score": 0.825,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "سباريخ",
+                "start": 14.922,
+                "end": 15.964,
+                "score": 0.894,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 15.944,
+            "end": 29.786,
+            "text": " وقد أفادت وسائل العلام أيضاً بإصابة 16 شخصًا حتى الآن في الهجوم الصروخي الذي اطلق من إيران بينهم مصبان في حالة خطيرة.",
+            "words": [
+              {
+                "word": "وقد",
+                "start": 15.944,
+                "end": 17.146,
+                "score": 0.961,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أفادت",
+                "start": 17.186,
+                "end": 17.547,
+                "score": 0.806,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "وسائل",
+                "start": 17.587,
+                "end": 17.887,
+                "score": 0.647,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "العلام",
+                "start": 17.927,
+                "end": 18.168,
+                "score": 0.558,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أيضاً",
+                "start": 18.228,
+                "end": 18.528,
+                "score": 0.793,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بإصابة",
+                "start": 18.608,
+                "end": 19.59,
+                "score": 0.951,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "16",
+                "start": 19.61,
+                "end": 19.91,
+                "score": 0.861,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "شخصًا",
+                "start": 19.99,
+                "end": 20.311,
+                "score": 0.872,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حتى",
+                "start": 20.391,
+                "end": 20.631,
+                "score": 0.935,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الآن",
+                "start": 20.651,
+                "end": 21.293,
+                "score": 0.912,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 21.373,
+                "end": 21.553,
+                "score": 0.885,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الهجوم",
+                "start": 21.573,
+                "end": 21.954,
+                "score": 0.849,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الصروخي",
+                "start": 22.054,
+                "end": 23.035,
+                "score": 0.869,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الذي",
+                "start": 23.135,
+                "end": 23.857,
+                "score": 0.931,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "اطلق",
+                "start": 24.057,
+                "end": 24.658,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 24.758,
+                "end": 24.938,
+                "score": 0.978,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إيران",
+                "start": 25.018,
+                "end": 25.439,
+                "score": 0.916,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بينهم",
+                "start": 25.499,
+                "end": 25.9,
+                "score": 0.906,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "مصبان",
+                "start": 25.94,
+                "end": 26.982,
+                "score": 0.953,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "في",
+                "start": 27.062,
+                "end": 27.282,
+                "score": 0.99,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "حالة",
+                "start": 27.743,
+                "end": 28.724,
+                "score": 0.993,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "خطيرة.",
+                "start": 29.145,
+                "end": 29.786,
+                "score": 0.757,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "start": 29.826,
+            "end": 36.096,
+            "text": "إذا أعجيش إسرائيلي تقول موجتان من قصف من إيران على إسرائي صباح اليوم الأولى بمت",
+            "words": [
+              {
+                "word": "إذا",
+                "start": 29.826,
+                "end": 30.006,
+                "score": 0.821,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "أعجيش",
+                "start": 30.026,
+                "end": 30.387,
+                "score": 0.494,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائيلي",
+                "start": 30.407,
+                "end": 30.848,
+                "score": 0.883,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "تقول",
+                "start": 30.928,
+                "end": 31.769,
+                "score": 0.986,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "موجتان",
+                "start": 31.889,
+                "end": 32.771,
+                "score": 0.99,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 32.851,
+                "end": 33.011,
+                "score": 0.948,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "قصف",
+                "start": 33.171,
+                "end": 33.492,
+                "score": 0.978,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "من",
+                "start": 33.552,
+                "end": 33.652,
+                "score": 0.863,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إيران",
+                "start": 33.712,
+                "end": 33.953,
+                "score": 0.733,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "على",
+                "start": 34.013,
+                "end": 34.153,
+                "score": 0.747,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "إسرائي",
+                "start": 34.293,
+                "end": 34.493,
+                "score": 0.386,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "صباح",
+                "start": 34.554,
+                "end": 34.854,
+                "score": 0.956,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "اليوم",
+                "start": 34.874,
+                "end": 35.114,
+                "score": 0.864,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "الأولى",
+                "start": 35.155,
+                "end": 35.395,
+                "score": 0.908,
+                "speaker": "SPEAKER_00"
+              },
+              {
+                "word": "بمت",
+                "start": 35.475,
+                "end": 36.096,
+                "score": 0.858,
+                "speaker": "SPEAKER_00"
+              }
+            ],
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      },
+      "whisper_only": {
+        "method": "whisper_only",
+        "threads": 6,
+        "processing_time": 138.32431387901306,
+        "segments_count": 18,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            37.51890909090909,
+            34.400363636363636,
+            30.94727272727273,
+            28.515636363636364,
+            42.70909090909091,
+            36.287636363636366,
+            32.31454545454545,
+            29.256727272727275
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            98.0,
+            96.2,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 79.57563636363636,
+          "max_memory": 85.0,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 138.32432103157043
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " على الجشئ إسرائيلي أفادت بأن إران نفذت موجتين من القصف إشتمالة الأولى على 22 سروخاً بينما إشتمالة الدفع أثانية على 5 سباريخ",
+            "start": 0.031,
+            "end": 15.944,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " وقد أفادت وسائل العلام أيضاً بإصابة 16 شخصًا حتى الآن في الهجوم الصروخي الذي اطلق من إيران بينهم مصبان في حالة خطيرة. إذا أعجيش إسرائيلي تقول موجتان من قصف من إيران على إسرائي صباح اليوم الأولى بمت",
+            "start": 15.944,
+            "end": 36.076,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " أتنين وعشرين صاروخا واثانية خمسة صواريخ قالت إذا عت الجيش الإسرائيلة أيضاً بأنه الصواريخ الإرانية سقطت في تل أبيب الكرمل حيفة بلدت نيتسيونة جنوب تل أبيب وفي رمد جان وحدثت دماراً كبيراً في العديد من المواقع سعود إليك نور الدين في طران ولكن محمد خير مع هذه الصوار جديدة التي تأتينا",
+            "start": 36.076,
+            "end": 64.139,
+            "speaker": "Speaker_1"
+          }
+        ]
+      },
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 403.16790199279785,
+        "whisper_time": 53.04962086677551,
+        "diarize_time": 350.11828112602234,
+        "segments_count": 18,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            54.51188986232791,
+            48.045932415519395,
+            30.92665832290363,
+            26.602377972465582,
+            84.40162703379224,
+            78.40575719649561,
+            73.74443053817272,
+            70.80838548185231
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0
+          ],
+          "avg_memory": 77.96795994993742,
+          "max_memory": 85.5,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 403.16791009902954
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " على الجشئ إسرائيلي أفادت بأن إران نفذت موجتين من القصف إشتمالة الأولى على 22 سروخاً بينما إشتمالة الدفع أثانية على 5 سباريخ",
+            "start": 0.031,
+            "end": 15.944,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " وقد أفادت وسائل العلام أيضاً بإصابة 16 شخصًا حتى الآن في الهجوم الصروخي الذي اطلق من إيران بينهم مصبان في حالة خطيرة. إذا أعجيش إسرائيلي تقول موجتان من قصف من إيران على إسرائي صباح اليوم الأولى بمت",
+            "start": 15.944,
+            "end": 36.076,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " أتنين وعشرين صاروخا واثانية خمسة صواريخ قالت إذا عت الجيش الإسرائيلة أيضاً بأنه الصواريخ الإرانية سقطت في تل أبيب الكرمل حيفة بلدت نيتسيونة جنوب تل أبيب وفي رمد جان وحدثت دماراً كبيراً في العديد من المواقع سعود إليك نور الدين في طران ولكن محمد خير مع هذه الصوار جديدة التي تأتينا",
+            "start": 36.076,
+            "end": 64.139,
+            "speaker": "Speaker_1"
+          }
+        ]
+      }
+    }
+  },
+  "batch_processing": {
+    "method": "batch_processing",
+    "batch_size": 4,
+    "threads": 6,
+    "files_processed": 3,
+    "processing_time": 352.9442641735077,
+    "avg_time_per_file": 117.64808805783589,
+    "resource_usage": {
+      "avg_cpu_per_core": [
+        35.92371428571428,
+        32.70457142857143,
+        29.02771428571429,
+        25.546714285714287,
+        36.856,
+        32.86785714285714,
+        28.847,
+        26.353285714285715
+      ],
+      "max_cpu_per_core": [
+        94.1,
+        96.1,
+        96.1,
+        96.0,
+        98.0,
+        98.0,
+        98.0,
+        98.0
+      ],
+      "avg_memory": 79.73171428571428,
+      "max_memory": 85.3,
+      "total_cpu_cores": 8,
+      "monitoring_duration": 352.5110619068146
+    },
+    "results": [
+      {
+        "file": "audio_mono_arabic.mp3",
+        "segments_count": 9
+      },
+      {
+        "file": "audio_multi_arabic.mp3",
+        "segments_count": 17
+      },
+      {
+        "file": "audio_noisy_arabic.mp3",
+        "segments_count": 18
+      }
+    ],
+    "success": true
+  },
+  "test_end_time": "2025-06-22T20:57:23.328283"
+}

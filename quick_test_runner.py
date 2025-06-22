@@ -1,7 +1,7 @@
 # Quick Test Runner - Run this to start testing immediately
 import os
 from services.audio_transcription_tester import AudioTranscriptionTester
-from config import AUDIO_FILES, HUGGING_FACE_TOKEN
+from config import AUDIO_FILES, HUGGING_FACE_TOKEN, OUTPUT_CONFIG
 
 
 
@@ -81,7 +81,7 @@ def run_full_test():
         tester.save_results(results)
         tester.print_summary(results)
         
-        print(f"\n🎉 Full test completed! Results saved to: transcription_test_results.json")
+        print(f"\n🎉 Full test completed! Results saved to: {OUTPUT_CONFIG.results_filename}")
         
     except Exception as e:
         print(f"❌ Error during full test: {str(e)}")

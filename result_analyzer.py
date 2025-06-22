@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 
+from config import OUTPUT_CONFIG
+
 class ResultsAnalyzer:
     """Analyze and visualize transcription test results"""
     
-    def __init__(self, results_file: str = "transcription_test_results.json"):
+    def __init__(self, results_file: str = OUTPUT_CONFIG.results_filename):
         self.results_file = results_file
         self.results = self.load_results()
     
@@ -310,7 +312,7 @@ class ResultsAnalyzer:
             print(f"❌ Error creating chart: {str(e)}")
 
 # Quick analysis function
-def analyze_results(results_file: str = "transcription_test_results.json"):
+def analyze_results(results_file: str = OUTPUT_CONFIG.results_filename):
     """Quick function to analyze results"""
     analyzer = ResultsAnalyzer(results_file)
     
