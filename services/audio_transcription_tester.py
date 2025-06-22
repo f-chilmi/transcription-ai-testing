@@ -1,4 +1,5 @@
 import os
+os.environ['USE_NNPACK'] = '0'
 import time
 import json
 import logging
@@ -9,7 +10,7 @@ from typing import Dict, List, Any, Optional
 import whisperx
 import gc
 import torch
-
+torch.backends.nnpack.enabled = False
 from config import OUTPUT_CONFIG
 
 # Configure logging

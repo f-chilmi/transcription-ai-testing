@@ -1,5 +1,6 @@
 # config.py - Configuration for Audio Transcription Testing
-
+import os
+os.environ['USE_NNPACK'] = '0'
 # =============================================================================
 # REQUIRED SETTINGS - UPDATE THESE
 # =============================================================================
@@ -9,7 +10,7 @@
 from datetime import datetime
 
 
-HUGGING_FACE_TOKEN = ""
+HUGGING_FACE_TOKEN = "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"
 
 # Your audio file paths (update these with your actual file paths)
 AUDIO_FILES = {
