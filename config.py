@@ -8,7 +8,9 @@ os.environ['USE_NNPACK'] = '0'
 # Your Hugging Face token (required for diarization)
 # Get it from: https://huggingface.co/settings/tokens
 from datetime import datetime
-
+import torch
+torch.backends.nnpack.enabled = False
+from config import OUTPUT_CONFIG
 
 HUGGING_FACE_TOKEN = "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"
 
