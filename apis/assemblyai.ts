@@ -7,17 +7,17 @@ const client = new AssemblyAI({
 });
 
 // change audio file here
-const audioFile = "./assets/audio1.mp3";
+const audioFile = "./assets/audio3.mp3";
 
 // change the response path here
-const responseJson = "assemblyai-nano-audio1-multichannel-detectlanguage.json";
+const responseJson = "assemblyai-nano-audio3-multichannel-detectlanguage.json";
 
 const params: TranscribeParams = {
   audio: audioFile,
   speech_model: "nano",
-  language_detection: true,
-  // language_code: "ar",
-  multichannel: true,
+  // language_detection: true,
+  language_code: "ar",
+  // multichannel: true,
 };
 
 // Required to handle __dirname in ESM

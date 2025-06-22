@@ -5,11 +5,11 @@ import {
 } from "./apis/index.js";
 
 const run = () => {
-  // runAssemblyAI();
+  runAssemblyAI();
 
   // runDeepgram();
 
-  formatWhisperXJson();
+  // formatWhisperXJson();
 };
 
 run();
