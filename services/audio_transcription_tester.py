@@ -1,5 +1,7 @@
 import os
 os.environ['USE_NNPACK'] = '0'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
 import time
 import json
 import logging
@@ -98,7 +100,13 @@ class AudioTranscriptionTester:
             print(96)
 
             # Diarization
-            diarize_model = whisperx.diarize.DiarizationPipeline(use_auth_token=self.hf_token, device=device)
+            diarize_model = whisperx.diarize.DiarizationPipeline(
+                use_auth_token=self.hf_token,
+                device=device,
+                config={
+                    "segmentation": {"min_duration_off": 0.0},
+                    "clustering": {"method": "centroid", "min_cluster_size": 12, "threshold": 0.7045654963945799}
+                })
             print(100)
             diarize_segments = diarize_model(audio)
             print(102)
