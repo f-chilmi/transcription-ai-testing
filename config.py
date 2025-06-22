@@ -6,7 +6,7 @@
 
 # Your Hugging Face token (required for diarization)
 # Get it from: https://huggingface.co/settings/tokens
-HUGGING_FACE_TOKEN = "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"
+HUGGING_FACE_TOKEN = ""
 
 # Your audio file paths (update these with your actual file paths)
 AUDIO_FILES = {
