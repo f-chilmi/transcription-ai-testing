@@ -243,7 +243,7 @@ class AudioTranscriptionTester:
             try:
                 print(246)
                 diarization_pipeline = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization", 
+                    "pyannote/speaker-diarization-3.1", 
                     use_auth_token=self.hf_token
                 )
             except Exception:
