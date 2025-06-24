@@ -1,4 +1,6 @@
 import os
+
+from utils.utils import diarize_text
 os.environ['USE_NNPACK'] = '0'
 os.environ['OMP_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
@@ -263,32 +265,36 @@ class AudioTranscriptionTester:
             if diarization_result is None:
                 raise Exception("Diarization returned None - check audio file and HF token")
             
-            waveform, sample_rate = torchaudio.load(audio_path)
-            if sample_rate != 16000:
-                waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
+            final_result = diarize_text(transcription_result, diarization_result)
+
+            print(270, final_result)
+            
+            # waveform, sample_rate = torchaudio.load(audio_path)
+            # if sample_rate != 16000:
+            #     waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
             
 
-            segments_text = []
-            for segment, _, speaker in diarization_result.itertracks(yield_label=True):
-                # Extract segment audio
-                start, end = segment.start, segment.end
-                segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
+            # segments_text = []
+            # for segment, _, speaker in diarization_result.itertracks(yield_label=True):
+            #     # Extract segment audio
+            #     start, end = segment.start, segment.end
+            #     segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
 
-                # Save segment audio temporarily
-                torchaudio.save('process/'+audio_path, segment_audio, 16000)
+            #     # Save segment audio temporarily
+            #     torchaudio.save('process/'+audio_path, segment_audio, 16000)
 
-                # Transcribe the segment
-                whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
-                transcription = whisper_model.transcribe('process/'+audio_path, language="en")["text"]
+            #     # Transcribe the segment
+            #     whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
+            #     transcription = whisper_model.transcribe('process/'+audio_path, language="en")["text"]
 
-                # Append results
-                segments_text.append(f"{speaker}: {transcription}")
+            #     # Append results
+            #     segments_text.append(f"{speaker}: {transcription}")
             
-            print(284, segments_text)
+            # print(284, segments_text)
 
-            # Step 4: Print combined results
-            for text in segments_text:
-                print(text)
+            # # Step 4: Print combined results
+            # for text in segments_text:
+            #     print(text)
             # # Manual speaker assignment based on time overlap
             # segments = transcription_result.get('segments', [])
             # if not segments:
@@ -348,8 +354,10 @@ class AudioTranscriptionTester:
                 # 'speakers_detected': speakers_detected,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments_text,
-                'result': self.results
+                # 'segments': segments_text,
+                'result': self.results,
+                'diarization_result': diarization_result,
+                'final_result': final_result
             }
             
         except Exception as e:
