@@ -1,0 +1,352 @@
+{
+  "test_start_time": "2025-06-25T04:10:17.603646",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 8.0,
+    "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "audio_files": {
+    "mono": "audio_mono_english.mp3"
+  },
+  "results": {
+    "mono": {
+      "whisper_only": {
+        "method": "whisper_only",
+        "threads": 6,
+        "processing_time": 411.23112773895264,
+        "segments_count": 104,
+        "speakers_detected": 1,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            40.832186732186734,
+            36.80970515970516,
+            32.710810810810806,
+            29.403931203931204,
+            81.17260442260442,
+            76.5566339066339,
+            71.82542997542998,
+            69.88980343980344
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            98.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 73.84213759213759,
+          "max_memory": 90.9,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 411.2309629917145
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.031,
+            "end": 6.631,
+            "text": " From BBC Learning English, this is Learning English from the News, our podcast about the news headlines.",
+            "words": [
+              {
+                "word": "From",
+                "start": 0.031,
+                "end": 0.533,
+                "score": 0.948
+              },
+              {
+                "word": "BBC",
+                "start": 0.593,
+                "end": 1.134,
+                "score": 0.73
+              },
+              {
+                "word": "Learning",
+                "start": 1.255,
+                "end": 1.536,
+                "score": 0.866
+              },
+              {
+                "word": "English,",
+                "start": 1.616,
+                "end": 1.877,
+                "score": 0.93
+              },
+              {
+                "word": "this",
+                "start": 2.137,
+                "end": 2.338,
+                "score": 0.949
+              },
+              {
+                "word": "is",
+                "start": 2.358,
+                "end": 2.799,
+                "score": 0.77
+              },
+              {
+                "word": "Learning",
+                "start": 2.84,
+                "end": 3.301,
+                "score": 0.839
+              },
+              {
+                "word": "English",
+                "start": 3.341,
+                "end": 3.742,
+                "score": 0.846
+              },
+              {
+                "word": "from",
+                "start": 3.802,
+                "end": 3.943,
+                "score": 0.856
+              },
+              {
+                "word": "the",
+                "start": 3.963,
+                "end": 4.043,
+                "score": 0.386
+              },
+              {
+                "word": "News,",
+                "start": 4.123,
+                "end": 4.384,
+                "score": 0.969
+              },
+              {
+                "word": "our",
+                "start": 4.605,
+                "end": 4.705,
+                "score": 0.983
+              },
+              {
+                "word": "podcast",
+                "start": 4.765,
+                "end": 5.307,
+                "score": 0.849
+              },
+              {
+                "word": "about",
+                "start": 5.468,
+                "end": 5.708,
+                "score": 0.851
+              },
+              {
+                "word": "the",
+                "start": 5.728,
+                "end": 5.829,
+                "score": 0.761
+              },
+              {
+                "word": "news",
+                "start": 5.909,
+                "end": 6.17,
+                "score": 0.946
+              },
+              {
+                "word": "headlines.",
+                "start": 6.23,
+                "end": 6.631,
+                "score": 0.894
+              }
+            ]
+          },
+          {
+            "start": 7.012,
+            "end": 9.44,
+            "text": "In this programme, Israel-Iran strikes.",
+            "words": [
+              {
+                "word": "In",
+                "start": 7.012,
+                "end": 7.072,
+                "score": 0.998
+              },
+              {
+                "word": "this",
+                "start": 7.133,
+                "end": 7.253,
+                "score": 0.866
+              },
+              {
+                "word": "programme,",
+                "start": 7.333,
+                "end": 7.775,
+                "score": 0.829
+              },
+              {
+                "word": "Israel-Iran",
+                "start": 8.116,
+                "end": 8.998,
+                "score": 0.834
+              },
+              {
+                "word": "strikes.",
+                "start": 9.038,
+                "end": 9.44,
+                "score": 0.854
+              }
+            ]
+          },
+          {
+            "start": 9.781,
+            "end": 11.205,
+            "text": "The conflict continues.",
+            "words": [
+              {
+                "word": "The",
+                "start": 9.781,
+                "end": 9.861,
+                "score": 0.979
+              },
+              {
+                "word": "conflict",
+                "start": 9.901,
+                "end": 10.362,
+                "score": 0.968
+              },
+              {
+                "word": "continues.",
+                "start": 10.443,
+                "end": 11.205,
+                "score": 0.87
+              }
+            ]
+          }
+        ]
+      },
+      "thread_scaling": {
+        "method": "thread_scaling",
+        "results": {
+          "1": {
+            "processing_time": 53.959890842437744,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                20.375700934579438,
+                17.466355140186916,
+                13.40373831775701,
+                10.087850467289721,
+                54.4196261682243,
+                51.8392523364486,
+                41.94579439252336,
+                44.90280373831776
+              ],
+              "max_cpu_per_core": [
+                68.0,
+                57.1,
+                52.1,
+                51.1,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 66.00841121495327,
+              "max_memory": 70.2,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 53.50540590286255
+            },
+            "success": true
+          },
+          "2": {
+            "processing_time": 54.107420921325684,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                20.312037037037037,
+                17.321296296296296,
+                15.17962962962963,
+                12.080555555555556,
+                51.78148148148148,
+                59.06666666666666,
+                48.580555555555556,
+                48.611111111111114
+              ],
+              "max_cpu_per_core": [
+                58.3,
+                54.2,
+                53.2,
+                47.9,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 67.00925925925925,
+              "max_memory": 69.7,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 53.995994091033936
+            },
+            "success": true
+          },
+          "4": {
+            "processing_time": 54.1315541267395,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                22.324074074074073,
+                20.53240740740741,
+                15.829629629629629,
+                12.012962962962964,
+                53.23518518518518,
+                54.379629629629626,
+                50.00648148148148,
+                44.60092592592592
+              ],
+              "max_cpu_per_core": [
+                57.1,
+                53.1,
+                48.0,
+                45.8,
+                98.0,
+                98.0,
+                100.0,
+                98.0
+              ],
+              "avg_memory": 67.87314814814815,
+              "max_memory": 71.5,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 53.99272608757019
+            },
+            "success": true
+          },
+          "6": {
+            "processing_time": 52.270670890808105,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                18.217307692307692,
+                15.161538461538461,
+                12.600961538461538,
+                9.316346153846153,
+                53.77596153846154,
+                45.81826923076923,
+                53.52307692307692,
+                42.45769230769231
+              ],
+              "max_cpu_per_core": [
+                49.0,
+                45.1,
+                38.0,
+                33.3,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 68.61153846153846,
+              "max_memory": 71.0,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 51.997297048568726
+            },
+            "success": true
+          }
+        }
+      }
+    }
+  },
+  "test_end_time": "2025-06-25T04:20:44.865974"
+}

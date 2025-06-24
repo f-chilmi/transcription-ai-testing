@@ -160,7 +160,7 @@ class AudioTranscriptionTester:
 
             self.results = {}
             
-            model = whisperx.load_model("large-v2", device, compute_type=compute_type)
+            model = whisperx.load_model("medium", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
             result = model.transcribe(audio, language="en", batch_size=4)
             self.results = result
@@ -193,7 +193,8 @@ class AudioTranscriptionTester:
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': result['segments'][:3]
+                'segments': result['segments'],
+                'result': result
             }
             
         except Exception as e:
@@ -223,7 +224,7 @@ class AudioTranscriptionTester:
             # Step 1: Whisper transcription
             os.environ["OMP_NUM_THREADS"] = str(whisper_threads)
 
-            whisper_model = whisperx.load_model("large-v2", device, compute_type=compute_type)
+            whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
             
             whisper_start = time.time()
             transcription_result = self.results
@@ -346,7 +347,8 @@ class AudioTranscriptionTester:
                 # 'speakers_detected': speakers_detected,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments_text
+                'segments': segments_text,
+                'result': self.results
             }
             
         except Exception as e:
@@ -755,7 +757,7 @@ class AudioTranscriptionTester:
             file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
             
             # Test 4: Hybrid pipeline
-            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
+            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
             
             # Test 5: Thread scaling (only for mono audio to save time)
             if 'mono' in audio_name.lower():
