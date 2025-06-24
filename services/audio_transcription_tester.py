@@ -222,9 +222,9 @@ class AudioTranscriptionTester:
             compute_type = "int8"
             
             # Step 1: Whisper transcription
-            os.environ["OMP_NUM_THREADS"] = str(whisper_threads)
+            # os.environ["OMP_NUM_THREADS"] = str(whisper_threads)
 
-            whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
+            # whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
             
             whisper_start = time.time()
             transcription_result = self.results
@@ -232,11 +232,11 @@ class AudioTranscriptionTester:
             whisper_time = time.time() - whisper_start
             print(217, transcription_result)
             
-            del whisper_model
-            gc.collect()
+            # del whisper_model
+            # gc.collect()
             
             # Step 2: Pyannote diarization (separate process) 
-            os.environ["OMP_NUM_THREADS"] = str(diarize_threads)
+            # os.environ["OMP_NUM_THREADS"] = str(diarize_threads)
             from pyannote.audio import Pipeline
             
             diarize_start = time.time()
@@ -251,7 +251,7 @@ class AudioTranscriptionTester:
                     "pyannote/speaker-diarization", 
                     use_auth_token=self.hf_token
                 )
-            
+            print(254, diarization_pipeline)
             diarization_result = diarization_pipeline(audio_path)
             print(240, diarization_result)
             diarize_time = time.time() - diarize_start
@@ -275,10 +275,11 @@ class AudioTranscriptionTester:
                 segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
 
                 # Save segment audio temporarily
-                torchaudio.save(audio_path, segment_audio, 16000)
+                torchaudio.save('process/'+audio_path, segment_audio, 16000)
 
                 # Transcribe the segment
-                transcription = whisper_model.transcribe(audio_path, language="en")["text"]
+                whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
+                transcription = whisper_model.transcribe('process/'+audio_path, language="en")["text"]
 
                 # Append results
                 segments_text.append(f"{speaker}: {transcription}")
