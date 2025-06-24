@@ -1,5 +1,7 @@
 # config.py - Configuration for Audio Transcription Testing
 import os
+
+from dotenv import load_dotenv
 os.environ['USE_NNPACK'] = '0'
 # =============================================================================
 # REQUIRED SETTINGS - UPDATE THESE
@@ -11,7 +13,10 @@ from datetime import datetime
 import torch
 torch.backends.nnpack.enabled = False
 
-HUGGING_FACE_TOKEN = "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"
+load_dotenv()
+
+HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
+print('HUGGING_FACE_TOKEN -> ', HUGGING_FACE_TOKEN)
 
 # Your audio file paths (update these with your actual file paths)
 AUDIO_FILES = {
