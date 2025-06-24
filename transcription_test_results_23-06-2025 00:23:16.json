@@ -1,0 +1,50 @@
+{
+  "test_start_time": "2025-06-23T00:23:16.765094",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 8.0,
+    "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "audio_files": {
+    "mono": "audio_mono_arabic.mp3"
+  },
+  "results": {
+    "mono": {
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 41.334980964660645,
+        "error": "'NoneType' object is not callable",
+        "success": false,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            33.0219512195122,
+            29.634146341463413,
+            27.06951219512195,
+            22.758536585365853,
+            65.54634146341463,
+            64.71463414634147,
+            57.734146341463415,
+            55.49024390243902
+          ],
+          "max_cpu_per_core": [
+            70.8,
+            67.3,
+            65.3,
+            62.5,
+            100.0,
+            100.0,
+            98.0,
+            100.0
+          ],
+          "avg_memory": 83.32073170731708,
+          "max_memory": 84.6,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 40.829734325408936
+        }
+      }
+    }
+  },
+  "test_end_time": "2025-06-23T00:23:58.101372"
+}

@@ -33,8 +33,13 @@ def install_requirements():
         "whisperx",
         "psutil", 
         "torch",
-        "torchaudio"
+        "torchaudio",
+        "pyannote.audio",
+        "openai-whisper",
+        "silero-vad"
     ]
+    
+    os.system("pip install https://github.com/alunkingusw/pyannote-whisper/archive/main.zip")
     
     for package in packages:
         os.system(f"pip install {package}")
@@ -84,7 +89,7 @@ def run_full_test():
         tester.save_results(results)
         tester.print_summary(results)
         
-        print(f"\n🎉 Full test completed! Results saved to: {OUTPUT_CONFIG.results_filename}")
+        print(f"\n🎉 Full test completed! Results saved to: {OUTPUT_CONFIG['results_filename']}")
         
     except Exception as e:
         print(f"❌ Error during full test: {str(e)}")
