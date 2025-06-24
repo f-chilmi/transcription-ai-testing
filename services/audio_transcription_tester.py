@@ -165,7 +165,6 @@ class AudioTranscriptionTester:
             model = whisperx.load_model("medium", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
             result = model.transcribe(audio, language="en", batch_size=4)
-            self.results = result
             print(165, result["segments"])
             
             # Simple speaker labeling (heuristic)
@@ -178,7 +177,7 @@ class AudioTranscriptionTester:
             # 2. Align whisper output
             model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
             result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-
+            self.results = result
             print(178, result["segments"]) # after alignment
 
             del model_a
