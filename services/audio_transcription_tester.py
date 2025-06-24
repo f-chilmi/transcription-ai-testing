@@ -80,7 +80,7 @@ class AudioTranscriptionTester:
         """Test 1: Full WhisperX + Diarization (Baseline)"""
         logger.info(f"Testing Baseline Full WhisperX with {threads} threads")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -91,34 +91,31 @@ class AudioTranscriptionTester:
             compute_type = "int8"
             
             # Load model and transcribe
-            model = whisperx.load_model("base", device, compute_type=compute_type)  # Using base for speed
+            model = whisperx.load_model("tiny", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, batch_size=1)
+            # result = model.transcribe(audio, batch_size=1)
 
+            result = self.results
             print(90, result)
             
-            # Align
-            model_a, metadata = whisperx.load_align_model(language_code="ar", device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device)
+            # # Align
+            # model_a, metadata = whisperx.load_align_model(language_code="ar", device=device)
+            # result = whisperx.align(result["segments"], model_a, metadata, audio, device)
             
-            print(96)
+            # print(96)
 
             # Diarization
             diarize_model = whisperx.diarize.DiarizationPipeline(
                 use_auth_token=self.hf_token,
-                device="cpu",
-                config={
-                    "segmentation": {"min_duration_off": 0.0},
-                    "clustering": {"method": "centroid", "min_cluster_size": 12, "threshold": 0.7045654963945799}
-                })
-            print(100)
+                device=device)
+            print(111, diarize_model)
             diarize_segments = diarize_model(audio)
-            print(102)
+            print(113, diarize_segments)
             result = whisperx.assign_word_speakers(diarize_segments, result)
-            print(104)
+            print(115, result)
             
             # Cleanup
-            del model, model_a, diarize_model
+            del model, diarize_model
             gc.collect()
             
             end_time = time.time()
@@ -132,7 +129,9 @@ class AudioTranscriptionTester:
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': result['segments'][:3]  # Store first 3 segments for quality check
+                'segments': result['segments'],
+                'diarize_segments': diarize_segments,
+                'result': result
             }
             
         except Exception as e:
@@ -770,7 +769,7 @@ class AudioTranscriptionTester:
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
             # Test 1: Baseline (6 threads)
-            # file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
+            file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
             
             # Test 2: Baseline (1 thread for comparison)
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
