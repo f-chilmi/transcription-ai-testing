@@ -268,6 +268,9 @@ class AudioTranscriptionTester:
             final_result = diarize_text(transcription_result, diarization_result)
 
             print(270, final_result)
+
+            final_result_serialized = json.loads(json.dumps(final_result, default=str))
+            print(273, final_result_serialized)
             
             # waveform, sample_rate = torchaudio.load(audio_path)
             # if sample_rate != 16000:
@@ -352,14 +355,14 @@ class AudioTranscriptionTester:
             #     # Count unique speakers
             #     speakers_detected = len(set(seg.get('speaker', 'Unknown') for seg in segments))
             
-            # end_time = time.time()
-            # monitor.stop_monitoring()
+            end_time = time.time()
+            monitor.stop_monitoring()
             
             return {
                 'method': 'hybrid_pipeline',
                 'whisper_threads': whisper_threads,
                 'diarize_threads': diarize_threads,
-                # 'processing_time': end_time - start_time,
+                'processing_time': end_time - start_time,
                 'whisper_time': whisper_time,
                 'diarize_time': diarize_time,
                 # 'segments_count': len(segments),
@@ -369,7 +372,7 @@ class AudioTranscriptionTester:
                 # 'segments': segments_text,
                 'result': self.results,
                 'diarization_result': diarization_result,
-                'final_result': final_result
+                'final_result_serialized': final_result_serialized
             }
             
         except Exception as e:
@@ -769,7 +772,7 @@ class AudioTranscriptionTester:
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
             # Test 1: Baseline (6 threads)
-            file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
+            # file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
             
             # Test 2: Baseline (1 thread for comparison)
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
