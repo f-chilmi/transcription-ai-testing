@@ -243,19 +243,21 @@ class AudioTranscriptionTester:
             
             diarize_start = time.time()
             try:
+                print(246)
                 diarization_pipeline = Pipeline.from_pretrained(
                     "pyannote/speaker-diarization-3.1", 
                     use_auth_token=self.hf_token
                 )
             except Exception:
                 # Fallback to older version
+                print(253)
                 diarization_pipeline = Pipeline.from_pretrained(
                     "pyannote/speaker-diarization", 
                     use_auth_token=self.hf_token
                 )
-            print(254, diarization_pipeline)
+            print(258, diarization_pipeline)
             diarization_result = diarization_pipeline(audio_path)
-            print(240, diarization_result)
+            print(260, diarization_result)
             diarize_time = time.time() - diarize_start
             
             del diarization_pipeline
@@ -269,28 +271,43 @@ class AudioTranscriptionTester:
 
             print(270, final_result)
             
-            # waveform, sample_rate = torchaudio.load(audio_path)
-            # if sample_rate != 16000:
-            #     waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
+            waveform, sample_rate = torchaudio.load(audio_path)
+            if sample_rate != 16000:
+                waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
             
+            whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
+            segments_text = []
+            for segment, _, speaker in diarization_result.itertracks(yield_label=True):
+                try:
+                    # Extract segment audio
+                    start, end = segment.start, segment.end
+                    segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
+                    print(284, segment_audio)
 
-            # segments_text = []
-            # for segment, _, speaker in diarization_result.itertracks(yield_label=True):
-            #     # Extract segment audio
-            #     start, end = segment.start, segment.end
-            #     segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
+                    # Save segment audio temporarily
+                    # torchaudio.save('process/'+audio_path, segment_audio, 16000)
 
-            #     # Save segment audio temporarily
-            #     torchaudio.save('process/'+audio_path, segment_audio, 16000)
+                    # Transcribe the segment
+                    transcription = whisper_model.transcribe(segment_audio.numpy(), language="en")["text"]
+                    print(291, f"Transcription for {speaker}: {transcription}")
 
-            #     # Transcribe the segment
-            #     whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
-            #     transcription = whisper_model.transcribe('process/'+audio_path, language="en")["text"]
+                    temp_segment_path = f'process/segment_{speaker}_{start:.2f}_{end:.2f}_{audio_path}'
+                    print(295,' - temp_segment_path -> ', temp_segment_path )
+                    torchaudio.save(temp_segment_path, segment_audio, 16000)
+                    print(296, 'saved')
 
-            #     # Append results
-            #     segments_text.append(f"{speaker}: {transcription}")
+                    # Append results
+                    segments_text.append(f"{speaker}: {transcription}")
+
+                except Exception as e:
+                    print(f"Error processing segment {speaker} ({start:.2f}-{end:.2f}): {e}")
+                    # Continue with next segment instead of failing completely
+                    continue
             
-            # print(284, segments_text)
+            print(301, segments_text)
+            # Clean up model
+            del whisper_model
+            gc.collect()
 
             # # Step 4: Print combined results
             # for text in segments_text:
@@ -357,7 +374,8 @@ class AudioTranscriptionTester:
                 # 'segments': segments_text,
                 'result': self.results,
                 'diarization_result': diarization_result,
-                'final_result': final_result
+                'final_result': final_result,
+                'segments_text': segments_text
             }
             
         except Exception as e:
