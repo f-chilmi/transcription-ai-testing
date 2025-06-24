@@ -11,11 +11,11 @@ from datetime import datetime
 import torch
 torch.backends.nnpack.enabled = False
 
-HUGGING_FACE_TOKEN = "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"
+HUGGING_FACE_TOKEN = "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"
 
 # Your audio file paths (update these with your actual file paths)
 AUDIO_FILES = {
-    "mono": "audio_mono_arabic.mp3",        # Your mono-speaker audio file
+    "mono": "audio_mono_english.mp3",        # Your mono-speaker audio file
     # "multi": "audio_multi_arabic.mp3",      # Your multi-speaker audio file  
     # "noisy": "audio_noisy_arabic.mp3"       # Your noisy audio file
 }

@@ -1,0 +1,447 @@
+{
+  "test_start_time": "2025-06-23T00:46:48.613334",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 8.0,
+    "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "audio_files": {
+    "mono": "audio_mono_english.mp3"
+  },
+  "results": {
+    "mono": {
+      "silero_vad": {
+        "method": "silero_vad_transcription",
+        "threads": 6,
+        "processing_time": 29.325988054275513,
+        "vad_time": 2.7024660110473633,
+        "whisper_time": 26.565017223358154,
+        "speech_chunks_found": 107,
+        "segments_count": 107,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            22.43728813559322,
+            20.93050847457627,
+            17.922033898305088,
+            15.033898305084746,
+            36.905084745762714,
+            32.19152542372881,
+            29.63050847457627,
+            17.923728813559322
+          ],
+          "max_cpu_per_core": [
+            56.9,
+            56.9,
+            46.0,
+            44.0,
+            100.0,
+            100.0,
+            100.0,
+            74.0
+          ],
+          "avg_memory": 78.99661016949153,
+          "max_memory": 80.8,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 29.325341939926147
+        },
+        "success": true,
+        "segments": [
+          {
+            "start": 0.4,
+            "end": 2.0,
+            "text": "From BBC Learning English, this is Learning English from the news, our podcast about the news headlines.",
+            "speaker": "Speaker_2"
+          },
+          {
+            "start": 2.1,
+            "end": 6.8,
+            "text": "From BBC Learning English, this is Learning English from the news, our podcast about the news headlines.  In this programme, Israel Iran strikes. The conflict continues.",
+            "speaker": "Speaker_2"
+          },
+          {
+            "start": 6.9,
+            "end": 11.2,
+            "text": "In this programme, Israel Iran strikes. The conflict continues.",
+            "speaker": "Speaker_2"
+          }
+        ]
+      },
+      "baseline_6_threads": {
+        "method": "baseline_full_whisperx",
+        "threads": 6,
+        "processing_time": 153.50685095787048,
+        "error": "DiarizationPipeline.__init__() got an unexpected keyword argument 'config'",
+        "success": false,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            17.73059210526316,
+            16.020394736842103,
+            13.526315789473685,
+            10.593092105263159,
+            41.066118421052636,
+            43.675000000000004,
+            24.229934210526313,
+            21.40296052631579
+          ],
+          "max_cpu_per_core": [
+            52.9,
+            54.0,
+            40.8,
+            38.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 80.76842105263158,
+          "max_memory": 84.8,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 153.00116991996765
+        }
+      },
+      "baseline_1_thread": {
+        "method": "baseline_full_whisperx",
+        "threads": 1,
+        "processing_time": 211.6378891468048,
+        "error": "DiarizationPipeline.__init__() got an unexpected keyword argument 'config'",
+        "success": false,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            20.307655502392347,
+            18.82822966507177,
+            15.852392344497607,
+            12.838995215311005,
+            34.09090909090909,
+            32.06674641148325,
+            16.58397129186603,
+            16.399043062200956
+          ],
+          "max_cpu_per_core": [
+            76.0,
+            72.0,
+            69.4,
+            62.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 80.41291866028708,
+          "max_memory": 84.8,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 211.1274528503418
+        }
+      },
+      "whisper_only": {
+        "method": "whisper_only",
+        "threads": 6,
+        "processing_time": 88.33460092544556,
+        "segments_count": 18,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            15.49080459770115,
+            13.932183908045976,
+            12.073563218390806,
+            9.489080459770115,
+            28.870114942528733,
+            25.402298850574713,
+            25.539080459770116,
+            23.655747126436783
+          ],
+          "max_cpu_per_core": [
+            59.2,
+            57.1,
+            51.0,
+            51.0,
+            100.0,
+            98.0,
+            100.0,
+            98.1
+          ],
+          "avg_memory": 77.90229885057471,
+          "max_memory": 80.9,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 87.90426707267761
+        },
+        "success": true,
+        "segments": [
+          {
+            "text": " From BBC Learning English, this is Learning English from the News, our podcast about the news headlines. In this programme, Israel Iran strikes. The conflict continues.",
+            "start": 0.031,
+            "end": 11.185,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " Hello, I'm Phil. And I'm Georgie. In this programme, we look at one big news story and the vocabulary in the headlines that will help you understand it. You can find all the vocabulary and headlines from this episode as well as a worksheet on our website, BBCLearningEnglish.com. So, let's hear more about this story. Israel launched an attack on Iran last Friday, targeting nuclear and military facilities.",
+            "start": 15.117,
+            "end": 44.868,
+            "speaker": "Speaker_1"
+          },
+          {
+            "text": " The strikes killed several senior Iranian military commanders and Iranian nuclear scientists. Iran then retaliated with missile attacks targeting Israel. Iran's health ministry said at least 224 people have been killed in the Israeli strikes. While Israel says Iranian attacks have killed 24 people. Let's have our first headline. Iran launches new missile barrage. Israel claims assassination of top general, and that's from the Palestine Chronicle.",
+            "start": 45.087,
+            "end": 73.808,
+            "speaker": "Speaker_1"
+          }
+        ]
+      },
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 1240.3302330970764,
+        "whisper_time": 23.75775408744812,
+        "diarize_time": 1214.9561140537262,
+        "segments_count": 101,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            17.58760429082241,
+            16.501251489868892,
+            14.484147794994042,
+            12.594219308700833,
+            38.78230035756853,
+            26.971930870083433,
+            23.410131108462455,
+            19.492252681764004
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 76.50500595947557,
+          "max_memory": 86.4,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 1240.3286299705505
+        },
+        "success": true,
+        "segments": [
+          {
+            "id": 0,
+            "seek": 0,
+            "start": 0.0,
+            "end": 6.72,
+            "text": " From BBC Learning English, this is Learning English from the news, our podcast about the news headlines.",
+            "tokens": [
+              50364,
+              3358,
+              22669,
+              15205,
+              3669,
+              11,
+              341,
+              307,
+              15205,
+              3669,
+              490,
+              264,
+              2583,
+              11,
+              527,
+              7367,
+              466,
+              264,
+              2583,
+              23867,
+              13,
+              50700
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "id": 1,
+            "seek": 0,
+            "start": 6.72,
+            "end": 11.200000000000001,
+            "text": " In this programme, Israel Iran strikes. The conflict continues.",
+            "tokens": [
+              50700,
+              682,
+              341,
+              14001,
+              11,
+              5674,
+              8283,
+              16750,
+              13,
+              440,
+              6596,
+              6515,
+              13,
+              50924
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_01"
+          },
+          {
+            "id": 2,
+            "seek": 0,
+            "start": 14.8,
+            "end": 16.12,
+            "text": " Hello, I'm Phil.",
+            "tokens": [
+              51104,
+              2425,
+              11,
+              286,
+              478,
+              7777,
+              13,
+              51170
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      },
+      "thread_scaling": {
+        "method": "thread_scaling",
+        "results": {
+          "1": {
+            "processing_time": 100.96054410934448,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                23.932663316582918,
+                21.935678391959797,
+                19.106030150753767,
+                16.230653266331657,
+                36.44422110552764,
+                25.274874371859294,
+                26.45678391959799,
+                21.951758793969848
+              ],
+              "max_cpu_per_core": [
+                90.0,
+                90.4,
+                90.0,
+                88.0,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 77.96683417085427,
+              "max_memory": 81.3,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 100.6545741558075
+            },
+            "success": true
+          },
+          "2": {
+            "processing_time": 53.98522210121155,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                27.310280373831773,
+                24.19252336448598,
+                21.732710280373833,
+                17.236448598130842,
+                67.81588785046729,
+                48.55140186915888,
+                43.49719626168224,
+                38.9803738317757
+              ],
+              "max_cpu_per_core": [
+                96.1,
+                98.0,
+                98.0,
+                98.0,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 79.89252336448598,
+              "max_memory": 82.0,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 53.9852352142334
+            },
+            "success": true
+          },
+          "4": {
+            "processing_time": 105.86681079864502,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                36.60576923076923,
+                32.57788461538461,
+                28.54615384615385,
+                22.995192307692307,
+                62.027884615384615,
+                45.72692307692308,
+                45.166346153846156,
+                41.61826923076923
+              ],
+              "max_cpu_per_core": [
+                64.7,
+                70.6,
+                72.5,
+                62.7,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 79.69807692307693,
+              "max_memory": 81.5,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 105.86682200431824
+            },
+            "success": true
+          },
+          "6": {
+            "processing_time": 379.6098561286926,
+            "segments_count": 18,
+            "resource_usage": {
+              "avg_cpu_per_core": [
+                13.64126213592233,
+                11.680582524271843,
+                10.409708737864078,
+                8.025242718446602,
+                30.994174757281556,
+                23.15097087378641,
+                24.72087378640777,
+                20.941747572815533
+              ],
+              "max_cpu_per_core": [
+                74.5,
+                78.8,
+                76.0,
+                72.5,
+                100.0,
+                100.0,
+                100.0,
+                100.0
+              ],
+              "avg_memory": 78.09223300970874,
+              "max_memory": 80.9,
+              "total_cpu_cores": 8,
+              "monitoring_duration": 379.30996561050415
+            },
+            "success": true
+          }
+        }
+      }
+    }
+  },
+  "test_end_time": "2025-06-23T01:26:14.780051"
+}

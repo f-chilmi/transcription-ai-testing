@@ -1,0 +1,141 @@
+{
+  "test_start_time": "2025-06-23T00:28:18.660838",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 8.0,
+    "python_version": "3.12.8 (v3.12.8:2dc476bcb91, Dec  3 2024, 14:43:19) [Clang 13.0.0 (clang-1300.0.29.30)]"
+  },
+  "audio_files": {
+    "mono": "audio_mono_english.mp3"
+  },
+  "results": {
+    "mono": {
+      "hybrid_pipeline": {
+        "method": "hybrid_pipeline",
+        "whisper_threads": 4,
+        "diarize_threads": 2,
+        "processing_time": 871.7402520179749,
+        "whisper_time": 24.455506086349487,
+        "diarize_time": 842.4893860816956,
+        "segments_count": 101,
+        "speakers_detected": 2,
+        "resource_usage": {
+          "avg_cpu_per_core": [
+            22.70823188405797,
+            20.984927536231883,
+            18.083362318840578,
+            15.393391304347825,
+            39.851652173913045,
+            31.318666666666665,
+            26.758260869565216,
+            22.83455072463768
+          ],
+          "max_cpu_per_core": [
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+          ],
+          "avg_memory": 77.13373913043479,
+          "max_memory": 84.9,
+          "total_cpu_cores": 8,
+          "monitoring_duration": 871.7387230396271
+        },
+        "success": true,
+        "segments": [
+          {
+            "id": 0,
+            "seek": 0,
+            "start": 0.0,
+            "end": 6.72,
+            "text": " From BBC Learning English, this is Learning English from the news, our podcast about the news headlines.",
+            "tokens": [
+              50364,
+              3358,
+              22669,
+              15205,
+              3669,
+              11,
+              341,
+              307,
+              15205,
+              3669,
+              490,
+              264,
+              2583,
+              11,
+              527,
+              7367,
+              466,
+              264,
+              2583,
+              23867,
+              13,
+              50700
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_00"
+          },
+          {
+            "id": 1,
+            "seek": 0,
+            "start": 6.72,
+            "end": 11.200000000000001,
+            "text": " In this programme, Israel Iran strikes. The conflict continues.",
+            "tokens": [
+              50700,
+              682,
+              341,
+              14001,
+              11,
+              5674,
+              8283,
+              16750,
+              13,
+              440,
+              6596,
+              6515,
+              13,
+              50924
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_01"
+          },
+          {
+            "id": 2,
+            "seek": 0,
+            "start": 14.8,
+            "end": 16.12,
+            "text": " Hello, I'm Phil.",
+            "tokens": [
+              51104,
+              2425,
+              11,
+              286,
+              478,
+              7777,
+              13,
+              51170
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.29189175735285255,
+            "compression_ratio": 1.5707317073170732,
+            "no_speech_prob": 0.061029911041259766,
+            "speaker": "SPEAKER_00"
+          }
+        ]
+      }
+    }
+  },
+  "test_end_time": "2025-06-23T00:42:50.910995"
+}
