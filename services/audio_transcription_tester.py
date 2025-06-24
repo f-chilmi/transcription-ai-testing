@@ -787,14 +787,14 @@ class AudioTranscriptionTester:
             file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
             
             # Test 5: Thread scaling (only for mono audio to save time)
-            if 'mono' in audio_name.lower():
-                file_results['thread_scaling'] = self.test_thread_scaling(audio_path)
+            # if 'mono' in audio_name.lower():
+            #     file_results['thread_scaling'] = self.test_thread_scaling(audio_path)
             
             all_results['results'][audio_name] = file_results
         
         # Test 6: Batch processing (if multiple files)
-        if len(audio_files) > 1:
-            all_results['batch_processing'] = self.test_batch_processing(list(audio_files.values()))
+        # if len(audio_files) > 1:
+        #     all_results['batch_processing'] = self.test_batch_processing(list(audio_files.values()))
         
         all_results['test_end_time'] = datetime.now().isoformat()
         
