@@ -162,7 +162,7 @@ class AudioTranscriptionTester:
 
             self.results = {}
             
-            model = whisperx.load_model("medium", device, compute_type=compute_type)
+            model = whisperx.load_model("tiny", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
             result = model.transcribe(audio, language="en", batch_size=4)
             print(165, result["segments"])
@@ -244,7 +244,7 @@ class AudioTranscriptionTester:
             try:
                 print(246)
                 diarization_pipeline = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization-3.1", 
+                    "pyannote/speaker-diarization", 
                     use_auth_token=self.hf_token
                 )
             except Exception:
