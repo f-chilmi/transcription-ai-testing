@@ -767,23 +767,22 @@ class AudioTranscriptionTester:
             
             file_results = {}
             
+            file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
+
             # file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
 
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
-            # Test 1: Baseline (6 threads)
-            # file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
+            # Baseline (6 threads)
+            file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
             
-            # Test 2: Baseline (1 thread for comparison)
+            # Baseline (1 thread for comparison)
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
             
-            # Test 3: WhisperX only
-            file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
+            # Hybrid pipeline
+            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
             
-            # Test 4: Hybrid pipeline
-            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
-            
-            # Test 5: Thread scaling (only for mono audio to save time)
+            # Thread scaling (only for mono audio to save time)
             # if 'mono' in audio_name.lower():
             #     file_results['thread_scaling'] = self.test_thread_scaling(audio_path)
             
