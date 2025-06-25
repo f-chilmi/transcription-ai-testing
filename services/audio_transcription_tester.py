@@ -1,5 +1,7 @@
 import os
 
+from services.audio_diarization import AudioDiarization
+from services.audio_transcription import AudioTranscription
 from utils.utils import diarize_text, serialize_diarization_result
 os.environ['USE_NNPACK'] = '0'
 os.environ['OMP_NUM_THREADS'] = '1'
@@ -78,224 +80,15 @@ class ResourceMonitor:
             'monitoring_duration': self.stats['timestamps'][-1] - self.stats['timestamps'][0] if self.stats['timestamps'] else 0
         }
 
-class AudioTranscriptionTester:
+class AudioTranscriptionTest:
     """Comprehensive testing suite for different transcription methods"""
     
     def __init__(self, hugging_face_token: str):
         self.hf_token = hugging_face_token
         self.results = {}
-    
-    def test_whisper_only(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
-        """Test 2: WhisperX only (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads")
-        
-        os.environ["OMP_NUM_THREADS"] = str(threads)
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
-        
-        start_time = time.time()
-        
-        try:
-            device = "cpu"
-            compute_type = "int8"
-
-            self.results = {}
-            
-            model = whisperx.load_model("tiny", device, compute_type=compute_type)
-            audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language="en", batch_size=4)
-            print(165, result["segments"])
-            
-            del model
-            gc.collect()
-
-            # 2. Align whisper output
-            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-            self.results = result
-            print(178, result["segments"]) # after alignment
-
-            del model_a
-            gc.collect()
-                        
-            end_time = time.time()
-            monitor.stop_monitoring()
-            
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'segments_count': len(result['segments']),
-                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'segments': result['segments'],
-                'result': result
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-    
-    def test_baseline_full_whisperx(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
-        """Test 1: Full WhisperX + Diarization (Baseline)"""
-        logger.info(f"Testing Baseline Full WhisperX with {threads} threads")
-        
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
-        
-        start_time = time.time()
-        
-        try:
-            device = "cpu"
-            compute_type = "int8"
-            
-            # Load model and transcribe
-            model = whisperx.load_model("tiny", device, compute_type=compute_type)
-            audio = whisperx.load_audio(audio_path)
-
-            result = self.results
-            print(90, result)
-            
-            # # Align
-            # model_a, metadata = whisperx.load_align_model(language_code="ar", device=device)
-            # result = whisperx.align(result["segments"], model_a, metadata, audio, device)
-            
-            # print(96)
-
-            # Diarization
-            diarize_model = whisperx.diarize.DiarizationPipeline(
-                use_auth_token=self.hf_token,
-                device=device)
-            print(111, diarize_model)
-            diarize_segments = diarize_model(audio)
-            print(113, diarize_segments)
-            result = whisperx.assign_word_speakers(diarize_segments, result)
-            print(115, result)
-            
-            # Cleanup
-            del model, diarize_model
-            gc.collect()
-            
-            end_time = time.time()
-            monitor.stop_monitoring()
-            
-            return {
-                'method': 'baseline_full_whisperx',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'segments_count': len(result['segments']),
-                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'segments': result['segments'],
-                'result': result,
-                'diarize_segments': json.loads(json.dumps(diarize_segments, default=str)),
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'baseline_full_whisperx',
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-    
-    def test_hybrid_pipeline(self, audio_path: str, whisper_threads: int = 4, diarize_threads: int = 2) -> Dict[str, Any]:
-        """Test 3: Hybrid Pipeline (Whisper transcription + Pyannote diarization)"""
-        logger.info(f"Testing Hybrid Pipeline - Whisper: {whisper_threads}, Pyannote: {diarize_threads} threads")
-        
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
-        
-        start_time = time.time()
-        
-        try:
-            
-            whisper_start = time.time()
-            transcription_result = self.results
-            whisper_time = time.time() - whisper_start
-            print(217, transcription_result)
-            
-            from pyannote.audio import Pipeline
-            
-            diarize_start = time.time()
-            try:
-                print(246)
-                diarization_pipeline = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization-3.1", 
-                    use_auth_token=self.hf_token
-                )
-            except Exception:
-                # Fallback to older version
-                print(253)
-                diarization_pipeline = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization", 
-                    use_auth_token=self.hf_token
-                )
-            print(258, diarization_pipeline)
-            diarization_result = diarization_pipeline(audio_path)
-            print(260, diarization_result)
-            diarize_time = time.time() - diarize_start
-            
-            del diarization_pipeline
-            gc.collect()
-            
-            # Step 3: Check if diarization_result is valid
-            if diarization_result is None:
-                raise Exception("Diarization returned None - check audio file and HF token")
-            
-            final_result = diarize_text(transcription_result, diarization_result)
-
-            print(270, final_result)
-
-            final_result_serialized = serialize_diarization_result(final_result)
-            print(273, final_result_serialized)
-
-            final_result_with_encoder = json.loads(json.dumps(final_result, cls=DiarizationEncoder))
-            print(267, 'final_result_with_encoder', final_result_with_encoder)
-     
-            end_time = time.time()
-            monitor.stop_monitoring()
-            
-            return {
-                'method': 'hybrid_pipeline',
-                'whisper_threads': whisper_threads,
-                'diarize_threads': diarize_threads,
-                'processing_time': end_time - start_time,
-                'whisper_time': whisper_time,
-                'diarize_time': diarize_time,
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'result': self.results,
-                'final_result_serialized': final_result_serialized,
-                'final_result_with_encoder': final_result_with_encoder
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            logger.error(f"Hybrid pipeline error: {str(e)}")
-            return {
-                'method': 'hybrid_pipeline',
-                'whisper_threads': whisper_threads,
-                'diarize_threads': diarize_threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-
+        self.transcription_service = AudioTranscription()
+        self.diarization_service = AudioDiarization(hugging_face_token)
+   
     def test_thread_scaling(self, audio_path: str) -> Dict[str, Any]:
         """Test 4: Thread scaling analysis"""
         logger.info("Testing thread scaling (1, 2, 4, 6 threads)")
@@ -452,197 +245,26 @@ class AudioTranscriptionTester:
                     speedup = slowest[1] / fastest[1]
                     print(f"  🐌 Slowest: {slowest[0]} ({slowest[1]:.1f}s) - {speedup:.1f}x slower")
 
-    def test_pyannote_diarization(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
-        """Test using pure pyannote diarization (like the reference code)"""
-        logger.info(f"Testing Pure Pyannote Diarization with {threads} threads")
+    def run_comparison_test(self, audio_path: str):
+        """Run comprehensive comparison test"""
+        results = {}
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
+        # Test 1: VAD
+        results['vad'] = self.transcription_service.test_vad(audio_path)
         
-        start_time = time.time()
+        # Test 2: Whisper
+        results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
         
-        try:
-            device = "cpu"
-            compute_type = "int8"
-            
-            # Step 1: Load models separately (like reference code)
-            from pyannote.audio import Pipeline
-            print(480)
-            # Pyannote diarization
-            diarization_pipeline = Pipeline.from_pretrained(
-                "pyannote/speaker-diarization-3.1",
-                use_auth_token=self.hf_token
-            )
-            print(486)
-            whisper_model = whisperx.load_model("base", device, compute_type=compute_type)
-            print(488)
-            # Step 2: Run diarization
-            diarization_start = time.time()
-            diarization_result = diarization_pipeline(audio_path)
-            print(492, diarization_result)
-            diarization_time = time.time() - diarization_start
-            print(494)
-            # Step 3: Run transcription
-            transcription_start = time.time() 
-            transcription_result = whisper_model.transcribe(audio_path)
-            print(498)
-            transcription_time = time.time() - transcription_start
-
-            for turn, _, speaker in transcription_result.itertracks(yield_label=True):
-                print(f"start={turn.start:.1f}s stop={turn.end:.1f}s speaker_{speaker}")
-                        
-            # Step 4: Merge results (need pyannote_whisper utils)
-            try:
-                from pyannote.audio import Pipeline
-                from pyannote_whisper.utils import diarize_text
-                pipeline = Pipeline.from_pretrained(
-                    "pyannote/speaker-diarization-3.1", use_auth_token=HUGGING_FACE_TOKEN
-                )
-                diarization_result = pipeline()
-                final_result = diarize_text(transcription_result, diarization_result)
-                segments = []
-                
-                for seg, spk, sent in final_result:
-                    segments.append({
-                        'start': seg.start,
-                        'end': seg.end, 
-                        'speaker': spk,
-                        'text': sent
-                    })
-            except ImportError:
-                # Fallback: simple merge
-                segments = transcription_result['segments']
-                for segment in segments:
-                    segment['speaker'] = 'Speaker_1'  # Simple fallback
-            
-            # Count unique speakers
-            speakers_detected = len(set(seg.get('speaker', 'Unknown') for seg in segments))
-            
-            del diarization_pipeline, whisper_model
-            gc.collect()
-            
-            end_time = time.time()
-            monitor.stop_monitoring()
-            
-            return {
-                'method': 'pyannote_diarization',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'diarization_time': diarization_time,
-                'transcription_time': transcription_time,
-                'segments_count': len(segments),
-                'speakers_detected': speakers_detected,
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'segments': segments[:3]
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'pyannote_diarization', 
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-
-    def test_silero_vad_transcription(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
-        import ssl
-        from IPython.display import Audio
-        ssl._create_default_https_context = ssl._create_unverified_context
-        """Test using Silero VAD + Whisper (heuristic approach)"""
-        logger.info(f"Testing Silero VAD + Whisper with {threads} threads")
-
-        SAMPLING_RATE = 16000
+        # Test 3: WhisperX diarization
+        self.diarization_service.set_transcription_results(self.transcription_service.results)
+        results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
         
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
+        # Test 4: Pyannote diarization
+        self.diarization_service.set_transcription_results(self.transcription_service.results)
+        results['pyannote_diarization'] = self.diarization_service.test_pyannote(audio_path)
         
-        start_time = time.time()
-        
-        try:
-            device = "cpu"
-            compute_type = "int8"
-            
-            # Step 1: Load Silero VAD (cleaner approach)
-            vad_start = time.time()
-            
-            from silero_vad import (load_silero_vad,
-                          read_audio,
-                          get_speech_timestamps,
-                          save_audio,
-                          collect_chunks)
-            
-            model_vad = load_silero_vad()
-
-            wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
-            print(589, wav)
-            predicts = model_vad.audio_forward(wav, sr=SAMPLING_RATE)
-            print(571, 'predicts', predicts)
-            # get speech timestamps from full audio file
-            speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
-            print(592, speech_timestamps)
-
-            save_audio('only_speech.wav',
-                collect_chunks(speech_timestamps, wav), sampling_rate=SAMPLING_RATE) 
-            print(597)
-            Audio('only_speech.wav')
-            print(599)
-            vad_time = time.time() - vad_start
-         
-            whisper_start = time.time()
-            model = whisperx.load_model("tiny", device=device, compute_type=compute_type)
-            audio = whisperx.load_audio("only_speech.wav")
-            result = model.transcribe(audio, language="en", batch_size=4)
-
-            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-            print(588, "test_silero_vad_transcription", result["segments"])
-            
-            # Diarization
-            diarize_model = whisperx.diarize.DiarizationPipeline(
-                use_auth_token=self.hf_token,
-                device=device)
-            print(592, diarize_model)
-            diarize_segments = diarize_model(audio)
-            print(594, diarize_segments)
-            result = whisperx.assign_word_speakers(diarize_segments, result)
-            print(596, result)
-      
-            whisper_time = time.time() - whisper_start
-
-            del model, model_a, diarize_model
-            gc.collect()
-            
-            end_time = time.time()
-            monitor.stop_monitoring()
-            
-            return {
-                'method': 'silero_vad_transcription',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'vad_time': vad_time,
-                'whisper_time': whisper_time,
-                'speech_chunks_found': len(speech_timestamps),
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'result': result
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'silero_vad_transcription',
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-
+        return results
+    
     def run_comprehensive_test(self, audio_files: Dict[str, str]) -> Dict[str, Any]:
         """Run all tests on all audio files"""
         logger.info("Starting comprehensive test suite")
@@ -692,3 +314,4 @@ class AudioTranscriptionTester:
         all_results['test_end_time'] = datetime.now().isoformat()
         
         return all_results
+  

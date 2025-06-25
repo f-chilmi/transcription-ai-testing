@@ -1,7 +1,7 @@
 # Quick Test Runner - Run this to start testing immediately
 import os
 os.environ['USE_NNPACK'] = '0'
-from services.audio_transcription_tester import AudioTranscriptionTester
+from services.audio_transcription_tester import AudioTranscription, AudioTranscriptionTest
 import torch
 torch.backends.nnpack.enabled = False
 from config import AUDIO_FILES, HUGGING_FACE_TOKEN, OUTPUT_CONFIG
@@ -53,14 +53,14 @@ def run_quick_test():
     try:
         
         
-        tester = AudioTranscriptionTester(HUGGING_FACE_TOKEN)
+        tester = AudioTranscription(HUGGING_FACE_TOKEN)
         
         # Test with the first available file
         first_audio = list(AUDIO_FILES.values())[0]
         print(f"Testing with: {first_audio}")
         
         # Quick whisper-only test
-        result = tester.test_whisper_only(first_audio, threads=2)
+        result = tester.test_whisper_tiny(first_audio, threads=2)
         
         if result['success']:
             print(f"✅ Quick test successful! Processed in {result['processing_time']:.1f}s")
@@ -80,10 +80,10 @@ def run_full_test():
     
     try:
         
-        tester = AudioTranscriptionTester(HUGGING_FACE_TOKEN)
+        tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
         
         # Run comprehensive test
-        results = tester.run_comprehensive_test(AUDIO_FILES)
+        results = tester.run_comparison_test(AUDIO_FILES[0])
         
         # Save and display results
         tester.save_results(results)
