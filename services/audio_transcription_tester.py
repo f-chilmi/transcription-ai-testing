@@ -587,9 +587,8 @@ class AudioTranscriptionTester:
             
             # Step 2: Load Whisper
             whisper_start = time.time()
-            import whisper
-            whisper_model = whisper.load_model("base")
-            
+            whisper_model = whisperx.load_model("tiny")
+            print(591)
             # Step 3: Process speech chunks
             segments = []
             speaker_counter = 0
