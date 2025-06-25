@@ -557,6 +557,7 @@ class AudioTranscriptionTester:
 
     def test_silero_vad_transcription(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         import ssl
+        from IPython.display import Audio
         ssl._create_default_https_context = ssl._create_unverified_context
         """Test using Silero VAD + Whisper (heuristic approach)"""
         logger.info(f"Testing Silero VAD + Whisper with {threads} threads")
@@ -571,12 +572,31 @@ class AudioTranscriptionTester:
         
         try:
             device = "cpu"
+            compute_type = "int8"
             
             # Step 1: Load Silero VAD (cleaner approach)
             vad_start = time.time()
-            from silero_vad import load_silero_vad, read_audio, get_speech_timestamps
+            # from silero_vad import load_silero_vad, read_audio, get_speech_timestamps
+            from silero_vad import (load_silero_vad,
+                          read_audio,
+                          get_speech_timestamps,
+                          save_audio,
+                          VADIterator,
+                          collect_chunks)
             
             model = load_silero_vad()
+
+            # wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
+            # print(589, wav)
+            # get speech timestamps from full audio file
+            # speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
+            # print(592, speech_timestamps)
+
+            # save_audio('only_speech.wav',
+            # collect_chunks(speech_timestamps, wav), sampling_rate=SAMPLING_RATE) 
+            # Audio('only_speech.wav')
+                        
+                        
             wav = read_audio(audio_path)
             speech_timestamps = get_speech_timestamps(
                 wav,
@@ -587,7 +607,7 @@ class AudioTranscriptionTester:
             
             # Step 2: Load Whisper
             whisper_start = time.time()
-            whisper_model = whisperx.load_model("tiny")
+            whisper_model = whisperx.load_model("tiny", device=device, compute_type=compute_type)
             print(591)
             # Step 3: Process speech chunks
             segments = []
