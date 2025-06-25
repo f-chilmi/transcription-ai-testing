@@ -17,12 +17,21 @@ import torch
 torch.backends.nnpack.enabled = False
 import torchaudio
 from collections import OrderedDict
+from pyannote.core import Segment
 
 from config import OUTPUT_CONFIG, HUGGING_FACE_TOKEN
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+class DiarizationEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Segment):
+            return {'start': float(obj.start), 'end': float(obj.end)}
+        elif hasattr(obj, '__dict__'):
+            return obj.__dict__
+        return str(obj)
 
 class ResourceMonitor:
     """Monitors CPU, memory, and other system resources during processing"""
@@ -253,6 +262,9 @@ class AudioTranscriptionTester:
 
             final_result_serialized = serialize_diarization_result(final_result)
             print(273, final_result_serialized)
+
+            final_result_with_encoder = json.loads(json.dumps(final_result, cls=DiarizationEncoder))
+            print(267, 'final_result_with_encoder', final_result_with_encoder)
      
             end_time = time.time()
             monitor.stop_monitoring()
@@ -267,7 +279,8 @@ class AudioTranscriptionTester:
                 'resource_usage': monitor.get_summary(),
                 'success': True,
                 'result': self.results,
-                'final_result_serialized': final_result_serialized
+                'final_result_serialized': final_result_serialized,
+                'final_result_with_encoder': final_result_with_encoder
             }
             
         except Exception as e:
@@ -563,10 +576,12 @@ class AudioTranscriptionTester:
                           save_audio,
                           collect_chunks)
             
-            model = load_silero_vad()
+            model_vad = load_silero_vad()
 
             wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
             print(589, wav)
+            predicts = model_vad.audio_forward(wav, sr=SAMPLING_RATE)
+            print(571, 'predicts', predicts)
             # get speech timestamps from full audio file
             speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
             print(592, speech_timestamps)
@@ -649,7 +664,7 @@ class AudioTranscriptionTester:
             
             file_results = {}
             
-            # file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
+            file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
 
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
@@ -660,9 +675,9 @@ class AudioTranscriptionTester:
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
             
             # Hybrid pipeline
-            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
+            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
 
-            file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
+            # file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
             
             # Thread scaling (only for mono audio to save time)
             # if 'mono' in audio_name.lower():
