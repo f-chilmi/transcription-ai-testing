@@ -589,15 +589,15 @@ class AudioTranscriptionTester:
             diarize_model = whisperx.diarize.DiarizationPipeline(
                 use_auth_token=self.hf_token,
                 device=device)
-            print(111, diarize_model)
+            print(592, diarize_model)
             diarize_segments = diarize_model(audio)
-            print(113, diarize_segments)
+            print(594, diarize_segments)
             result = whisperx.assign_word_speakers(diarize_segments, result)
-            print(115, result)
+            print(596, result)
       
             whisper_time = time.time() - whisper_start
 
-            del model, model
+            del model, diarize_model
             gc.collect()
             
             end_time = time.time()
