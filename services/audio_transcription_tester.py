@@ -130,8 +130,8 @@ class AudioTranscriptionTester:
                 'resource_usage': monitor.get_summary(),
                 'success': True,
                 'segments': result['segments'],
-                'diarize_segments': diarize_segments,
-                'result': result
+                'result': result,
+                'diarize_segments': json.loads(json.dumps(diarize_segments, default=str)),
             }
             
         except Exception as e:
@@ -371,7 +371,7 @@ class AudioTranscriptionTester:
                 'success': True,
                 # 'segments': segments_text,
                 'result': self.results,
-                'diarization_result': diarization_result,
+                'diarization_result': json.loads(json.dumps(diarization_result, default=str)),
                 'final_result_serialized': final_result_serialized
             }
             
