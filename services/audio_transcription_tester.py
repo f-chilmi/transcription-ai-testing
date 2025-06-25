@@ -579,11 +579,13 @@ class AudioTranscriptionTester:
             vad_time = time.time() - vad_start
          
             whisper_start = time.time()
-            model = whisperx.load_model("tiny", device, compute_type=compute_type)
+            model = whisperx.load_model("tiny", device=device, compute_type=compute_type)
             audio = whisperx.load_audio("only_speech.wav")
-            result = model.transcribe(audio, batch_size=4)
+            result = model.transcribe(audio, language="en", batch_size=4)
 
-            print(90, result)
+            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
+            print(588, "test_silero_vad_transcription", result["segments"])
             
             # Diarization
             diarize_model = whisperx.diarize.DiarizationPipeline(
@@ -597,7 +599,7 @@ class AudioTranscriptionTester:
       
             whisper_time = time.time() - whisper_start
 
-            del model, diarize_model
+            del model, model_a, diarize_model
             gc.collect()
             
             end_time = time.time()
@@ -647,18 +649,18 @@ class AudioTranscriptionTester:
             
             file_results = {}
             
-            file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
+            # file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
 
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
             # Baseline (6 threads)
-            file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
+            # file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
 
             # Baseline (1 thread for comparison)
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
             
             # Hybrid pipeline
-            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
+            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
 
             file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
             
