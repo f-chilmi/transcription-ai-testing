@@ -1,26 +1,18 @@
 import os
 
-from services.audio_transcription_tester import ResourceMonitor
+from services.resource_monitor import ResourceMonitor
 from utils.utils import diarize_text, serialize_diarization_result
 os.environ['USE_NNPACK'] = '0'
 os.environ['OMP_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
 import time
-import json
 import logging
-import psutil
-import threading
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any
 import whisperx
 import gc
 import torch
 torch.backends.nnpack.enabled = False
-import torchaudio
-from collections import OrderedDict
-from pyannote.core import Segment
 
-from config import OUTPUT_CONFIG, HUGGING_FACE_TOKEN
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
