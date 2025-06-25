@@ -1,6 +1,6 @@
 import os
 
-from utils.utils import diarize_text
+from utils.utils import diarize_text, serialize_diarization_result
 os.environ['USE_NNPACK'] = '0'
 os.environ['OMP_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
@@ -269,92 +269,9 @@ class AudioTranscriptionTester:
 
             print(270, final_result)
 
-            final_result_serialized = json.loads(json.dumps(final_result, default=str))
+            final_result_serialized = serialize_diarization_result(final_result)
             print(273, final_result_serialized)
-            
-            # waveform, sample_rate = torchaudio.load(audio_path)
-            # if sample_rate != 16000:
-            #     waveform = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)(waveform)
-            
-            # whisper_model = whisperx.load_model("medium", device, compute_type=compute_type)
-            # segments_text = []
-            # for segment, _, speaker in diarization_result.itertracks(yield_label=True):
-            #     try:
-            #         # Extract segment audio
-            #         start, end = segment.start, segment.end
-            #         segment_audio = waveform[:, int(start * 16000): int(end * 16000)]
-            #         print(284, segment_audio)
-
-            #         # Transcribe the segment
-            #         transcription = whisper_model.transcribe(segment_audio, language="en")["text"]
-            #         print(291, f"Transcription for {speaker}: {transcription}")
-
-            #         temp_segment_path = f'process/segment_{speaker}_{start:.2f}_{end:.2f}_{audio_path}'
-            #         print(295,' - temp_segment_path -> ', temp_segment_path )
-            #         torchaudio.save(temp_segment_path, segment_audio, 16000)
-            #         print(296, 'saved')
-
-            #         # Append results
-            #         segments_text.append(f"{speaker}: {transcription}")
-
-            #     except Exception as e:
-            #         print(f"Error processing segment {speaker} ({start:.2f}-{end:.2f}): {e}")
-            #         # Continue with next segment instead of failing completely
-            #         continue
-            
-            # print(301, segments_text)
-            # # Clean up model
-            # del whisper_model
-            # gc.collect()
-
-            # # Step 4: Print combined results
-            # for text in segments_text:
-            #     print(text)
-            # # Manual speaker assignment based on time overlap
-            # segments = transcription_result.get('segments', [])
-            # if not segments:
-            #     raise Exception("No transcription segments found")
-            
-            # Convert diarization to list for easier processing
-            # diarization_segments = []
-            # try:
-            #     for turn, _, speaker in diarization_result.itertracks(yield_label=True):
-            #         diarization_segments.append({
-            #             'start': turn.start,
-            #             'end': turn.end, 
-            #             'speaker': speaker
-            #         })
-            # except Exception as e:
-            #     logger.warning(f"Diarization processing failed: {e}")
-            #     # Fallback: assign simple speakers
-            #     for i, segment in enumerate(segments):
-            #         segment['speaker'] = f'Speaker_{i % 2 + 1}'
-                
-            #     speakers_detected = 2
-            # else:
-            #     # Normal alignment process
-            #     for segment in segments:
-            #         seg_start = segment['start']
-            #         seg_end = segment['end']
-                    
-            #         # Find speaker from diarization that overlaps most
-            #         best_speaker = 'Unknown'
-            #         max_overlap = 0
-                    
-            #         for diar_seg in diarization_segments:
-            #             overlap_start = max(seg_start, diar_seg['start'])
-            #             overlap_end = min(seg_end, diar_seg['end'])
-            #             overlap_duration = max(0, overlap_end - overlap_start)
-                        
-            #             if overlap_duration > max_overlap:
-            #                 max_overlap = overlap_duration
-            #                 best_speaker = diar_seg['speaker']
-                    
-            #         segment['speaker'] = best_speaker if best_speaker != 'Unknown' else 'Speaker_1'
-                
-            #     # Count unique speakers
-            #     speakers_detected = len(set(seg.get('speaker', 'Unknown') for seg in segments))
-            
+     
             end_time = time.time()
             monitor.stop_monitoring()
             
@@ -365,13 +282,9 @@ class AudioTranscriptionTester:
                 'processing_time': end_time - start_time,
                 'whisper_time': whisper_time,
                 'diarize_time': diarize_time,
-                # 'segments_count': len(segments),
-                # 'speakers_detected': speakers_detected,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                # 'segments': segments_text,
                 'result': self.results,
-                'diarization_result': json.loads(json.dumps(diarization_result, default=str)),
                 'final_result_serialized': final_result_serialized
             }
             
@@ -774,13 +687,13 @@ class AudioTranscriptionTester:
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
             # Baseline (6 threads)
-            file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
+            # file_results['baseline_6_threads'] = self.test_baseline_full_whisperx(audio_path, threads=6)
             
             # Baseline (1 thread for comparison)
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
             
             # Hybrid pipeline
-            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
+            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
             
             # Thread scaling (only for mono audio to save time)
             # if 'mono' in audio_name.lower():

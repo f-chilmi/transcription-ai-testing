@@ -65,3 +65,20 @@ def write_to_txt(spk_sent, file):
         for seg, spk, sentence in spk_sent:
             line = f'{seg.start:.2f} {seg.end:.2f} {spk} {sentence}\n'
             fp.write(line)
+
+def serialize_diarization_result(final_result):
+    """Convert diarization result to JSON-serializable format"""
+    serialized_result = []
+    for item in final_result:
+        if len(item) == 3:  # (Segment, speaker, sentence)
+            seg, spk, sentence = item
+            serialized_result.append({
+                'start': float(seg.start),
+                'end': float(seg.end),
+                'speaker': str(spk),
+                'text': str(sentence)
+            })
+        else:
+            # Handle other formats if any
+            serialized_result.append(str(item))
+    return serialized_result
