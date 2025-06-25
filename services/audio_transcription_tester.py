@@ -403,7 +403,6 @@ class AudioTranscriptionTester:
                 'resource_usage': monitor.get_summary()
             }
     
-    
     def save_results(self, results: Dict[str, Any], filename: str = OUTPUT_CONFIG['results_filename']):
         """Save test results to JSON file"""
         with open(filename, 'w', encoding='utf-8') as f:
@@ -586,70 +585,98 @@ class AudioTranscriptionTester:
             
             model = load_silero_vad()
 
-            # wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
-            # print(589, wav)
+            wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
+            print(589, wav)
             # get speech timestamps from full audio file
-            # speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
-            # print(592, speech_timestamps)
+            speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
+            print(592, speech_timestamps)
 
-            # save_audio('only_speech.wav',
-            # collect_chunks(speech_timestamps, wav), sampling_rate=SAMPLING_RATE) 
-            # Audio('only_speech.wav')
-                        
-                        
-            wav = read_audio(audio_path)
-            speech_timestamps = get_speech_timestamps(
-                wav,
-                model,
-                return_seconds=True,  # Return speech timestamps in seconds
-            )
+            save_audio('only_speech.wav',
+                collect_chunks(speech_timestamps, wav), sampling_rate=SAMPLING_RATE) 
+            print(597)
+            Audio('only_speech.wav')
+            print(599)
             vad_time = time.time() - vad_start
+         
+            whisper_start = time.time()
+            model = whisperx.load_model("tiny", device, compute_type=compute_type)
+            audio = whisperx.load_audio("only_speech.wav")
+            result = model.transcribe(audio, batch_size=4)
+
+            print(90, result)
+            
+            
+            # # Align
+            # model_a, metadata = whisperx.load_align_model(language_code="ar", device=device)
+            # result = whisperx.align(result["segments"], model_a, metadata, audio, device)
+            
+            # print(96)
+
+            # Diarization
+            diarize_model = whisperx.diarize.DiarizationPipeline(
+                use_auth_token=self.hf_token,
+                device=device)
+            print(111, diarize_model)
+            diarize_segments = diarize_model(audio)
+            print(113, diarize_segments)
+            result = whisperx.assign_word_speakers(diarize_segments, result)
+            print(115, result)
+      
+            whisper_time = time.time() - whisper_start
+                        
+            # wav = read_audio(audio_path)
+            # speech_timestamps = get_speech_timestamps(
+            #     wav,
+            #     model,
+            #     return_seconds=True,  # Return speech timestamps in seconds
+            # )
+            
             
             # Step 2: Load Whisper
-            whisper_start = time.time()
-            whisper_model = whisperx.load_model("tiny", device=device, compute_type=compute_type)
-            print(591)
-            # Step 3: Process speech chunks
-            segments = []
-            speaker_counter = 0
             
-            for i, timestamp in enumerate(speech_timestamps):
-                # Simple speaker assignment (heuristic)
-                if i % 4 == 0:  # Change speaker every 4 segments
-                    speaker_counter += 1
+            # whisper_model = whisperx.load_model("tiny", device=device, compute_type=compute_type)
+            # print(591, whisper_model)
+            # # Step 3: Process speech chunks
+            # segments = []
+            # speaker_counter = 0
+            
+            # for i, timestamp in enumerate(speech_timestamps):
+            #     # Simple speaker assignment (heuristic)
+            #     if i % 4 == 0:  # Change speaker every 4 segments
+            #         speaker_counter += 1
                 
-                # Create chunk info for whisper
-                start_time_chunk = timestamp['start']
-                end_time_chunk = timestamp['end']
+            #     # Create chunk info for whisper
+            #     start_time_chunk = timestamp['start']
+            #     end_time_chunk = timestamp['end']
                 
-                # Transcribe full audio but we'll use timestamps for segmentation
-                if i == 0:  # Only transcribe once
-                    full_result = whisper_model.transcribe(audio_path)
+            #     # Transcribe full audio but we'll use timestamps for segmentation
+            #     if i == 0:  # Only transcribe once
+            #         full_result = whisper_model.transcribe(audio_path)
                 
-                # Find overlapping segments from whisper result
-                chunk_text = ""
-                for seg in full_result['segments']:
-                    seg_start = seg['start']
-                    seg_end = seg['end']
+            #     # Find overlapping segments from whisper result
+            #     chunk_text = ""
+            #     for seg in full_result['segments']:
+            #         seg_start = seg['start']
+            #         seg_end = seg['end']
                     
-                    # Check if whisper segment overlaps with VAD chunk
-                    if (seg_start < end_time_chunk and seg_end > start_time_chunk):
-                        chunk_text += " " + seg['text']
+            #         # Check if whisper segment overlaps with VAD chunk
+            #         if (seg_start < end_time_chunk and seg_end > start_time_chunk):
+            #             chunk_text += " " + seg['text']
                 
-                if chunk_text.strip():  # Only add if there's text
-                    segments.append({
-                        'start': start_time_chunk,
-                        'end': end_time_chunk,
-                        'text': chunk_text.strip(),
-                        'speaker': f'Speaker_{speaker_counter % 2 + 1}'  # Alternate between 2 speakers
-                    })
+            #     if chunk_text.strip():  # Only add if there's text
+            #         segments.append({
+            #             'start': start_time_chunk,
+            #             'end': end_time_chunk,
+            #             'text': chunk_text.strip(),
+            #             'speaker': f'Speaker_{speaker_counter % 2 + 1}'  # Alternate between 2 speakers
+            #         })
             
-            whisper_time = time.time() - whisper_start
+            # whisper_time = time.time() - whisper_start
             
             # Count speakers
-            speakers_detected = len(set(seg['speaker'] for seg in segments))
+            # speakers_detected = len(set(seg['speaker'] for seg in segments))
             
-            del model, whisper_model
+            del model, model
             gc.collect()
             
             end_time = time.time()
@@ -662,11 +689,11 @@ class AudioTranscriptionTester:
                 'vad_time': vad_time,
                 'whisper_time': whisper_time,
                 'speech_chunks_found': len(speech_timestamps),
-                'segments_count': len(segments),
-                'speakers_detected': speakers_detected,
+                # 'segments_count': len(segments),
+                # 'speakers_detected': speakers_detected,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments
+                'result': result
             }
             
         except Exception as e:
