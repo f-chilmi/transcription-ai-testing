@@ -560,8 +560,10 @@ class AudioTranscriptionTester:
         ssl._create_default_https_context = ssl._create_unverified_context
         """Test using Silero VAD + Whisper (heuristic approach)"""
         logger.info(f"Testing Silero VAD + Whisper with {threads} threads")
+
+        SAMPLING_RATE = 16000
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -645,7 +647,7 @@ class AudioTranscriptionTester:
                 'speakers_detected': speakers_detected,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments[:3]
+                'segments': segments
             }
             
         except Exception as e:
@@ -682,7 +684,7 @@ class AudioTranscriptionTester:
             
             file_results['whisper_only'] = self.test_whisper_only(audio_path, threads=6)
 
-            # file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
+            file_results['silero_vad'] = self.test_silero_vad_transcription(audio_path, threads=6)
 
             # file_results['pyannote_diarization'] = self.test_pyannote_diarization(audio_path, threads=6)
 
@@ -693,7 +695,7 @@ class AudioTranscriptionTester:
             # file_results['baseline_1_thread'] = self.test_baseline_full_whisperx(audio_path, threads=1)
             
             # Hybrid pipeline
-            file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
+            # file_results['hybrid_pipeline'] = self.test_hybrid_pipeline(audio_path, whisper_threads=4, diarize_threads=2)
             
             # Thread scaling (only for mono audio to save time)
             # if 'mono' in audio_name.lower():
