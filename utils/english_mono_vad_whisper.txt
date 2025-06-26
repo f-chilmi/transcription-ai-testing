@@ -1,3 +1,4 @@
+V1
 [0.0s] SPEAKER_00: From BBC Learning English, this is Learning English from the news, our podcast about the news headlines.
 [6.4s] SPEAKER_01: In this program, Israel Iran strikes the conflict continues.
 [10.6s] SPEAKER_00: Hello, I'm Phil.
@@ -89,3 +90,101 @@
 [368.1s] SPEAKER_00: BBCLearningEnglish.com You can also find us on social media just search for BBCLearningEnglish.
 [374.1s] SPEAKER_00: Bye for now.
 [374.7s] SPEAKER_01: Goodbye.
+
+V2
+[0.0s] SPEAKER_00: From BBC Learning English, this is learning English from the news our podcast about the news headlines.
+[7.0s] SPEAKER_01: In this program Israel Iran strikes the conflict continues.
+[15.1s] SPEAKER_00: Hello, I'm Phil.
+[16.3s] SPEAKER_00: And I'm Georgie.
+[17.5s] SPEAKER_00: In this program, we look at one big news story and the vocabulary in the headlines that will help you understand it.
+[24.5s] SPEAKER_01: You can find all the vocabulary and headlines from this episode as well as a worksheet on our website.
+[30.3s] SPEAKER_01: BBCLearningEnglish.com.
+[32.8s] SPEAKER_00: So, let's hear more about this story.
+[39.6s] SPEAKER_01: Israel launched an attack on Iran last Friday, targeting nuclear and military facilities.
+[45.1s] SPEAKER_00: The strikes killed several senior Iranian military commanders and Iranian nuclear scientists.
+[51.0s] SPEAKER_01: Iran then retaliated with missile attacks targeting Israel.
+[54.9s] SPEAKER_00: Iran's health ministry said at least 224 people have been killed in the Israeli strikes.
+[60.7s] SPEAKER_01: While Israel says Iranian attacks have killed 24 people.
+[64.9s] SPEAKER_00: Let's have our first headline.
+[67.2s] SPEAKER_00: Iran launches new missile barrage.
+[69.7s] SPEAKER_00: Israel claims assassination of top general and that's from the Palestine Chronicle.
+[74.1s] SPEAKER_01: and that headline again from the Palestine Chronicle.
+[77.2s] SPEAKER_01: Iran launches new missile barrage.
+[79.6s] SPEAKER_01: Israel claims assassination of top general.
+[83.1s] SPEAKER_00: This headline is about missile strikes by Iran against Israel, in response to Israel strikes against Iran, which began on Friday, and Israel's killing of a senior military official.
+[96.3s] SPEAKER_00: We're looking at this word, barrage.
+[99.4s] SPEAKER_00: Iran launches new missile barrage.
+[103.0s] SPEAKER_00: What is a barrage?
+[104.3s] SPEAKER_01: Well, the specific use in the context of war is a heavy and continuous use of things like guns or bombs.
+[111.5s] SPEAKER_01: So a missile barrage means a country ascending lots of missiles at once.
+[116.4s] SPEAKER_00: Now, this is obviously a serious use, but we can also use a barrage of something in more everyday contexts to mean a large amount of something that comes all at once.
+[128.1s] SPEAKER_00: For example, the new employee sent her boss a barrage of questions via email.
+[133.8s] SPEAKER_01: Yes, or I turned my phone off last night and woke up to a barrage of text messages.
+[139.7s] SPEAKER_00: Whether it's being used literally or metaphorically, barrage has this sense that it's an overwhelming amount of something.
+[148.5s] SPEAKER_00: It's too much all at once.
+[151.0s] SPEAKER_00: So it often seems quite negative.
+[156.4s] SPEAKER_01: We've had a barrage, a large amount of something that comes all at once.
+[161.0s] SPEAKER_00: For example, the TV show received a barrage of complaints after the presenter made an offensive comment.
+[169.0s] SPEAKER_01: This is learning English from the news from BBC Learning English.
+[172.6s] SPEAKER_01: We're talking about the Israel Iran strikes.
+[176.1s] SPEAKER_00: As we've mentioned, Israel's strikes targeted Iran's nuclear and military facilities.
+[182.3s] SPEAKER_01: Satellite images have shown us that the strikes have damaged structures at two missile sites, as well as an airport runway.
+[189.8s] SPEAKER_00: Let's have another headline, and this is from CNN.
+[193.0s] SPEAKER_00: Israel strikes zeroed in on Iran's nuclear program.
+[197.0s] SPEAKER_00: How much damage was done?
+[198.8s] SPEAKER_01: And that headline again, Israel strikes zeroed in on Iran's nuclear program.
+[203.7s] SPEAKER_01: How much damage was done?
+[205.1s] SPEAKER_01: And that is from CNN.
+[207.5s] SPEAKER_00: So this headline is about those Israeli strikes against Iran's nuclear program.
+[212.7s] SPEAKER_00: This time we're looking at this phrase, zero in on, what can you tell us?
+[218.3s] SPEAKER_01: So this is another phrase which has a specific military meaning and more everyday meaning as well.
+[224.5s] SPEAKER_01: So in this context, it's about aiming a weapon at a particular target.
+[228.9s] SPEAKER_01: Israel's strikes are aiming at Iran's nuclear program.
+[232.1s] SPEAKER_01: They've zeroed in on it according to the headline.
+[235.0s] SPEAKER_00: In a more everyday sense, zero in on means to focus all your attention on something.
+[241.2s] SPEAKER_00: For example, imagine you're in a work meeting.
+[244.4s] SPEAKER_00: Everyone is sharing lots of ideas, but you need to focus on one solution and work on it.
+[249.7s] SPEAKER_01: Yes, you might say, okay, let's zero in on best idea and come up with a plan.
+[258.3s] SPEAKER_00: We've had zero in on focus all your attention on something.
+[263.1s] SPEAKER_01: For example, the government has said they will zero in on youth unemployment this year.
+[267.6s] SPEAKER_01: It's their main focus.
+[274.5s] SPEAKER_00: This is learning English from the news.
+[276.5s] SPEAKER_00: Our podcast about the news headlines.
+[278.9s] SPEAKER_00: Today, our story is Israeli Iran strikes.
+[282.9s] SPEAKER_01: Shortly after the start of the Israel Iran strikes, there was a G7 summit in Canada, a meeting between seven major industrialized countries.
+[291.6s] SPEAKER_00: U.S.
+[292.1s] SPEAKER_00: President Donald Trump left early.
+[294.6s] SPEAKER_00: Francis President Emmanuel Macron said Trump did this to work on a ceasefire deal between Israel and Iran, but Trump denied there was any connection.
+[303.9s] SPEAKER_01: And we have a headline about this.
+[305.6s] SPEAKER_01: It's from France 24.
+[307.9s] SPEAKER_01: Trump says early G7 exit, nothing to do with Macron's remarks on Israel Iran's ceasefire offer.
+[315.2s] SPEAKER_00: That headline again, Trump says early G7 exit, nothing to do with Macron's remarks on Israel Iran's ceasefire offer.
+[323.3s] SPEAKER_00: And that's from France 24.
+[325.5s] SPEAKER_01: So this headline says Trump's exit has nothing to do with a ceasefire between Iran and Israel, and we're looking at this phrase to do with, to do with, to do with, three words that everyone knows, but together, the phrase is a bit strange, isn't it?
+[341.1s] SPEAKER_00: Yes, to do with means about or connected to.
+[347.5s] SPEAKER_00: And here it says nothing to do with, which means it's not connected to.
+[353.2s] SPEAKER_00: So Trump said that his early exit is not connected with a ceasefire.
+[358.6s] SPEAKER_00: It's nothing to do with a ceasefire.
+[361.1s] SPEAKER_01: Okay, another example, this podcast is about the news.
+[364.7s] SPEAKER_01: It has nothing to do with cooking.
+[366.7s] SPEAKER_01: It's all to do with the news headlines and vocabulary.
+[370.2s] SPEAKER_00: That's right.
+[370.7s] SPEAKER_00: So we can add words to do with nothing to do with.
+[376.4s] SPEAKER_00: All to do with something to do with.
+[379.6s] SPEAKER_00: Everything to do with.
+[381.0s] SPEAKER_01: And you can hear to do with in combination with has, has got and is.
+[386.7s] SPEAKER_00: Yeah, this is a really useful phrase, isn't it?
+[388.9s] SPEAKER_00: We use it a lot in everyday speech.
+[392.0s] SPEAKER_00: Now, my laptop hasn't been working very well today.
+[395.3s] SPEAKER_01: Yeah, neither is mine.
+[396.3s] SPEAKER_01: I think it's something to do with the new software.
+[398.7s] SPEAKER_00: Yeah, it's got nothing to do with the Wi-Fi because my phone's working fine.
+[405.0s] SPEAKER_01: We've had to do with about or connected to
+[408.3s] SPEAKER_00: For example, I'm not sleeping very well lately.
+[411.5s] SPEAKER_00: I think it's something to do with the heat.
+[414.4s] SPEAKER_00: That's it for this episode of Learning English from the news.
+[418.2s] SPEAKER_00: We'll be back next week with another news story.
+[421.5s] SPEAKER_01: If you've enjoyed this program, try the worksheet on our website to test what you've learnt.
+[425.7s] SPEAKER_00: BBCLearningEnglish.com You can also find us on social media just search for BBCLearning English.
+[432.6s] SPEAKER_00: Bye for now.
+[433.2s] SPEAKER_00: Goodbye.

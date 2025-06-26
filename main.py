@@ -101,6 +101,31 @@ def run_full_test():
     except Exception as e:
         print(f"❌ Error during full test: {str(e)}")
 
+def run_performance_test():
+    """Run performance test suite"""
+    print("🚀 Starting performance test suite...")
+    
+    try:
+        
+        tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
+        
+        # Run comprehensive test
+        results = tester.run_performance_test(AUDIO_FILES)
+
+        print(115, 'run_performance_test')
+        
+        # Save and display results
+        tester.save_results(results)
+        print(119, 'run_performance_test')
+        # tester.print_summary(results)
+
+        # print(122, 'run_performance_test')
+        
+        print(f"\n🎉 Performance test completed! Results saved to: {OUTPUT_CONFIG['results_filename']}")
+        
+    except Exception as e:
+        print(f"❌ Error during performance test: {str(e)}")
+
 def main():
     print("🎯 Audio Transcription Testing Suite")
     print("=" * 50)
@@ -118,6 +143,7 @@ def main():
     print("1. Quick test (fast verification)")
     print("2. Full test suite (comprehensive)")
     print("3. Install requirements only")
+    print("4. Run performance test")
     
     choice = input("\nEnter choice (1-3): ").strip()
     
@@ -130,6 +156,9 @@ def main():
         
     elif choice == "3":
         install_requirements()
+
+    elif choice == "4":
+        run_performance_test()
         
     else:
         print("Invalid choice. Please run again.")

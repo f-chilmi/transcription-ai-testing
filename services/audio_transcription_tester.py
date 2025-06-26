@@ -31,91 +31,62 @@ class AudioTranscriptionTest:
         self.transcription_service = AudioTranscription()
         self.diarization_service = AudioDiarization(hugging_face_token)
    
-    def test_thread_scaling(self, audio_path: str) -> Dict[str, Any]:
-        """Test 4: Thread scaling analysis"""
-        logger.info("Testing thread scaling (1, 2, 4, 6 threads)")
+    def test_thread_scaling(self, audio_path: str, transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+        """Test thread scaling with existing transcription methods"""
+        logger.info(f"Testing thread scaling with {transcription_method}")
         
         thread_results = {}
         
-        for threads in [1, 2, 4, 6]:
+        for threads in [1, 2, 4, 6, 8]:
             logger.info(f"Testing with {threads} threads")
-            os.environ["OMP_NUM_THREADS"] = str(threads)
             
-            monitor = ResourceMonitor()
-            monitor.start_monitoring()
+            if transcription_method == 'whisperx_tiny':
+                result = self.transcription_service.test_whisperx_models('tiny', audio_path, threads)
+            elif transcription_method == 'faster_whisper_tiny':
+                result = self.transcription_service.test_faster_whisper_models('tiny', audio_path, threads)
+            elif transcription_method == 'whisper_tiny':
+                result = self.transcription_service.test_whisper_models('tiny', audio_path, threads)
             
-            start_time = time.time()
-            
-            try:
-                device = "cpu"
-                # model = whisperx.load_model("base", device, compute_type="int8")
-                # audio = whisperx.load_audio(audio_path)
-                # result = model.transcribe(audio, batch_size=2)
-                
-                # del model
-                # gc.collect()
-                
-                # end_time = time.time()
-                # monitor.stop_monitoring()
-                
-                # thread_results[threads] = {
-                #     'processing_time': end_time - start_time,
-                #     'segments_count': len(result['segments']),
-                #     'resource_usage': monitor.get_summary(),
-                #     'success': True
-                # }
-                
-            except Exception as e:
-                monitor.stop_monitoring()
-                thread_results[threads] = {
-                    'processing_time': time.time() - start_time,
-                    'error': str(e),
-                    'success': False,
-                    'resource_usage': monitor.get_summary()
-                }
+            thread_results[threads] = result
         
         return {
             'method': 'thread_scaling',
+            'transcription_method': transcription_method,
+            'results': thread_results
         }
     
-    def test_batch_processing(self, audio_files: List[str], batch_size: int = 4, threads: int = 6) -> Dict[str, Any]:
-        """Test 5: Batch processing multiple files"""
-        logger.info(f"Testing batch processing with {len(audio_files)} files")
+    def test_batch_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+        """Test batch processing using existing transcription methods"""
+        logger.info(f"Testing batch processing with {transcription_method}")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
         start_time = time.time()
         
         try:
-            # device = "cpu"
-            # model = whisperx.load_model("base", device, compute_type="int8")
+            results = []
+            for audio_file in audio_files:
+                if transcription_method == 'whisperx_tiny':
+                    result = self.transcription_service.test_whisperx_models('tiny', audio_file)
+                elif transcription_method == 'faster_whisper_tiny':
+                    result = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
+                elif transcription_method == 'whisper_tiny':
+                    result = self.transcription_service.test_whisper_models('tiny', audio_file)
+                
+                results.append(result)
             
-            # results = []
-            # for audio_file in audio_files:
-            #     audio = whisperx.load_audio(audio_file)
-            #     result = model.transcribe(audio, batch_size=batch_size)
-            #     results.append({
-            #         'file': audio_file,
-            #         'segments_count': len(result['segments'])
-            #     })
-            
-            # del model
-            # gc.collect()
-            
-            # end_time = time.time()
-            # monitor.stop_monitoring()
+            end_time = time.time()
+            monitor.stop_monitoring()
             
             return {
                 'method': 'batch_processing',
-                'batch_size': batch_size,
-                'threads': threads,
+                'transcription_method': transcription_method,
                 'files_processed': len(audio_files),
-                # 'processing_time': end_time - start_time,
-                # 'avg_time_per_file': (end_time - start_time) / len(audio_files),
+                'processing_time': end_time - start_time,
+                'avg_time_per_file': (end_time - start_time) / len(audio_files),
                 'resource_usage': monitor.get_summary(),
-                # 'results': results,
+                'results': results,
                 'success': True
             }
             
@@ -123,9 +94,54 @@ class AudioTranscriptionTest:
             monitor.stop_monitoring()
             return {
                 'method': 'batch_processing',
-                'batch_size': batch_size,
-                'threads': threads,
+                'transcription_method': transcription_method,
+                'processing_time': time.time() - start_time,
+                'error': str(e),
+                'success': False,
+                'resource_usage': monitor.get_summary()
+            }
+    
+    def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+        """Test concurrent processing using existing transcription methods"""
+        logger.info(f"Testing concurrent processing with {transcription_method}")
+        
+        import concurrent.futures
+        
+        monitor = ResourceMonitor()
+        monitor.start_monitoring()
+        
+        start_time = time.time()
+        
+        def process_single_file(audio_file):
+            if transcription_method == 'whisperx_tiny':
+                return self.test_whisperx_models('tiny', audio_file)
+            elif transcription_method == 'faster_whisper_tiny':
+                return self.test_faster_whisper_models('tiny', audio_file)
+            elif transcription_method == 'whisper_tiny':
+                return self.test_whisper_models('tiny', audio_file)
+        
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+                results = list(executor.map(process_single_file, audio_files))
+            
+            end_time = time.time()
+            monitor.stop_monitoring()
+            
+            return {
+                'method': 'concurrent_processing',
+                'transcription_method': transcription_method,
                 'files_processed': len(audio_files),
+                'processing_time': end_time - start_time,
+                'resource_usage': monitor.get_summary(),
+                'results': results,
+                'success': True
+            }
+            
+        except Exception as e:
+            monitor.stop_monitoring()
+            return {
+                'method': 'concurrent_processing',
+                'transcription_method': transcription_method,
                 'processing_time': time.time() - start_time,
                 'error': str(e),
                 'success': False,
@@ -231,6 +247,23 @@ class AudioTranscriptionTest:
         # # Test 4: Pyannote diarization
         # self.diarization_service.set_transcription_results(self.transcription_service.results)
         # results['pyannote_diarization'] = self.diarization_service.test_pyannote(audio_path)
+        
+        return results
+    
+    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny'):
+        """Run performance tests using existing transcription methods"""
+        results = {}
+        
+        first_audio = list(audio_files.values())[0]
+        
+        # Thread scaling test
+        results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
+        
+        # Batch and concurrent processing
+        if len(audio_files) > 1:
+            audio_list = list(audio_files.values())
+            results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
+            results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
         
         return results
     
