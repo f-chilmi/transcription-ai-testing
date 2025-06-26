@@ -123,7 +123,7 @@ class AudioTranscription:
 
             self.test_whisper_tiny('only_speech.wav', threads)
          
-            del model, model_a, diarize_model
+            del model, diarize_model
             gc.collect()
             
             end_time = time.time()
