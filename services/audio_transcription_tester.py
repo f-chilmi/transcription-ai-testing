@@ -266,7 +266,7 @@ class AudioTranscriptionTest:
         # results['whisper_large'] = self.transcription_service.test_whisper_models('large', audio_path)
         # results['whisper_turbo'] = self.transcription_service.test_whisper_models('turbo', audio_path)
 
-        # results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
+        results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
         # results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path)
         # results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path)
         # results['faster_whisper_medium'] = self.transcription_service.test_faster_whisper_models('medium', audio_path)
@@ -284,11 +284,11 @@ class AudioTranscriptionTest:
         # results['vad'] = self.transcription_service.test_vad(audio_path)
         
         # # Test 2: Whisper
-        results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
+        # results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
         
         # # Test 3: WhisperX diarization
-        self.diarization_service.set_transcription_results(self.transcription_service.results)
-        results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
+        # self.diarization_service.set_transcription_results(self.transcription_service.results)
+        # results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
         
         # # Test 4: Pyannote diarization
         # self.diarization_service.set_transcription_results(self.transcription_service.results)

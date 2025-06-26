@@ -145,7 +145,7 @@ def main():
     print("3. Install requirements only")
     print("4. Run performance test")
     
-    choice = input("\nEnter choice (1-3): ").strip()
+    choice = input("\nEnter choice (1-4): ").strip()
     
     if choice == "1":
         if run_quick_test():
