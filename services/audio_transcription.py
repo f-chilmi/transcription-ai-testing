@@ -309,7 +309,7 @@ class AudioTranscription:
             gc.collect()
 
          
-            print(59)
+            print(59, info)
             end_time = time.time()
             monitor.stop_monitoring()
             print(62)
@@ -320,7 +320,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments,
+                'segments': json.loads(json.dumps(segments, default=str)),
             }
             
         except Exception as e:
