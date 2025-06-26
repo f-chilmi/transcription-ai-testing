@@ -160,7 +160,7 @@ class AudioTranscription:
     
     def test_whisperx_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
         
         os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
@@ -221,7 +221,7 @@ class AudioTranscription:
     def test_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
 
         """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        logger.info(f"Testing test_whisper_models only with {threads} threads model {model}")
         
         os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
@@ -282,7 +282,7 @@ class AudioTranscription:
     def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         
         """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        logger.info(f"Testing test_faster_whisper_models with {threads} threads model {model}")
         
         os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
@@ -336,7 +336,7 @@ class AudioTranscription:
     def test_faster_whisper_vad_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         
         """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        logger.info(f"Testing test_faster_whisper_vad_models with {threads} threads model {model}")
         
         os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
@@ -373,7 +373,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': segments,
+                'segments': list(segments),
             }
             
         except Exception as e:
