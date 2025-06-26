@@ -310,12 +310,17 @@ class AudioTranscription:
             self.results = {}
             
             model_a = WhisperModel(model, device=device, compute_type=compute_type)
-            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,language=language)
+            # Get the generator but don't consume it yet
+            segments_gen, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, language=language)
+            
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
-            segments_list = list(segments)
+
+            # NOW convert to list - this is when transcription actually happens
+            segments_list = list(segments_gen)
+            
+            # Process segments after transcription is complete
             for segment in segments_list:
-                for word in segment.words:
-                    print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
+                print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
 
             del model_a
             gc.collect()
