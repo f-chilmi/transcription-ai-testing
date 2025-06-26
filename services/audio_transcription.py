@@ -56,9 +56,10 @@ class AudioTranscription:
 
             del model_a
             gc.collect()
-                        
+            print(59)
             end_time = time.time()
             monitor.stop_monitoring()
+            print(62)
             
             return {
                 'method': 'whisper_only',
@@ -124,17 +125,21 @@ class AudioTranscription:
             del model
             gc.collect()
 
+            print(128)
+
             transcription = self.test_whisper_tiny('only_speech.wav', threads)
+            print(131)
             
             end_time = time.time()
             monitor.stop_monitoring()
+            print(135)
             
             return {
                 'method': 'test_vad',
                 'threads': threads,
                 'processing_time': end_time - start_time,
                 'speech_chunks_found': len(speech_timestamps),
-                'resource_usage': monitor.get_summary(),
+                # 'resource_usage': monitor.get_summary(),
                 'success': True,
                 'transcription': transcription
             }

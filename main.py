@@ -86,10 +86,15 @@ def run_full_test():
         
         # Run comprehensive test
         results = tester.run_comparison_test(list(AUDIO_FILES.values())[0])
+
+        print(90, 'run_full_test')
         
         # Save and display results
         tester.save_results(results)
+        print(94, 'run_full_test')
         tester.print_summary(results)
+
+        print(97, 'run_full_test')
         
         print(f"\n🎉 Full test completed! Results saved to: {OUTPUT_CONFIG['results_filename']}")
         
