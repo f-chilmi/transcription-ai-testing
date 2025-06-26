@@ -1,0 +1,33 @@
+{
+  "faster_whisper_tiny": {
+    "method": "whisper_only",
+    "threads": 6,
+    "processing_time": 36.40260338783264,
+    "resource_usage": {
+      "avg_cpu_per_core": [
+        56.769863013698625,
+        55.054794520547944,
+        54.509589041095886,
+        58.81643835616439,
+        58.04794520547945,
+        68.44931506849315,
+        60.1041095890411,
+        66.96849315068494
+      ],
+      "max_cpu_per_core": [
+        96.1,
+        100.0,
+        95.9,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "avg_memory": 16.065753424657533,
+      "max_memory": 23.8,
+      "total_cpu_cores": 8,
+      "monitoring_duration": 36.06359887123108
+    },
+    "success": true,
+    "segments": 
