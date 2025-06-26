@@ -322,6 +322,7 @@ class AudioTranscription:
                 'resource_usage': monitor.get_summary(),
                 'success': True,
                 'segments': json.loads(json.dumps(segments_list, default=str)),
+                'info': json.loads(json.dumps(info, default=str)),
             }
             
         except Exception as e:
