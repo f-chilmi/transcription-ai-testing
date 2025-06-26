@@ -121,10 +121,10 @@ class AudioTranscription:
             Audio('only_speech.wav')
             print(599)
 
-            self.test_whisper_tiny('only_speech.wav', threads)
-         
-            del model, diarize_model
+            del model
             gc.collect()
+
+            self.test_whisper_tiny('only_speech.wav', threads)
             
             end_time = time.time()
             monitor.stop_monitoring()
