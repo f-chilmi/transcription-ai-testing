@@ -373,7 +373,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': [vars(segment) for segment in segments],
+                'segments': [str(segment) for segment in segments],
             }
             
         except Exception as e:
