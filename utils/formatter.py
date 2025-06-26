@@ -157,7 +157,7 @@ def extract_conversation_flow(json_data: Union[str, dict]) -> List[Dict]:
     conversation = []
     
     try:
-        segments = data["results"]["mono"]["hybrid_pipeline"]["final_result_serialized"]
+        segments = data["whisperx_diarization"]["segments"]
         # segments = data["results"]["mono"]["silero_vad"]["result"]["segments"]
         
         # Sort by start time to maintain chronological order
@@ -264,4 +264,4 @@ if __name__ == "__main__":
     # speaker_texts = load_and_extract_from_file("your_file.json")
     # print(speaker_texts)
 
-print(load_and_extract_from_file("transcription_test_results_25-06-2025 17:28:21_pyannote.json"))
+print(load_and_extract_from_file("transcription_test_results_26-06-2025 15:08:17.json"))

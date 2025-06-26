@@ -10,28 +10,16 @@ import time
 import json
 import logging
 import psutil
-import threading
 from datetime import datetime
 from typing import Dict, List, Any
-import whisperx
-import gc
 import torch
 torch.backends.nnpack.enabled = False
-from pyannote.core import Segment
 
 from config import OUTPUT_CONFIG
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-class DiarizationEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Segment):
-            return {'start': float(obj.start), 'end': float(obj.end)}
-        elif hasattr(obj, '__dict__'):
-            return obj.__dict__
-        return str(obj)
 
 
 class AudioTranscriptionTest:
@@ -60,22 +48,22 @@ class AudioTranscriptionTest:
             
             try:
                 device = "cpu"
-                model = whisperx.load_model("base", device, compute_type="int8")
-                audio = whisperx.load_audio(audio_path)
-                result = model.transcribe(audio, batch_size=2)
+                # model = whisperx.load_model("base", device, compute_type="int8")
+                # audio = whisperx.load_audio(audio_path)
+                # result = model.transcribe(audio, batch_size=2)
                 
-                del model
-                gc.collect()
+                # del model
+                # gc.collect()
                 
-                end_time = time.time()
-                monitor.stop_monitoring()
+                # end_time = time.time()
+                # monitor.stop_monitoring()
                 
-                thread_results[threads] = {
-                    'processing_time': end_time - start_time,
-                    'segments_count': len(result['segments']),
-                    'resource_usage': monitor.get_summary(),
-                    'success': True
-                }
+                # thread_results[threads] = {
+                #     'processing_time': end_time - start_time,
+                #     'segments_count': len(result['segments']),
+                #     'resource_usage': monitor.get_summary(),
+                #     'success': True
+                # }
                 
             except Exception as e:
                 monitor.stop_monitoring()
@@ -88,7 +76,6 @@ class AudioTranscriptionTest:
         
         return {
             'method': 'thread_scaling',
-            'results': thread_results
         }
     
     def test_batch_processing(self, audio_files: List[str], batch_size: int = 4, threads: int = 6) -> Dict[str, Any]:
@@ -102,33 +89,33 @@ class AudioTranscriptionTest:
         start_time = time.time()
         
         try:
-            device = "cpu"
-            model = whisperx.load_model("base", device, compute_type="int8")
+            # device = "cpu"
+            # model = whisperx.load_model("base", device, compute_type="int8")
             
-            results = []
-            for audio_file in audio_files:
-                audio = whisperx.load_audio(audio_file)
-                result = model.transcribe(audio, batch_size=batch_size)
-                results.append({
-                    'file': audio_file,
-                    'segments_count': len(result['segments'])
-                })
+            # results = []
+            # for audio_file in audio_files:
+            #     audio = whisperx.load_audio(audio_file)
+            #     result = model.transcribe(audio, batch_size=batch_size)
+            #     results.append({
+            #         'file': audio_file,
+            #         'segments_count': len(result['segments'])
+            #     })
             
-            del model
-            gc.collect()
+            # del model
+            # gc.collect()
             
-            end_time = time.time()
-            monitor.stop_monitoring()
+            # end_time = time.time()
+            # monitor.stop_monitoring()
             
             return {
                 'method': 'batch_processing',
                 'batch_size': batch_size,
                 'threads': threads,
                 'files_processed': len(audio_files),
-                'processing_time': end_time - start_time,
-                'avg_time_per_file': (end_time - start_time) / len(audio_files),
+                # 'processing_time': end_time - start_time,
+                # 'avg_time_per_file': (end_time - start_time) / len(audio_files),
                 'resource_usage': monitor.get_summary(),
-                'results': results,
+                # 'results': results,
                 'success': True
             }
             
@@ -203,43 +190,43 @@ class AudioTranscriptionTest:
         """Run comprehensive comparison test"""
         results = {}
 
-        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path)
-        results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path)
-        results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path)
-        results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path)
-        results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path)
-        results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path)
+        # results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path)
+        # results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path)
+        # results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path)
+        # results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path)
+        # results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path)
+        # results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path)
 
-        results['whisper_tiny'] = self.transcription_service.test_whisper_models('tiny', audio_path)
-        results['whisper_base'] = self.transcription_service.test_whisper_models('base', audio_path)
-        results['whisper_small'] = self.transcription_service.test_whisper_models('small', audio_path)
-        results['whisper_medium'] = self.transcription_service.test_whisper_models('medium', audio_path)
-        results['whisper_large'] = self.transcription_service.test_whisper_models('large', audio_path)
-        results['whisper_turbo'] = self.transcription_service.test_whisper_models('turbo', audio_path)
+        # results['whisper_tiny'] = self.transcription_service.test_whisper_models('tiny', audio_path)
+        # results['whisper_base'] = self.transcription_service.test_whisper_models('base', audio_path)
+        # results['whisper_small'] = self.transcription_service.test_whisper_models('small', audio_path)
+        # results['whisper_medium'] = self.transcription_service.test_whisper_models('medium', audio_path)
+        # results['whisper_large'] = self.transcription_service.test_whisper_models('large', audio_path)
+        # results['whisper_turbo'] = self.transcription_service.test_whisper_models('turbo', audio_path)
 
-        results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
-        results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path)
-        results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path)
-        results['faster_whisper_medium'] = self.transcription_service.test_faster_whisper_models('medium', audio_path)
-        results['faster_whisper_large'] = self.transcription_service.test_faster_whisper_models('large', audio_path)
-        results['faster_whisper_turbo'] = self.transcription_service.test_faster_whisper_models('turbo', audio_path)
+        # results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
+        # results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path)
+        # results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path)
+        # results['faster_whisper_medium'] = self.transcription_service.test_faster_whisper_models('medium', audio_path)
+        # results['faster_whisper_large'] = self.transcription_service.test_faster_whisper_models('large', audio_path)
+        # results['faster_whisper_turbo'] = self.transcription_service.test_faster_whisper_models('turbo', audio_path)
 
-        results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path)
-        results['faster_whisper_vad_base'] = self.transcription_service.test_faster_whisper_vad_models('base', audio_path)
-        results['faster_whisper_vad_small'] = self.transcription_service.test_faster_whisper_vad_models('small', audio_path)
-        results['faster_whisper_vad_medium'] = self.transcription_service.test_faster_whisper_vad_models('medium', audio_path)
-        results['faster_whisper_vad_large'] = self.transcription_service.test_faster_whisper_vad_models('large', audio_path)
-        results['faster_whisper_vad_turbo'] = self.transcription_service.test_faster_whisper_vad_models('turbo', audio_path)
+        # results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path)
+        # results['faster_whisper_vad_base'] = self.transcription_service.test_faster_whisper_vad_models('base', audio_path)
+        # results['faster_whisper_vad_small'] = self.transcription_service.test_faster_whisper_vad_models('small', audio_path)
+        # results['faster_whisper_vad_medium'] = self.transcription_service.test_faster_whisper_vad_models('medium', audio_path)
+        # results['faster_whisper_vad_large'] = self.transcription_service.test_faster_whisper_vad_models('large', audio_path)
+        # results['faster_whisper_vad_turbo'] = self.transcription_service.test_faster_whisper_vad_models('turbo', audio_path)
 
         # # Test 1: VAD
         # results['vad'] = self.transcription_service.test_vad(audio_path)
         
         # # Test 2: Whisper
-        # results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
+        results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
         
         # # Test 3: WhisperX diarization
-        # self.diarization_service.set_transcription_results(self.transcription_service.results)
-        # results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
+        self.diarization_service.set_transcription_results(self.transcription_service.results)
+        results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
         
         # # Test 4: Pyannote diarization
         # self.diarization_service.set_transcription_results(self.transcription_service.results)
