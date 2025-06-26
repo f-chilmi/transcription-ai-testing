@@ -92,7 +92,7 @@ def run_full_test():
         # Save and display results
         tester.save_results(results)
         print(94, 'run_full_test')
-        tester.print_summary(results)
+        # tester.print_summary(results)
 
         print(97, 'run_full_test')
         

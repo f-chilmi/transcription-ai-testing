@@ -67,7 +67,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'segments_count': len(result['segments']),
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                # 'resource_usage': monitor.get_summary(),
+                'resource_usage': monitor.get_summary(),
                 'success': True,
                 'segments': result['segments'],
                 'result': result
@@ -127,11 +127,10 @@ class AudioTranscription:
 
             print(128)
 
-            transcription = self.test_whisper_tiny('only_speech.wav', threads)
-            print(131)
-            
             end_time = time.time()
             monitor.stop_monitoring()
+            print(131)
+            transcription = self.test_whisper_tiny('only_speech.wav', threads)
             print(135)
             
             return {
@@ -139,9 +138,10 @@ class AudioTranscription:
                 'threads': threads,
                 'processing_time': end_time - start_time,
                 'speech_chunks_found': len(speech_timestamps),
-                # 'resource_usage': monitor.get_summary(),
+                'resource_usage': monitor.get_summary(),
                 'success': True,
-                'transcription': transcription
+                'transcription': transcription,
+                'result': transcription,
             }
             
         except Exception as e:
