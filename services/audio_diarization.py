@@ -34,7 +34,7 @@ class AudioDiarization:
         """Test: Full WhisperX + Diarization (Baseline)"""
         logger.info(f"Testing Baseline Full WhisperX with {threads} threads")
         
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -94,6 +94,7 @@ class AudioDiarization:
         """Test: Hybrid Pipeline (Whisper transcription + Pyannote diarization)"""
         logger.info(f"Testing Hybrid Pipeline - Whisper: {whisper_threads}, Pyannote: {diarize_threads} threads")
         
+        os.environ["OMP_NUM_THREADS"] = str(diarize_threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         

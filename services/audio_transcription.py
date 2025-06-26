@@ -95,6 +95,7 @@ class AudioTranscription:
 
         SAMPLING_RATE = 16000
         
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -161,7 +162,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads model {model}")
         
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -222,7 +223,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads model {model}")
         
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -283,7 +284,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads model {model}")
         
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -337,7 +338,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads model {model}")
         
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
