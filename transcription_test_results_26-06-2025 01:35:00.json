@@ -1,0 +1,35 @@
+{
+  "vad": {
+    "method": "silero_vad_transcription",
+    "threads": 6,
+    "processing_time": 90.69267272949219,
+    "error": "cannot access local variable 'diarize_model' where it is not associated with a value",
+    "success": false,
+    "resource_usage": {
+      "avg_cpu_per_core": [
+        7.429444444444444,
+        33.403333333333336,
+        88.68111111111111,
+        9.116111111111111,
+        7.677222222222222,
+        33.59833333333333,
+        7.44,
+        33.68388888888889
+      ],
+      "max_cpu_per_core": [
+        100.0,
+        100.0,
+        100.0,
+        96.1,
+        100.0,
+        100.0,
+        98.0,
+        100.0
+      ],
+      "avg_memory": 9.897222222222222,
+      "max_memory": 13.7,
+      "total_cpu_cores": 8,
+      "monitoring_duration": 90.1915991306305
+    }
+  }
+}
