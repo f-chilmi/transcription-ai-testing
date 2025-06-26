@@ -1,3 +1,4 @@
+import json
 import os
 
 from services.resource_monitor import ResourceMonitor
@@ -365,7 +366,7 @@ class AudioTranscription:
             print(59)
             end_time = time.time()
             monitor.stop_monitoring()
-            print(62)
+            print(62, info)
             
             return {
                 'method': 'whisper_only',
@@ -373,7 +374,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': [str(segment) for segment in segments],
+                'segments': json.loads(json.dumps(segments, default=str)),
             }
             
         except Exception as e:
