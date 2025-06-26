@@ -206,16 +206,16 @@ class AudioTranscriptionTest:
         # Test 1: VAD
         results['vad'] = self.transcription_service.test_vad(audio_path)
         
-        # # Test 2: Whisper
-        # results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
+        # Test 2: Whisper
+        results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
         
-        # # Test 3: WhisperX diarization
-        # self.diarization_service.set_transcription_results(self.transcription_service.results)
-        # results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
+        # Test 3: WhisperX diarization
+        self.diarization_service.set_transcription_results(self.transcription_service.results)
+        results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
         
-        # # Test 4: Pyannote diarization
-        # self.diarization_service.set_transcription_results(self.transcription_service.results)
-        # results['pyannote_diarization'] = self.diarization_service.test_pyannote(audio_path)
+        # Test 4: Pyannote diarization
+        self.diarization_service.set_transcription_results(self.transcription_service.results)
+        results['pyannote_diarization'] = self.diarization_service.test_pyannote(audio_path)
         
         return results
     
