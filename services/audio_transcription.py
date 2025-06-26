@@ -44,7 +44,7 @@ class AudioTranscription:
             
             model = whisperx.load_model("tiny", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language="en", batch_size=4)
+            result = model.transcribe(audio, language="ar", batch_size=4)
             print(165, result["segments"])
             
             del model
@@ -176,7 +176,7 @@ class AudioTranscription:
             
             model = whisperx.load_model("base", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language="en", batch_size=4)
+            result = model.transcribe(audio, language="ar", batch_size=4)
             print(165, result["segments"])
             
             del model
@@ -237,7 +237,7 @@ class AudioTranscription:
             
             model = whisper.load_model("base", device, compute_type=compute_type)
             audio = whisper.load_audio(audio_path)
-            result = model.transcribe(audio_path, language="en", batch_size=4)
+            result = model.transcribe(audio_path, language="ar", batch_size=4)
             print(165, result["segments"])
             
             del model
