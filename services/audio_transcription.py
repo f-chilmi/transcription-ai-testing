@@ -12,6 +12,8 @@ import whisperx
 import gc
 import torch
 torch.backends.nnpack.enabled = False
+import whisper
+from faster_whisper import WhisperModel
 
 
 # Configure logging
@@ -148,6 +150,235 @@ class AudioTranscription:
             monitor.stop_monitoring()
             return {
                 'method': 'silero_vad_transcription',
+                'threads': threads,
+                'processing_time': time.time() - start_time,
+                'error': str(e),
+                'success': False,
+                'resource_usage': monitor.get_summary()
+            }
+    
+    def test_whisperx_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+        """Test: WhisperX tiny (no diarization)"""
+        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        monitor = ResourceMonitor()
+        monitor.start_monitoring()
+        
+        start_time = time.time()
+        
+        try:
+            device = "cpu"
+            compute_type = "int8"
+
+            self.results = {}
+            
+            model = whisperx.load_model("base", device, compute_type=compute_type)
+            audio = whisperx.load_audio(audio_path)
+            result = model.transcribe(audio, language="en", batch_size=4)
+            print(165, result["segments"])
+            
+            del model
+            gc.collect()
+
+            # 2. Align whisper output
+            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
+            # self.results = result
+            print(178, result["segments"]) # after alignment
+
+            del model_a
+            gc.collect()
+            print(59)
+            end_time = time.time()
+            monitor.stop_monitoring()
+            print(62)
+            
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': end_time - start_time,
+                'segments_count': len(result['segments']),
+                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
+                'resource_usage': monitor.get_summary(),
+                'success': True,
+                'segments': result['segments'],
+                'result': result
+            }
+            
+        except Exception as e:
+            monitor.stop_monitoring()
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': time.time() - start_time,
+                'error': str(e),
+                'success': False,
+                'resource_usage': monitor.get_summary()
+            }
+        
+    def test_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+
+        """Test: WhisperX tiny (no diarization)"""
+        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        monitor = ResourceMonitor()
+        monitor.start_monitoring()
+        
+        start_time = time.time()
+        
+        try:
+            device = "cpu"
+            compute_type = "int8"
+
+            self.results = {}
+            
+            model = whisper.load_model("base", device, compute_type=compute_type)
+            audio = whisper.load_audio(audio_path)
+            result = model.transcribe(audio_path, language="en", batch_size=4)
+            print(165, result["segments"])
+            
+            del model
+            gc.collect()
+
+            # 2. Align whisper output
+            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
+            # self.results = result
+            print(178, result["segments"]) # after alignment
+
+            del model_a
+            gc.collect()
+            print(59)
+            end_time = time.time()
+            monitor.stop_monitoring()
+            print(62)
+            
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': end_time - start_time,
+                'segments_count': len(result['segments']),
+                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
+                'resource_usage': monitor.get_summary(),
+                'success': True,
+                'segments': result['segments'],
+                'result': result
+            }
+            
+        except Exception as e:
+            monitor.stop_monitoring()
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': time.time() - start_time,
+                'error': str(e),
+                'success': False,
+                'resource_usage': monitor.get_summary()
+            }
+        
+    def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+        
+        """Test: WhisperX tiny (no diarization)"""
+        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        monitor = ResourceMonitor()
+        monitor.start_monitoring()
+        
+        start_time = time.time()
+        
+        try:
+            device = "cpu"
+            compute_type = "int8"
+
+            self.results = {}
+            
+            model = WhisperModel(model, device=device, compute_type=compute_type)
+            segments, info = model.transcribe(audio_path, beam_size=5, word_timestamps=True)
+            print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+
+            for segment in segments:
+                for word in segment.words:
+                    print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
+
+            del model
+            gc.collect()
+
+         
+            print(59)
+            end_time = time.time()
+            monitor.stop_monitoring()
+            print(62)
+            
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': end_time - start_time,
+                'resource_usage': monitor.get_summary(),
+                'success': True,
+                'segments': segments,
+            }
+            
+        except Exception as e:
+            monitor.stop_monitoring()
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': time.time() - start_time,
+                'error': str(e),
+                'success': False,
+                'resource_usage': monitor.get_summary()
+            }
+        
+    def test_faster_whisper_vad_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+        
+        """Test: WhisperX tiny (no diarization)"""
+        logger.info(f"Testing WhisperX only with {threads} threads model {model}")
+        
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
+        monitor = ResourceMonitor()
+        monitor.start_monitoring()
+        
+        start_time = time.time()
+        
+        try:
+            device = "cpu"
+            compute_type = "int8"
+
+            self.results = {}
+            
+            model = WhisperModel(model, device=device, compute_type=compute_type)
+            segments, info = model.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,)
+            print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+
+            for segment in segments:
+                for word in segment.words:
+                    print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
+
+            del model
+            gc.collect()
+
+         
+            print(59)
+            end_time = time.time()
+            monitor.stop_monitoring()
+            print(62)
+            
+            return {
+                'method': 'whisper_only',
+                'threads': threads,
+                'processing_time': end_time - start_time,
+                'resource_usage': monitor.get_summary(),
+                'success': True,
+                'segments': segments,
+            }
+            
+        except Exception as e:
+            monitor.stop_monitoring()
+            return {
+                'method': 'whisper_only',
                 'threads': threads,
                 'processing_time': time.time() - start_time,
                 'error': str(e),
