@@ -31,7 +31,7 @@ class AudioTranscriptionTest:
         self.transcription_service = AudioTranscription()
         self.diarization_service = AudioDiarization(hugging_face_token)
    
-    def test_thread_scaling(self, audio_path: str, transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+    def test_thread_scaling(self, audio_path: str, transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
         """Test thread scaling with existing transcription methods"""
         logger.info(f"Testing thread scaling with {transcription_method}")
         
@@ -41,11 +41,11 @@ class AudioTranscriptionTest:
             logger.info(f"Testing with {threads} threads")
             
             if transcription_method == 'whisperx_tiny':
-                result = self.transcription_service.test_whisperx_models('tiny', audio_path, threads)
+                result = self.transcription_service.test_whisperx_models('tiny', audio_path, threads, language)
             elif transcription_method == 'faster_whisper_tiny':
-                result = self.transcription_service.test_faster_whisper_models('tiny', audio_path, threads)
-            elif transcription_method == 'whisper_tiny':
-                result = self.transcription_service.test_whisper_models('tiny', audio_path, threads)
+                result = self.transcription_service.test_faster_whisper_models('tiny', audio_path, threads, language)
+            elif transcription_method == 'faster_whisper_vad_tiny':
+                result = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path, threads, language)
 
             print(50, 'transcription done')
 
@@ -67,7 +67,7 @@ class AudioTranscriptionTest:
             'results': thread_results
         }
     
-    def test_batch_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+    def test_batch_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
         """Test batch processing using existing transcription methods"""
         logger.info(f"Testing batch processing with {transcription_method}")
         
@@ -80,11 +80,11 @@ class AudioTranscriptionTest:
             results = []
             for audio_file in audio_files:
                 if transcription_method == 'whisperx_tiny':
-                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file, language)
                 elif transcription_method == 'faster_whisper_tiny':
-                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
-                elif transcription_method == 'whisper_tiny':
-                    transcription = self.transcription_service.test_whisper_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file, language)
+                elif transcription_method == 'faster_whisper_vad_tiny':
+                    transcription = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_file, language)
                 
                 print('transcription done for', audio_file)
                 
@@ -125,7 +125,7 @@ class AudioTranscriptionTest:
                 'resource_usage': monitor.get_summary()
             }
         
-    def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
+    def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
         """Test concurrent processing using existing transcription methods"""
         logger.info(f"Testing concurrent processing with {transcription_method}")
         
@@ -139,11 +139,11 @@ class AudioTranscriptionTest:
         def process_single_file(audio_file):
             try:
                 if transcription_method == 'whisperx_tiny':
-                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file, language)
                 elif transcription_method == 'faster_whisper_tiny':
-                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
-                elif transcription_method == 'whisper_tiny':
-                    transcription = self.transcription_service.test_whisper_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file, language)
+                elif transcription_method == 'faster_whisper_vad_tiny':
+                    transcription = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_file, language)
                 
                 print('transcription done for', audio_file)
                 
@@ -206,8 +206,8 @@ class AudioTranscriptionTest:
         print("TRANSCRIPTION TESTING SUMMARY")
         print("="*60)
         
-        print(f"System: {results['system_info']['cpu_count']} CPU cores, "
-              f"{results['system_info']['memory_total_gb']:.1f}GB RAM")
+        # print(f"System: {results['system_info']['cpu_count']} CPU cores, "
+        #       f"{results['system_info']['memory_total_gb']:.1f}GB RAM")
         
         for audio_name, file_results in results['results'].items():
             print(f"\n📁 {audio_name.upper()}")
@@ -248,61 +248,47 @@ class AudioTranscriptionTest:
                     speedup = slowest[1] / fastest[1]
                     print(f"  🐌 Slowest: {slowest[0]} ({slowest[1]:.1f}s) - {speedup:.1f}x slower")
 
-    def run_comparison_test(self, audio_path: str):
+    def run_comparison_test(self, audio_path: str, language: str = "en"):
         """Run comprehensive comparison test"""
         results = {}
 
-        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path)
-        results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path)
-        results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path)
-        results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path)
-        results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path)
-        results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path)
+        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path, language)
+        results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path, language)
+        results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path, language)
+        results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path, language)
+        results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path, language)
+        results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path, language)
 
-        results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
-        results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path)
-        results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path)
-        results['faster_whisper_medium'] = self.transcription_service.test_faster_whisper_models('medium', audio_path)
-        results['faster_whisper_large'] = self.transcription_service.test_faster_whisper_models('large', audio_path)
-        results['faster_whisper_turbo'] = self.transcription_service.test_faster_whisper_models('turbo', audio_path)
+        results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path, language)
+        results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path, language)
+        results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path, language)
+        results['faster_whisper_medium'] = self.transcription_service.test_faster_whisper_models('medium', audio_path, language)
+        results['faster_whisper_large'] = self.transcription_service.test_faster_whisper_models('large', audio_path, language)
+        results['faster_whisper_turbo'] = self.transcription_service.test_faster_whisper_models('turbo', audio_path, language)
 
-        results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path)
-        results['faster_whisper_vad_base'] = self.transcription_service.test_faster_whisper_vad_models('base', audio_path)
-        results['faster_whisper_vad_small'] = self.transcription_service.test_faster_whisper_vad_models('small', audio_path)
-        results['faster_whisper_vad_medium'] = self.transcription_service.test_faster_whisper_vad_models('medium', audio_path)
-        results['faster_whisper_vad_large'] = self.transcription_service.test_faster_whisper_vad_models('large', audio_path)
-        results['faster_whisper_vad_turbo'] = self.transcription_service.test_faster_whisper_vad_models('turbo', audio_path)
+        results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path, language)
+        results['faster_whisper_vad_base'] = self.transcription_service.test_faster_whisper_vad_models('base', audio_path, language)
+        results['faster_whisper_vad_small'] = self.transcription_service.test_faster_whisper_vad_models('small', audio_path, language)
+        results['faster_whisper_vad_medium'] = self.transcription_service.test_faster_whisper_vad_models('medium', audio_path, language)
+        results['faster_whisper_vad_large'] = self.transcription_service.test_faster_whisper_vad_models('large', audio_path, language)
+        results['faster_whisper_vad_turbo'] = self.transcription_service.test_faster_whisper_vad_models('turbo', audio_path, language)
 
-        # # Test 1: VAD
-        # results['vad'] = self.transcription_service.test_vad(audio_path)
-        
-        # # Test 2: Whisper
-        # results['whisper'] = self.transcription_service.test_whisper_tiny(audio_path)
-        
-        # # Test 3: WhisperX diarization
-        # self.diarization_service.set_transcription_results(self.transcription_service.results)
-        # results['whisperx_diarization'] = self.diarization_service.test_whisperx(audio_path)
-        
-        # # Test 4: Pyannote diarization
-        # self.diarization_service.set_transcription_results(self.transcription_service.results)
-        # results['pyannote_diarization'] = self.diarization_service.test_pyannote(audio_path)
-        
         return results
     
-    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny'):
+    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny', language: str = "en"):
         """Run performance tests using existing transcription methods"""
         results = {}
         
         first_audio = list(audio_files.values())[0]
         
         # Thread scaling test
-        results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
+        results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method, language)
         
         # Batch and concurrent processing
         if len(audio_files) > 1:
             audio_list = list(audio_files.values())
-            results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
-            results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
+            results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method, language)
+            results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method, language)
         
         return results
     

@@ -27,7 +27,7 @@ class AudioTranscription:
     def __init__(self):
         self.results = {}
     
-    def test_whisper_tiny(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+    def test_whisper_tiny(self, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads")
         
@@ -45,7 +45,7 @@ class AudioTranscription:
             
             model = whisperx.load_model("tiny", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language="ar", batch_size=4)
+            result = model.transcribe(audio, language=language, batch_size=4)
             print(165, result["segments"])
             
             del model
@@ -159,7 +159,7 @@ class AudioTranscription:
                 'resource_usage': monitor.get_summary()
             }
     
-    def test_whisperx_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+    def test_whisperx_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
         
@@ -177,7 +177,7 @@ class AudioTranscription:
             
             model_a = whisperx.load_model("base", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model_a.transcribe(audio, language="ar", batch_size=4)
+            result = model_a.transcribe(audio, language=language, batch_size=4)
             print(165, result["segments"])
             
             del model_a
@@ -220,7 +220,7 @@ class AudioTranscription:
                 'resource_usage': monitor.get_summary()
             }
          
-    def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+    def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_faster_whisper_models with {threads} threads model {model}")
@@ -238,7 +238,7 @@ class AudioTranscription:
             self.results = {}
             
             model_a = WhisperModel(model, device=device, compute_type=compute_type)
-            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True)
+            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, language=language)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
             segments_list = list(segments)
@@ -292,7 +292,7 @@ class AudioTranscription:
                 'resource_usage': monitor.get_summary()
             }
         
-    def test_faster_whisper_vad_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
+    def test_faster_whisper_vad_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_faster_whisper_vad_models with {threads} threads model {model}")
@@ -310,7 +310,7 @@ class AudioTranscription:
             self.results = {}
             
             model_a = WhisperModel(model, device=device, compute_type=compute_type)
-            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,)
+            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,language=language)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
             segments_list = list(segments)
             for segment in segments:
