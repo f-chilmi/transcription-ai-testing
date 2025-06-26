@@ -124,7 +124,7 @@ class AudioTranscription:
             del model
             gc.collect()
 
-            self.test_whisper_tiny('only_speech.wav', threads)
+            transcription = self.test_whisper_tiny('only_speech.wav', threads)
             
             end_time = time.time()
             monitor.stop_monitoring()
@@ -135,7 +135,8 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'speech_chunks_found': len(speech_timestamps),
                 'resource_usage': monitor.get_summary(),
-                'success': True
+                'success': True,
+                'transcription': transcription
             }
             
         except Exception as e:
