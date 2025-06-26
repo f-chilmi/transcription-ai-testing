@@ -321,7 +321,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': [str(segment) for segment in segments_list],
+                'segments': json.loads(json.dumps(segments_list, default=str)),
             }
             
         except Exception as e:
