@@ -301,6 +301,7 @@ class AudioTranscription:
             segments, info = model.transcribe(audio_path, beam_size=5, word_timestamps=True)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
+            segments_list = list(segments)
             for segment in segments:
                 for word in segment.words:
                     print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
@@ -320,7 +321,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': [str(segment) for segment in segments],
+                'segments': [str(segment) for segment in segments_list],
             }
             
         except Exception as e:
