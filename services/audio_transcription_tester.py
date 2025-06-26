@@ -252,19 +252,12 @@ class AudioTranscriptionTest:
         """Run comprehensive comparison test"""
         results = {}
 
-        # results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path)
+        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path)
         # results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path)
         # results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path)
         # results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path)
         # results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path)
         # results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path)
-
-        # results['whisper_tiny'] = self.transcription_service.test_whisper_models('tiny', audio_path)
-        # results['whisper_base'] = self.transcription_service.test_whisper_models('base', audio_path)
-        # results['whisper_small'] = self.transcription_service.test_whisper_models('small', audio_path)
-        # results['whisper_medium'] = self.transcription_service.test_whisper_models('medium', audio_path)
-        # results['whisper_large'] = self.transcription_service.test_whisper_models('large', audio_path)
-        # results['whisper_turbo'] = self.transcription_service.test_whisper_models('turbo', audio_path)
 
         results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path)
         # results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path)
@@ -273,7 +266,7 @@ class AudioTranscriptionTest:
         # results['faster_whisper_large'] = self.transcription_service.test_faster_whisper_models('large', audio_path)
         # results['faster_whisper_turbo'] = self.transcription_service.test_faster_whisper_models('turbo', audio_path)
 
-        # results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path)
+        results['faster_whisper_vad_tiny'] = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_path)
         # results['faster_whisper_vad_base'] = self.transcription_service.test_faster_whisper_vad_models('base', audio_path)
         # results['faster_whisper_vad_small'] = self.transcription_service.test_faster_whisper_vad_models('small', audio_path)
         # results['faster_whisper_vad_medium'] = self.transcription_service.test_faster_whisper_vad_models('medium', audio_path)

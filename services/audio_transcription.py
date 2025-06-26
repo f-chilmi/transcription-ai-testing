@@ -175,21 +175,21 @@ class AudioTranscription:
 
             self.results = {}
             
-            model = whisperx.load_model("base", device, compute_type=compute_type)
+            model_a = whisperx.load_model("base", device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language="ar", batch_size=4)
+            result = model_a.transcribe(audio, language="ar", batch_size=4)
             print(165, result["segments"])
             
-            del model
+            del model_a
             gc.collect()
 
             # 2. Align whisper output
-            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
+            model_b, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+            result = whisperx.align(result["segments"], model_b, metadata, audio, device, return_char_alignments=False)
             # self.results = result
             print(178, result["segments"]) # after alignment
 
-            del model_a
+            del model_b
             gc.collect()
             print(59)
             end_time = time.time()
@@ -197,8 +197,9 @@ class AudioTranscription:
             print(62)
             
             return {
-                'method': 'whisper_only',
+                'method': 'test_whisperx_models',
                 'threads': threads,
+                'model': model,
                 'processing_time': end_time - start_time,
                 'segments_count': len(result['segments']),
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
@@ -218,68 +219,7 @@ class AudioTranscription:
                 'success': False,
                 'resource_usage': monitor.get_summary()
             }
-        
-    def test_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
-
-        """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing test_whisper_models only with {threads} threads model {model}")
-        
-        os.environ["OMP_NUM_THREADS"] = str(threads)
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
-        
-        start_time = time.time()
-        
-        try:
-            device = "cpu"
-            compute_type = "int8"
-
-            self.results = {}
-            
-            model = whisper.load_model("base", device, compute_type=compute_type)
-            audio = whisper.load_audio(audio_path)
-            result = model.transcribe(audio_path, language="ar", batch_size=4)
-            print(165, result["segments"])
-            
-            del model
-            gc.collect()
-
-            # 2. Align whisper output
-            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-            # self.results = result
-            print(178, result["segments"]) # after alignment
-
-            del model_a
-            gc.collect()
-            print(59)
-            end_time = time.time()
-            monitor.stop_monitoring()
-            print(62)
-            
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'segments_count': len(result['segments']),
-                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'segments': result['segments'],
-                'result': result
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-        
+         
     def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         
         """Test: WhisperX tiny (no diarization)"""
@@ -297,8 +237,8 @@ class AudioTranscription:
 
             self.results = {}
             
-            model = WhisperModel(model, device=device, compute_type=compute_type)
-            segments, info = model.transcribe(audio_path, beam_size=5, word_timestamps=True)
+            model_a = WhisperModel(model, device=device, compute_type=compute_type)
+            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
             segments_list = list(segments)
@@ -306,7 +246,7 @@ class AudioTranscription:
                 for word in segment.words:
                     print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
 
-            del model
+            del model_a
             gc.collect()
 
          
@@ -318,6 +258,7 @@ class AudioTranscription:
             return {
                 'method': 'faster_whisper',
                 'threads': threads,
+                'model': model,
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
@@ -368,15 +309,15 @@ class AudioTranscription:
 
             self.results = {}
             
-            model = WhisperModel(model, device=device, compute_type=compute_type)
-            segments, info = model.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,)
+            model_a = WhisperModel(model, device=device, compute_type=compute_type)
+            segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
-
+            segments_list = list(segments)
             for segment in segments:
                 for word in segment.words:
                     print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
 
-            del model
+            del model_a
             gc.collect()
 
          
@@ -386,12 +327,29 @@ class AudioTranscription:
             print(62, info)
             
             return {
-                'method': 'whisper_only',
+                'method': 'test_faster_whisper_vad_models',
                 'threads': threads,
+                'model': model,
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': json.loads(json.dumps(segments, default=str)),
+                'segments':  [
+                    {
+                        'id': segment.id,
+                        'start': float(segment.start),
+                        'end': float(segment.end),
+                        'text': segment.text,
+                        'words': [
+                            {
+                                'start': float(word.start),
+                                'end': float(word.end),
+                                'word': word.word,
+                                'probability': float(word.probability)
+                            } for word in segment.words
+                        ] if hasattr(segment, 'words') else []
+                    } for segment in segments_list
+                ],
+                'info': json.loads(json.dumps(info, default=str)),
             }
             
         except Exception as e:
