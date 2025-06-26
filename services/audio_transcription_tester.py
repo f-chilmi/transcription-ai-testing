@@ -1,5 +1,4 @@
 import os
-
 from services.audio_diarization import AudioDiarization
 from services.audio_transcription import AudioTranscription
 from services.resource_monitor import ResourceMonitor
@@ -252,13 +251,6 @@ class AudioTranscriptionTest:
         """Run comprehensive comparison test"""
         results = {}
 
-        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path, language)
-        results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path, language)
-        results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path, language)
-        results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path, language)
-        results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path, language)
-        results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path, language)
-
         results['faster_whisper_tiny'] = self.transcription_service.test_faster_whisper_models('tiny', audio_path, language)
         results['faster_whisper_base'] = self.transcription_service.test_faster_whisper_models('base', audio_path, language)
         results['faster_whisper_small'] = self.transcription_service.test_faster_whisper_models('small', audio_path, language)
@@ -273,25 +265,70 @@ class AudioTranscriptionTest:
         results['faster_whisper_vad_large'] = self.transcription_service.test_faster_whisper_vad_models('large', audio_path, language)
         results['faster_whisper_vad_turbo'] = self.transcription_service.test_faster_whisper_vad_models('turbo', audio_path, language)
 
+        results['whisperx_tiny'] = self.transcription_service.test_whisperx_models('tiny', audio_path, language)
+        results['whisperx_base'] = self.transcription_service.test_whisperx_models('base', audio_path, language)
+        results['whisperx_small'] = self.transcription_service.test_whisperx_models('small', audio_path, language)
+        results['whisperx_medium'] = self.transcription_service.test_whisperx_models('medium', audio_path, language)
+        results['whisperx_large'] = self.transcription_service.test_whisperx_models('large', audio_path, language)
+        results['whisperx_turbo'] = self.transcription_service.test_whisperx_models('turbo', audio_path, language)
+
         return results
     
-    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny', language: str = "en"):
+    # def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny', language: str = "en"):
+    #     """Run performance tests using existing transcription methods"""
+    #     results = {}
+        
+    #     first_audio = list(audio_files.values())[0]
+        
+    #     # Thread scaling test
+    #     results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method, language)
+        
+    #     # Batch and concurrent processing
+    #     if len(audio_files) > 1:
+    #         audio_list = list(audio_files.values())
+    #         results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method, language)
+    #         results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method, language)
+        
+    #     return results
+
+    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny'):
         """Run performance tests using existing transcription methods"""
-        results = {}
+        
+        # Add system info and timing
+        performance_results = {
+            'test_start_time': datetime.now().isoformat(),
+            'system_info': {
+                'cpu_count': psutil.cpu_count(),
+                'memory_total_gb': psutil.virtual_memory().total / (1024**3),
+                'python_version': os.sys.version,
+                'cpu_freq': psutil.cpu_freq()._asdict() if psutil.cpu_freq() else None,
+                'available_memory_gb': psutil.virtual_memory().available / (1024**3)
+            },
+            'audio_files': audio_files,
+            'transcription_method': transcription_method,
+            'results': {}
+        }
+        
+        start_time = time.time()
         
         first_audio = list(audio_files.values())[0]
         
         # Thread scaling test
-        results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method, language)
+        performance_results['results']['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
         
         # Batch and concurrent processing
         if len(audio_files) > 1:
             audio_list = list(audio_files.values())
-            results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method, language)
-            results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method, language)
+            performance_results['results']['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
+            performance_results['results']['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
         
-        return results
-    
+        end_time = time.time()
+        
+        performance_results['test_end_time'] = datetime.now().isoformat()
+        performance_results['total_test_duration'] = end_time - start_time
+        
+        return performance_results
+
     def run_comprehensive_test(self, audio_files: Dict[str, str]) -> Dict[str, Any]:
         """Run all tests on all audio files"""
         logger.info("Starting comprehensive test suite")

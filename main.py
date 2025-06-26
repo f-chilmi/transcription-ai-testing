@@ -85,7 +85,7 @@ def run_full_test():
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
         
         # Run comprehensive test
-        results = tester.run_comparison_test(list(AUDIO_FILES.values())[0], language="ar")
+        results = tester.run_comparison_test(list(AUDIO_FILES.values())[0], language="en")
 
         print(90, 'run_full_test')
         
@@ -117,7 +117,7 @@ def run_performance_test():
         # Save and display results
         tester.save_results(results)
         print(119, 'run_performance_test')
-        # tester.print_summary(results)
+        tester.print_summary(results)
 
         # print(122, 'run_performance_test')
         
