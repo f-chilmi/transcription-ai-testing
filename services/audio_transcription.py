@@ -66,7 +66,7 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'segments_count': len(result['segments']),
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                'resource_usage': monitor.get_summary(),
+                # 'resource_usage': monitor.get_summary(),
                 'success': True,
                 'segments': result['segments'],
                 'result': result
