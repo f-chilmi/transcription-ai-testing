@@ -320,7 +320,20 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': json.loads(json.dumps(segments, default=str)),
+                'segments': [
+                    {
+                        'start': segment.start,
+                        'end': segment.end,
+                        'text': segment.text,
+                        'words': [
+                            {
+                                'start': word.start,
+                                'end': word.end,
+                                'word': word.word
+                            } for word in segment.words
+                        ] if hasattr(segment, 'words') else []
+                    } for segment in segments
+                ],
             }
             
         except Exception as e:
