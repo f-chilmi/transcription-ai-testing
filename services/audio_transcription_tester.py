@@ -46,8 +46,20 @@ class AudioTranscriptionTest:
                 result = self.transcription_service.test_faster_whisper_models('tiny', audio_path, threads)
             elif transcription_method == 'whisper_tiny':
                 result = self.transcription_service.test_whisper_models('tiny', audio_path, threads)
+
+            print(50, 'transcription done')
+
+            self.diarization_service.set_transcription_results(result)
+            diarization = self.diarization_service.test_whisperx(audio_path, threads)
+
+            print(57, 'diarization done')
             
-            thread_results[threads] = result
+            # Store both results together
+            thread_results[threads] = {
+                'transcription': result,
+                'diarization': diarization,
+                'total_time': result.get('processing_time', 0) + diarization.get('processing_time', 0)
+            }
         
         return {
             'method': 'thread_scaling',
@@ -68,13 +80,25 @@ class AudioTranscriptionTest:
             results = []
             for audio_file in audio_files:
                 if transcription_method == 'whisperx_tiny':
-                    result = self.transcription_service.test_whisperx_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file)
                 elif transcription_method == 'faster_whisper_tiny':
-                    result = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
                 elif transcription_method == 'whisper_tiny':
-                    result = self.transcription_service.test_whisper_models('tiny', audio_file)
+                    transcription = self.transcription_service.test_whisper_models('tiny', audio_file)
                 
-                results.append(result)
+                print('transcription done for', audio_file)
+                
+                self.diarization_service.set_transcription_results(transcription)
+                diarization = self.diarization_service.test_whisperx(audio_file)
+                
+                print('diarization done for', audio_file)
+                
+                results.append({
+                    'file': audio_file,
+                    'transcription': transcription,
+                    'diarization': diarization,
+                    'total_time': transcription.get('processing_time', 0) + diarization.get('processing_time', 0)
+                })
             
             end_time = time.time()
             monitor.stop_monitoring()
@@ -100,7 +124,7 @@ class AudioTranscriptionTest:
                 'success': False,
                 'resource_usage': monitor.get_summary()
             }
-    
+        
     def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny') -> Dict[str, Any]:
         """Test concurrent processing using existing transcription methods"""
         logger.info(f"Testing concurrent processing with {transcription_method}")
@@ -113,12 +137,34 @@ class AudioTranscriptionTest:
         start_time = time.time()
         
         def process_single_file(audio_file):
-            if transcription_method == 'whisperx_tiny':
-                return self.test_whisperx_models('tiny', audio_file)
-            elif transcription_method == 'faster_whisper_tiny':
-                return self.test_faster_whisper_models('tiny', audio_file)
-            elif transcription_method == 'whisper_tiny':
-                return self.test_whisper_models('tiny', audio_file)
+            try:
+                if transcription_method == 'whisperx_tiny':
+                    transcription = self.transcription_service.test_whisperx_models('tiny', audio_file)
+                elif transcription_method == 'faster_whisper_tiny':
+                    transcription = self.transcription_service.test_faster_whisper_models('tiny', audio_file)
+                elif transcription_method == 'whisper_tiny':
+                    transcription = self.transcription_service.test_whisper_models('tiny', audio_file)
+                
+                print('transcription done for', audio_file)
+                
+                self.diarization_service.set_transcription_results(transcription)
+                diarization = self.diarization_service.test_whisperx(audio_file)
+                
+                print('diarization done for', audio_file)
+                
+                return {
+                    'file': audio_file,
+                    'transcription': transcription,
+                    'diarization': diarization,
+                    'total_time': transcription.get('processing_time', 0) + diarization.get('processing_time', 0),
+                    'success': True
+                }
+            except Exception as e:
+                return {
+                    'file': audio_file,
+                    'error': str(e),
+                    'success': False
+                }
         
         try:
             with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
