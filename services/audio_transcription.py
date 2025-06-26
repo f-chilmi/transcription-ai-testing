@@ -105,14 +105,14 @@ class AudioTranscription:
                           save_audio,
                           collect_chunks)
             
-            model_vad = load_silero_vad()
+            model = load_silero_vad()
 
             wav = read_audio(audio_path, sampling_rate=SAMPLING_RATE)
             print(589, wav)
-            predicts = model_vad.audio_forward(wav, sr=SAMPLING_RATE)
+            predicts = model.audio_forward(wav, sr=SAMPLING_RATE)
             print(571, 'predicts', predicts)
             
-            speech_timestamps = get_speech_timestamps(wav, model=model_vad, sampling_rate=SAMPLING_RATE)
+            speech_timestamps = get_speech_timestamps(wav, model, sampling_rate=SAMPLING_RATE)
             print(592, speech_timestamps)
 
             save_audio('only_speech.wav',
