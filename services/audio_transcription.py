@@ -321,7 +321,22 @@ class AudioTranscription:
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': json.loads(json.dumps(segments_list, default=str)),
+                'segments':  [
+                    {
+                        'id': segment.id,
+                        'start': float(segment.start),
+                        'end': float(segment.end),
+                        'text': segment.text,
+                        'words': [
+                            {
+                                'start': float(word.start),
+                                'end': float(word.end),
+                                'word': word.word,
+                                'probability': float(word.probability)
+                            } for word in segment.words
+                        ] if hasattr(segment, 'words') else []
+                    } for segment in segments_list
+                ],
                 'info': json.loads(json.dumps(info, default=str)),
             }
             
