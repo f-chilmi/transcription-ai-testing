@@ -315,31 +315,18 @@ class AudioTranscription:
             print(62)
             
             return {
-                'method': 'whisper_only',
+                'method': 'faster_whisper',
                 'threads': threads,
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': [
-                    {
-                        'start': segment.start,
-                        'end': segment.end,
-                        'text': segment.text,
-                        'words': [
-                            {
-                                'start': word.start,
-                                'end': word.end,
-                                'word': word.word
-                            } for word in segment.words
-                        ] if hasattr(segment, 'words') else []
-                    } for segment in segments
-                ],
+                'segments': [str(segment) for segment in segments],
             }
             
         except Exception as e:
             monitor.stop_monitoring()
             return {
-                'method': 'whisper_only',
+                'method': 'faster_whisper',
                 'threads': threads,
                 'processing_time': time.time() - start_time,
                 'error': str(e),
