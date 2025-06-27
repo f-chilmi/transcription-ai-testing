@@ -358,7 +358,7 @@ class AudioTranscription:
             del model_align
 
             word_segments = []
-            for i, word_data in enumerate(aligned_result.word_segments):
+            for i, word_data in enumerate(aligned_result['word_segments']):
                 word_segments.append({
                     'start': word_data['start'],
                     'end': word_data['end'],
