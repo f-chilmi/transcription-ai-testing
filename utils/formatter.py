@@ -79,7 +79,7 @@ if __name__ == "__main__":
     # print(format_transcript_with_timestamps(sample_data))
     
     # If you want to read from a JSON file:
-    with open('transcription_test_results_27-06-2025 10:04:29.json', 'r', encoding='utf-8') as f:
+    with open('transcription_test_results_27-06-2025 10:23:55.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         formatted = format_transcript(data)
         print(formatted)

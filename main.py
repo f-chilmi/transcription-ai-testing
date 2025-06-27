@@ -138,8 +138,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_noisy_english.mp3'
-    language = 'en'
+    audio_path = 'audio_mono_arabic.mp3'
+    language = 'ar'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
     # monitor = ResourceMonitor()
@@ -172,7 +172,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
         # monitor.stop_monitoring()
         print(62)
 
-        model = whisperx.load_model("tiny", device, compute_type=compute_type)
+        model = whisperx.load_model(model, device, compute_type=compute_type)
         audio = whisperx.load_audio(audio_path)
 
         # Diarization
