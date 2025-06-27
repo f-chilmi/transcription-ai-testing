@@ -124,7 +124,7 @@ class AudioTranscription:
             gc.collect()
 
             # 2. Align whisper output
-            model_b, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+            model_b, metadata = whisperx.load_align_model(language_code=language, device=device)
             result = whisperx.align(result["segments"], model_b, metadata, audio, device, return_char_alignments=False)
             # self.results = result
             print(178, result["segments"]) # after alignment

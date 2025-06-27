@@ -44,7 +44,7 @@ class AudioDiarization:
             device = "cpu"
             compute_type = "int8"
 
-            result = {'segments': self.results}
+            result = self.results
             print(90230982048304030493095890458948905, result)
             
             # Load model and transcribe
