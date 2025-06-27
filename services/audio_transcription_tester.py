@@ -30,7 +30,7 @@ class AudioTranscriptionTest:
         self.transcription_service = AudioTranscription()
         self.diarization_service = AudioDiarization(hugging_face_token)
    
-    def test_thread_scaling(self, audio_path: str, transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
+    def test_thread_scaling(self, audio_path: str, transcription_method: str = 'faster_whisper_vad_tiny', language: str = "en") -> Dict[str, Any]:
         """Test thread scaling with existing transcription methods"""
         logger.info(f"Testing thread scaling with {transcription_method}")
         
@@ -66,7 +66,7 @@ class AudioTranscriptionTest:
             'results': thread_results
         }
     
-    def test_batch_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
+    def test_batch_processing(self, audio_files: List[str], transcription_method: str = 'faster_whisper_vad_tiny', language: str = "en") -> Dict[str, Any]:
         """Test batch processing using existing transcription methods"""
         logger.info(f"Testing batch processing with {transcription_method}")
         
@@ -124,7 +124,7 @@ class AudioTranscriptionTest:
                 'resource_usage': monitor.get_summary()
             }
         
-    def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'whisperx_tiny', language: str = "en") -> Dict[str, Any]:
+    def test_concurrent_processing(self, audio_files: List[str], transcription_method: str = 'faster_whisper_vad_tiny', language: str = "en") -> Dict[str, Any]:
         """Test concurrent processing using existing transcription methods"""
         logger.info(f"Testing concurrent processing with {transcription_method}")
         
