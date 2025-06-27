@@ -139,7 +139,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     # logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
     
     threads = 6
-    model = 'base'
+    model = 'small'
     audio_path = 'audio_mono_swedish.mp3'
     language = 'sv'
 
