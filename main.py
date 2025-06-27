@@ -148,8 +148,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_noisy_arabic.mp3'
-    language = 'ar'
+    audio_path = 'audio_mono_swedish.mp3'
+    language = 'sv'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
     # monitor = ResourceMonitor()
