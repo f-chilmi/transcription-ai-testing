@@ -141,7 +141,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     """Test: test_whisperx_models (no diarization)"""
     
     threads = 6
-    model = 'medium'
+    model = 'large-v2'
     audio_path = 'audio_mono_swedish.mp3'
     language = 'sv'
 
