@@ -8,7 +8,6 @@ from typing import Dict, Any
 
 from services.audio_transcription import AudioTranscription
 from services.audio_transcription_tester import AudioTranscriptionTest
-from utils.formatter import format_transcript_file
 os.environ['USE_NNPACK'] = '0'
 import torch
 torch.backends.nnpack.enabled = False
@@ -131,15 +130,6 @@ def run_performance_test():
         
     except Exception as e:
         print(f"❌ Error during performance test: {str(e)}")
-
-def format_response(): 
-    formatted = format_transcript_file(
-        file_path="transcription_test_results_27-06-2025 07:54:24.json",
-        output_path="formatted_conversation.txt",
-        # speaker_names={'SPEAKER_00': 'Phil', 'SPEAKER_01': 'Georgie'}
-    )
-    print(formatted)
-    return formatted
 
 
 def test_transcription_diarization() -> Dict[str, Any]:
