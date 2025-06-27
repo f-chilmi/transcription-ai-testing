@@ -1,0 +1,21 @@
+{
+  "test_start_time": "2025-06-26T20:36:21.370838",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 15.617137908935547,
+    "python_version": "3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]",
+    "cpu_freq": {
+      "current": 2794.75,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "available_memory_gb": 12.220954895019531
+  },
+  "audio_files": {
+    "mono": "audio_mono_english.mp3"
+  },
+  "transcription_method": "faster_whisper_vad_tiny",
+  "results": {},
+  "test_end_time": "2025-06-26T20:36:21.371509",
+  "total_test_duration": 9.5367431640625e-07
+}
