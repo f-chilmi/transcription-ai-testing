@@ -8,6 +8,7 @@ from typing import Dict, Any
 
 from services.audio_transcription import AudioTranscription
 from services.audio_transcription_tester import AudioTranscriptionTest
+from utils.utils import diarize_text, serialize_diarization_result
 os.environ['USE_NNPACK'] = '0'
 import torch
 torch.backends.nnpack.enabled = False
@@ -138,7 +139,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_mono_arabic.mp3'
+    audio_path = 'audio_mono_english.mp3'
     language = 'ar'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
@@ -172,25 +173,52 @@ def test_transcription_diarization() -> Dict[str, Any]:
         # monitor.stop_monitoring()
         print(62)
 
-        model = whisperx.load_model(model, device, compute_type=compute_type)
-        audio = whisperx.load_audio(audio_path)
-
-        # Diarization
-        diarize_model = whisperx.diarize.DiarizationPipeline(
-            use_auth_token=HUGGING_FACE_TOKEN,
-            device=device)
-        print(111, diarize_model)
-        diarize_segments = diarize_model(audio)
-        print(113, diarize_segments)
-        result = whisperx.assign_word_speakers(diarize_segments, result)
-        print(11562, result)
+        from pyannote.audio import Pipeline
+            
+        diarization_pipeline = Pipeline.from_pretrained(
+            "pyannote/speaker-diarization-3.1", 
+            use_auth_token=HUGGING_FACE_TOKEN
+        )
+        print(258, diarization_pipeline)
+        diarization_result = diarization_pipeline(audio_path)
+        print(260, diarization_result)
         
-        # Cleanup
-        del model, diarize_model
+        del diarization_pipeline
         gc.collect()
         
+        if diarization_result is None:
+            raise Exception("Diarization returned None - check audio file and HF token")
+        
+        final_result = diarize_text(result, diarization_result)
+
+        print(270, final_result)
+
+        final_result_serialized = serialize_diarization_result(final_result)
+        print(273, final_result_serialized)
+    
         end_time = time.time()
+
+        ## THIS IS FOR DIARIZATION USING WHISPERX
+        # model = whisperx.load_model(model, device, compute_type=compute_type)
+        # audio = whisperx.load_audio(audio_path)
+
+        # # Diarization
+        # diarize_model = whisperx.diarize.DiarizationPipeline(
+        #     use_auth_token=HUGGING_FACE_TOKEN,
+        #     device=device)
+        # print(111, diarize_model)
+        # diarize_segments = diarize_model(audio)
+        # print(113, diarize_segments)
+        # result = whisperx.assign_word_speakers(diarize_segments, result)
+        # print(11562, result)
+        
+        # # Cleanup
+        # del model, diarize_model
+        # gc.collect()
+        
+        # end_time = time.time()
         # monitor.stop_monitoring()
+        ##
 
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
 
@@ -204,6 +232,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
             # 'resource_usage': monitor.get_summary(),
             'success': True,
             'segments': result,
+            'final_result_serialized': final_result_serialized
         }
         tester.save_results(final_result)
         
