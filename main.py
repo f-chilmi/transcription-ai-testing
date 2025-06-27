@@ -236,21 +236,21 @@ def test_transcription_diarization() -> Dict[str, Any]:
             'resource_usage': monitor.get_summary(),
             'success': True,
             'segments': result,
-            # 'final_result_serialized': final_result_serialized
+            'final_result_serialized': final_result_serialized
         }
         tester.save_results(final_result)
         
         return final_result
         
     except Exception as e:
-        # monitor.stop_monitoring()
+        monitor.stop_monitoring()
         return {
             'method': 'whisper_only',
             'threads': threads,
             'processing_time': time.time() - start_time,
             'error': str(e),
             'success': False,
-            # 'resource_usage': monitor.get_summary()
+            'resource_usage': monitor.get_summary()
         }
         
 
