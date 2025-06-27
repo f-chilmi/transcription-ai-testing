@@ -225,7 +225,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_faster_whisper_models with {threads} threads model {model}")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -305,7 +305,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_faster_whisper_vad_models with {threads} threads model {model}")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -363,7 +363,7 @@ class AudioTranscription:
         except Exception as e:
             monitor.stop_monitoring()
             return {
-                'method': 'whisper_only',
+                'method': 'test_faster_whisper_vad_models',
                 'threads': threads,
                 'processing_time': time.time() - start_time,
                 'error': str(e),
