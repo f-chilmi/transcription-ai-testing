@@ -3,6 +3,7 @@ import os
 
 from services.audio_transcription import AudioTranscription
 from services.audio_transcription_tester import AudioTranscriptionTest
+from utils.formatter import format_transcript_file
 os.environ['USE_NNPACK'] = '0'
 import torch
 torch.backends.nnpack.enabled = False
@@ -126,6 +127,15 @@ def run_performance_test():
     except Exception as e:
         print(f"❌ Error during performance test: {str(e)}")
 
+def format_response(): 
+    formatted = format_transcript_file(
+        file_path="transcription_test_results_26-06-2025 23:52:03.json",
+        output_path="formatted_conversation.txt",
+        # speaker_names={'SPEAKER_00': 'Phil', 'SPEAKER_01': 'Georgie'}
+    )
+    print(formatted)
+    return formatted
+
 def main():
     print("🎯 Audio Transcription Testing Suite")
     print("=" * 50)
@@ -144,6 +154,7 @@ def main():
     print("2. Full test suite (comprehensive)")
     print("3. Install requirements only")
     print("4. Run performance test")
+    print("5. Format")
     
     choice = input("\nEnter choice (1-4): ").strip()
     
@@ -159,6 +170,8 @@ def main():
 
     elif choice == "4":
         run_performance_test()
+    elif choice == "5":
+        format_response()
         
     else:
         print("Invalid choice. Please run again.")

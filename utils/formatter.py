@@ -1,267 +1,322 @@
 import json
-from typing import Dict, List, Union
+from typing import List, Dict, Any, Union
 
-def extract_speaker_text_simple(json_data: Union[str, dict]) -> Dict[str, List[str]]:
+
+class TranscriptFormatter:
     """
-    Extract speaker text from JSON, grouping all text by speaker.
+    A utility class to format transcript JSON data into readable conversation format.
+    Supports both simple segment arrays and complex nested JSON structures.
+    """
     
-    Args:
-        json_data: JSON string or already parsed dict
+    def __init__(self):
+        self.grouped_transcript = []
+    
+    def extract_segments(self, data: Union[Dict, List]) -> List[Dict]:
+        """
+        Extract segments from various JSON structures.
         
-    Returns:
-        Dict with speaker names as keys and list of their texts as values
-        Example: {"SPEAKER_00": ["Hello", "How are you?"], "SPEAKER_01": ["Hi there"]}
-    """
-    # Parse JSON if it's a string
-    if isinstance(json_data, str):
-        data = json.loads(json_data)
-    else:
-        data = json_data
+        Args:
+            data: JSON data that can be a list of segments or nested structure
+            
+        Returns:
+            List of segment dictionaries with 'text' and 'speaker' keys
+        """
+        segments = []
+        
+        if isinstance(data, list):
+            # Direct array of segments
+            segments = data
+        elif isinstance(data, dict):
+            # Check various possible nested structures
+            if 'result' in data:
+                segments = data['result']
+            elif 'results' in data:
+                results = data['results']
+                if isinstance(results, dict):
+                    # Look for segments in nested results
+                    if 'batch_processing' in results and 'results' in results['batch_processing']:
+                        batch_results = results['batch_processing']['results']
+                        if isinstance(batch_results, list) and len(batch_results) > 0:
+                            # Get first result's segments
+                            first_result = batch_results[0]
+                            for key, value in first_result.items():
+                                if isinstance(value, dict) and 'segments' in value:
+                                    segments = value['segments']
+                                    break
+                    elif 'segments' in results:
+                        segments = results['segments']
+                elif isinstance(results, list):
+                    segments = results
+            elif 'segments' in data:
+                segments = data['segments']
+        
+        return segments
     
-    speaker_texts = {}
-    
-    # Navigate through the nested structure
-    try:
-        # Get segments from the nested structure
-        segments = data["results"]["mono"]["silero_vad"]["result"]["segments"]
+    def group_by_speaker(self, segments: List[Dict]) -> List[Dict]:
+        """
+        Group consecutive segments by the same speaker.
+        
+        Args:
+            segments: List of segment dictionaries
+            
+        Returns:
+            List of grouped segments with combined text
+        """
+        if not segments:
+            return []
+        
+        grouped = []
+        current_group = None
         
         for segment in segments:
-            speaker = segment.get("speaker", "UNKNOWN")
-            text = segment.get("text", "").strip()
+            speaker = segment.get('speaker', 'UNKNOWN')
+            text = segment.get('text', '').strip()
             
-            if text:  # Only add non-empty text
-                if speaker not in speaker_texts:
-                    speaker_texts[speaker] = []
-                speaker_texts[speaker].append(text)
-    
-    except KeyError as e:
-        print(f"Key not found in JSON structure: {e}")
-        return {}
-    
-    return speaker_texts
-
-def extract_speaker_text_combined(json_data: Union[str, dict]) -> Dict[str, str]:
-    """
-    Extract speaker text from JSON, combining all text per speaker into single string.
-    
-    Args:
-        json_data: JSON string or already parsed dict
-        
-    Returns:
-        Dict with speaker names as keys and combined text as values
-        Example: {"SPEAKER_00": "Hello How are you?", "SPEAKER_01": "Hi there"}
-    """
-    # Parse JSON if it's a string
-    if isinstance(json_data, str):
-        data = json.loads(json_data)
-    else:
-        data = json_data
-    
-    speaker_texts = {}
-    
-    try:
-        segments = data["results"]["mono"]["silero_vad"]["result"]["segments"]
-        
-        for segment in segments:
-            speaker = segment.get("speaker", "UNKNOWN")
-            text = segment.get("text", "").strip()
-            
-            if text:
-                if speaker not in speaker_texts:
-                    speaker_texts[speaker] = ""
-                else:
-                    speaker_texts[speaker] += " "
-                speaker_texts[speaker] += text
-    
-    except KeyError as e:
-        print(f"Key not found in JSON structure: {e}")
-        return {}
-    
-    return speaker_texts
-
-def extract_speaker_text_with_timestamps(json_data: Union[str, dict]) -> Dict[str, List[Dict]]:
-    """
-    Extract speaker text with timestamps preserved.
-    
-    Args:
-        json_data: JSON string or already parsed dict
-        
-    Returns:
-        Dict with speaker names and their segments with timestamps
-        Example: {"SPEAKER_00": [{"start": 0.0, "end": 2.5, "text": "Hello"}]}
-    """
-    if isinstance(json_data, str):
-        data = json.loads(json_data)
-    else:
-        data = json_data
-    
-    speaker_segments = {}
-    
-    try:
-        segments = data["results"]["mono"]["silero_vad"]["result"]["segments"]
-        
-        for segment in segments:
-            speaker = segment.get("speaker", "UNKNOWN")
-            
-            if speaker not in speaker_segments:
-                speaker_segments[speaker] = []
-            
-            speaker_segments[speaker].append({
-                "start": segment.get("start"),
-                "end": segment.get("end"),
-                "text": segment.get("text", "").strip()
-            })
-    
-    except KeyError as e:
-        print(f"Key not found in JSON structure: {e}")
-        return {}
-    
-    return speaker_segments
-
-def print_speaker_text_formatted(json_data: Union[str, dict]):
-    """
-    Print speaker text in a nice formatted way.
-    
-    Args:
-        json_data: JSON string or already parsed dict
-    """
-    speaker_texts = extract_speaker_text_combined(json_data)
-    
-    print("=" * 50)
-    print("SPEAKER TRANSCRIPTION")
-    print("=" * 50)
-    
-    for speaker, text in speaker_texts.items():
-        print(f"\n{speaker}:")
-        print("-" * len(speaker))
-        print(text)
-    
-    print("\n" + "=" * 50)
-
-def extract_conversation_flow(json_data: Union[str, dict]) -> List[Dict]:
-    """
-    Extract conversation in chronological order.
-    
-    Args:
-        json_data: JSON string or already parsed dict
-        
-    Returns:
-        List of segments in order with speaker and text
-        Example: [{"speaker": "SPEAKER_00", "text": "Hello", "start": 0.0}]
-    """
-    if isinstance(json_data, str):
-        data = json.loads(json_data)
-    else:
-        data = json_data
-    
-    conversation = []
-    
-    try:
-        segments = data["whisperx_diarization"]["segments"]
-        # segments = data["results"]["mono"]["silero_vad"]["result"]["segments"]
-        
-        # Sort by start time to maintain chronological order
-        sorted_segments = sorted(segments, key=lambda x: x.get("start", 0))
-        
-        for segment in sorted_segments:
-            conversation.append({
-                "speaker": segment.get("speaker", "UNKNOWN"),
-                "text": segment.get("text", "").strip(),
-                "start": segment.get("start"),
-                "end": segment.get("end")
-            })
-    
-    except KeyError as e:
-        print(f"Key not found in JSON structure: {e}")
-        return []
-    
-    return conversation
-
-# Example usage functions
-def load_and_extract_from_file(filename: str) -> Dict[str, str]:
-    """
-    Load JSON file and extract speaker text.
-    
-    Args:
-        filename: Path to JSON file
-        
-    Returns:
-        Dict with speaker: text mapping
-    """
-    try:
-        with open(filename, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-
-        # Test the functions
-        # print("1. Simple extraction (list per speaker):")
-        # result1 = extract_speaker_text_simple(data)
-        # print(result1)
-        
-        # print("\n2. Combined text per speaker:")
-        # result2 = extract_speaker_text_combined(data)
-        # print(result2)
-        
-        # print("\n3. Formatted output:")
-        # print_speaker_text_formatted(data)
-        
-        print("\n4. Conversation flow:")
-        result4 = extract_conversation_flow(data)
-        for item in result4:
-            print(f"[{item['start']:.1f}s] {item['speaker']}: {item['text']}")
-        
-        # To use with your file:
-        # speaker_texts = load_and_extract_from_file("your_file.json")
-        # print(speaker_texts)
-
-        # return extract_speaker_text_combined(data)
-    except FileNotFoundError:
-        print(f"File {filename} not found")
-        return {}
-    except json.JSONDecodeError as e:
-        print(f"Invalid JSON in file {filename}: {e}")
-        return {}
-
-# Example usage:
-if __name__ == "__main__":
-    json_file = "../transcription_test_results_25-06-2025 17:17:40_vad.json"
-    # Example JSON data (you would load this from your file)
-    sample_json = {
-        "test_start_time": "2025-06-25T17:17:41.569348",
-        "results": {
-            "mono": {
-                "silero_vad": {
-                    "result": {
-                        "segments": [
-                            {"start": 0.0, "end": 2.5, "text": "Hello there", "speaker": "SPEAKER_00"},
-                            {"start": 2.6, "end": 4.1, "text": "Hi, how are you?", "speaker": "SPEAKER_01"},
-                            {"start": 4.2, "end": 6.0, "text": "I'm doing well", "speaker": "SPEAKER_00"},
-                            {"start": 6.1, "end": 8.0, "text": "That's great to hear", "speaker": "SPEAKER_01"}
-                        ]
-                    }
+            if not text:
+                continue
+                
+            if current_group is None or current_group['speaker'] != speaker:
+                # Start new group
+                current_group = {
+                    'speaker': speaker,
+                    'text': text,
+                    'start': segment.get('start'),
+                    'end': segment.get('end')
                 }
+                grouped.append(current_group)
+            else:
+                # Add to existing group
+                current_group['text'] += ' ' + text
+                current_group['end'] = segment.get('end')  # Update end time
+        
+        return grouped
+    
+    def format_conversation(self, grouped_segments: List[Dict], 
+                          speaker_names: Dict[str, str] = None) -> str:
+        """
+        Format grouped segments into readable conversation.
+        
+        Args:
+            grouped_segments: List of grouped segments
+            speaker_names: Optional mapping of speaker IDs to names
+            
+        Returns:
+            Formatted conversation string
+        """
+        if not grouped_segments:
+            return "No conversation data found."
+        
+        formatted_lines = []
+        
+        for group in grouped_segments:
+            speaker = group['speaker']
+            text = group['text']
+            
+            # Use custom speaker name if provided
+            if speaker_names and speaker in speaker_names:
+                speaker_display = speaker_names[speaker]
+            else:
+                speaker_display = speaker
+            
+            formatted_lines.append(f"{speaker_display}: {text}")
+        
+        return '\n\n'.join(formatted_lines)
+    
+    def format_from_json_file(self, file_path: str, 
+                             speaker_names: Dict[str, str] = None) -> str:
+        """
+        Load JSON file and format it into readable conversation.
+        
+        Args:
+            file_path: Path to JSON file
+            speaker_names: Optional mapping of speaker IDs to names
+            
+        Returns:
+            Formatted conversation string
+        """
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            return self.format_from_data(data, speaker_names)
+            
+        except FileNotFoundError:
+            return f"Error: File '{file_path}' not found."
+        except json.JSONDecodeError as e:
+            return f"Error: Invalid JSON format - {str(e)}"
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def format_from_data(self, data: Union[Dict, List], 
+                        speaker_names: Dict[str, str] = None) -> str:
+        """
+        Format JSON data into readable conversation.
+        
+        Args:
+            data: JSON data (dict or list)
+            speaker_names: Optional mapping of speaker IDs to names
+            
+        Returns:
+            Formatted conversation string
+        """
+        try:
+            segments = self.extract_segments(data)
+            
+            if not segments:
+                return "No segments found in the data."
+            
+            grouped = self.group_by_speaker(segments)
+            
+            if not grouped:
+                return "No valid conversation data found."
+            
+            return self.format_conversation(grouped, speaker_names)
+            
+        except Exception as e:
+            return f"Error formatting data: {str(e)}"
+    
+    def save_formatted_conversation(self, formatted_text: str, output_path: str):
+        """
+        Save formatted conversation to a file.
+        
+        Args:
+            formatted_text: The formatted conversation string
+            output_path: Path where to save the formatted text
+        """
+        try:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(formatted_text)
+            print(f"Formatted conversation saved to: {output_path}")
+        except Exception as e:
+            print(f"Error saving file: {str(e)}")
+    
+    def get_conversation_stats(self, grouped_segments: List[Dict]) -> Dict[str, Any]:
+        """
+        Get statistics about the conversation.
+        
+        Args:
+            grouped_segments: List of grouped segments
+            
+        Returns:
+            Dictionary with conversation statistics
+        """
+        if not grouped_segments:
+            return {}
+        
+        speakers = set(group['speaker'] for group in grouped_segments)
+        total_words = sum(len(group['text'].split()) for group in grouped_segments)
+        
+        # Calculate duration if start/end times are available
+        duration = None
+        if all('start' in group and 'end' in group for group in grouped_segments):
+            start_time = min(group['start'] for group in grouped_segments if group['start'] is not None)
+            end_time = max(group['end'] for group in grouped_segments if group['end'] is not None)
+            if start_time is not None and end_time is not None:
+                duration = end_time - start_time
+        
+        return {
+            'total_speaker_turns': len(grouped_segments),
+            'unique_speakers': len(speakers),
+            'speakers': list(speakers),
+            'total_words': total_words,
+            'duration_seconds': duration
+        }
+
+
+# Convenience functions for quick usage
+def format_transcript_file(file_path: str, output_path: str = None, 
+                          speaker_names: Dict[str, str] = None) -> str:
+    """
+    Quick function to format a transcript file.
+    
+    Args:
+        file_path: Path to JSON transcript file
+        output_path: Optional path to save formatted output
+        speaker_names: Optional mapping of speaker IDs to names
+        
+    Returns:
+        Formatted conversation string
+    """
+    formatter = TranscriptFormatter()
+    formatted = formatter.format_from_json_file(file_path, speaker_names)
+    
+    if output_path:
+        formatter.save_formatted_conversation(formatted, output_path)
+    
+    return formatted
+
+
+def format_transcript_data(data: Union[Dict, List], 
+                          speaker_names: Dict[str, str] = None) -> str:
+    """
+    Quick function to format transcript data.
+    
+    Args:
+        data: JSON data (dict or list)
+        speaker_names: Optional mapping of speaker IDs to names
+        
+    Returns:
+        Formatted conversation string
+    """
+    formatter = TranscriptFormatter()
+    return formatter.format_from_data(data, speaker_names)
+
+
+# Example usage
+if __name__ == "__main__":
+    # Example 1: Format from file
+    # formatted = format_transcript_file(
+    #     'transcript.json',
+    #     'formatted_conversation.txt',
+    #     speaker_names={'SPEAKER_00': 'Phil', 'SPEAKER_01': 'Georgie'}
+    # )
+    # print(formatted)
+    
+    # Example 2: Format from data
+    formatter = TranscriptFormatter()
+    
+    # Sample data structure (like your JSON)
+    sample_data = {
+        "results": {
+            "batch_processing": {
+                "results": [
+                    {
+                        "diarization_whisper": {
+                            "segments": [
+                                {
+                                    "start": 0.02,
+                                    "end": 0.543,
+                                    "text": "Hello",
+                                    "speaker": "SPEAKER_00"
+                                },
+                                {
+                                    "start": 0.583,
+                                    "end": 1.127,
+                                    "text": "world",
+                                    "speaker": "SPEAKER_00"
+                                },
+                                {
+                                    "start": 1.2,
+                                    "end": 1.8,
+                                    "text": "How are you?",
+                                    "speaker": "SPEAKER_01"
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
         }
     }
     
-    # Test the functions
-    # print("1. Simple extraction (list per speaker):")
-    # result1 = extract_speaker_text_simple(json_file)
-    # print(result1)
+    formatted = formatter.format_from_data(
+        sample_data, 
+        speaker_names={'SPEAKER_00': 'Alice', 'SPEAKER_01': 'Bob'}
+    )
+    print(formatted)
     
-    # print("\n2. Combined text per speaker:")
-    # result2 = extract_speaker_text_combined(json_file)
-    # print(result2)
-    
-    # print("\n3. Formatted output:")
-    # print_speaker_text_formatted(json_file)
-    
-    # print("\n4. Conversation flow:")
-    # result4 = extract_conversation_flow(json_file)
-    # for item in result4:
-    #     print(f"[{item['start']:.1f}s] {item['speaker']}: {item['text']}")
-    
-    # To use with your file:
-    # speaker_texts = load_and_extract_from_file("your_file.json")
-    # print(speaker_texts)
-
-print(load_and_extract_from_file("transcription_test_results_26-06-2025 15:41:17.json"))
+    # Get conversation statistics
+    segments = formatter.extract_segments(sample_data)
+    grouped = formatter.group_by_speaker(segments)
+    stats = formatter.get_conversation_stats(grouped)
+    print(f"\nConversation Stats: {stats}")
