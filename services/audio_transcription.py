@@ -163,7 +163,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -248,8 +248,6 @@ class AudioTranscription:
             print("Segments count:", len(segments_list))
             print("First segment type:", type(segments_list[0]) if segments_list else "No segments")
 
-            if segments_list:
-                print("First segment attributes:", dir(segments_list[0]))
             for segment in segments_list:
                 for word in segment.words:
                     print("[%.2fs -> %.2fs] %s" % (word.start, word.end, word.word))
@@ -320,6 +318,7 @@ class AudioTranscription:
             model_a = WhisperModel(model, device=device, compute_type=compute_type)
             segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, vad_filter=True,language=language)
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+            
             segments_list = list(segments)
             for segment in segments:
                 for word in segment.words:
