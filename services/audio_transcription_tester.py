@@ -274,23 +274,6 @@ class AudioTranscriptionTest:
 
         return results
     
-    # def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny', language: str = "en"):
-    #     """Run performance tests using existing transcription methods"""
-    #     results = {}
-        
-    #     first_audio = list(audio_files.values())[0]
-        
-    #     # Thread scaling test
-    #     results['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method, language)
-        
-    #     # Batch and concurrent processing
-    #     if len(audio_files) > 1:
-    #         audio_list = list(audio_files.values())
-    #         results['batch_processing'] = self.test_batch_processing(audio_list, transcription_method, language)
-    #         results['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method, language)
-        
-    #     return results
-
     def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny'):
         """Run performance tests using existing transcription methods"""
         
@@ -311,10 +294,10 @@ class AudioTranscriptionTest:
         
         start_time = time.time()
         
-        first_audio = list(audio_files.values())[0]
+        # first_audio = list(audio_files.values())[0]
         
         # Thread scaling test
-        performance_results['results']['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
+        # performance_results['results']['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
         
         # Batch and concurrent processing
         if len(audio_files) > 1:
