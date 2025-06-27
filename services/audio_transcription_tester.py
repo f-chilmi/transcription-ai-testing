@@ -302,9 +302,9 @@ class AudioTranscriptionTest:
         # performance_results['results']['thread_scaling'] = self.test_thread_scaling(first_audio, transcription_method)
         
         # Batch and concurrent processing
-        if len(audio_files) > 1:
-            audio_list = list(audio_files.values())
-            performance_results['results']['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
+        # if len(audio_files) > 1:
+        audio_list = list(audio_files.values())
+        performance_results['results']['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
             # performance_results['results']['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
         
         end_time = time.time()
