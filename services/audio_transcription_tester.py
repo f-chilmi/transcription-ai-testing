@@ -87,12 +87,12 @@ class AudioTranscriptionTest:
                 
                 print('transcription done for', audio_file)
 
-                print(90, transcription)
+                print(9020392039029309239020203290302390,'test_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_modelstest_whisperx_models', transcription['result'])
                 
                 self.diarization_service.set_transcription_results(transcription['result'])
                 # diarization = self.diarization_service.test_pyannote(audio_file)
                 diarization_whisper = self.diarization_service.test_whisperx(audio_file)
-                diarization_pyannote = self.diarization_service.test_pyannote(audio_file)
+                # diarization_pyannote = self.diarization_service.test_pyannote(audio_file)
                 
                 print('diarization done for', audio_file)
                 
@@ -100,7 +100,7 @@ class AudioTranscriptionTest:
                     'file': audio_file,
                     'transcription': transcription,
                     'diarization_whisper': diarization_whisper,
-                    'diarization_pyannote': diarization_pyannote,
+                    # 'diarization_pyannote': diarization_pyannote,
                 })
             
             end_time = time.time()
