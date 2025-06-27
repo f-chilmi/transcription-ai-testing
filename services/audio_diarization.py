@@ -90,9 +90,9 @@ class AudioDiarization:
                 'resource_usage': monitor.get_summary()
             }
     
-    def test_pyannote(self, audio_path: str, whisper_threads: int = 4, diarize_threads: int = 2) -> Dict[str, Any]:
+    def test_pyannote(self, audio_path: str, diarize_threads: int = 2) -> Dict[str, Any]:
         """Test: Hybrid Pipeline (Whisper transcription + Pyannote diarization)"""
-        logger.info(f"Testing Hybrid Pipeline - Whisper: {whisper_threads}, Pyannote: {diarize_threads} threads")
+        logger.info(f"Testing Pyannote: {diarize_threads} threads")
         
         os.environ["OMP_NUM_THREADS"] = str(diarize_threads)
         monitor = ResourceMonitor()
@@ -132,7 +132,6 @@ class AudioDiarization:
             
             return {
                 'method': 'hybrid_pipeline',
-                'whisper_threads': whisper_threads,
                 'diarize_threads': diarize_threads,
                 'processing_time': end_time - start_time,
                 'resource_usage': monitor.get_summary(),
@@ -147,7 +146,6 @@ class AudioDiarization:
             logger.error(f"Hybrid pipeline error: {str(e)}")
             return {
                 'method': 'hybrid_pipeline',
-                'whisper_threads': whisper_threads,
                 'diarize_threads': diarize_threads,
                 'processing_time': time.time() - start_time,
                 'error': str(e),
