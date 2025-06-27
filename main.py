@@ -1,5 +1,6 @@
 # Quick Test Runner - Run this to start testing immediately
 import gc
+import logging
 import os
 import time
 
@@ -15,6 +16,8 @@ import torch
 torch.backends.nnpack.enabled = False
 from config import AUDIO_FILES, HUGGING_FACE_TOKEN, OUTPUT_CONFIG
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 def check_files():
@@ -136,10 +139,9 @@ def run_performance_test():
 
 def test_transcription_diarization() -> Dict[str, Any]:
     """Test: test_whisperx_models (no diarization)"""
-    # logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
     
     threads = 6
-    model = 'small'
+    model = 'medium'
     audio_path = 'audio_mono_swedish.mp3'
     language = 'sv'
 
@@ -148,6 +150,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
     monitor.start_monitoring()
     
     start_time = time.time()
+
+    logger.info(f"Testing test_whisperx_models with model {model}, audio_path {audio_path}, language {language}")
     
     try:
         device = "cpu"
