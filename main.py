@@ -148,7 +148,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_mono_arabic.mp3'
+    audio_path = 'audio_multi_arabic.mp3'
     language = 'ar'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
@@ -203,9 +203,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
         # monitor.stop_monitoring()
 
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
-        tester.save_results(result)
-        
-        return {
+
+        final_result = {
             'method': 'test_whisperx',
             'threads': threads,
             'processing_time_transcription': end_time_transcription - start_time,
@@ -216,6 +215,9 @@ def test_transcription_diarization() -> Dict[str, Any]:
             'success': True,
             'segments': result,
         }
+        tester.save_results(final_result)
+        
+        return final_result
             
         
         # return {
