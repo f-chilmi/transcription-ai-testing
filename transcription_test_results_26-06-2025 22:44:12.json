@@ -1,0 +1,55 @@
+{
+  "test_start_time": "2025-06-26T22:44:15.408672",
+  "system_info": {
+    "cpu_count": 8,
+    "memory_total_gb": 15.617137908935547,
+    "python_version": "3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]",
+    "cpu_freq": {
+      "current": 2794.75,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "available_memory_gb": 14.816001892089844
+  },
+  "audio_files": {
+    "mono": "audio_mono_english.mp3"
+  },
+  "transcription_method": "faster_whisper_vad_tiny",
+  "results": {
+    "batch_processing": {
+      "method": "batch_processing",
+      "transcription_method": "faster_whisper_vad_tiny",
+      "processing_time": 104.64341497421265,
+      "error": "'result'",
+      "success": false,
+      "resource_usage": {
+        "avg_cpu_per_core": [
+          0.44258373205741625,
+          0.531578947368421,
+          28.199521531100476,
+          0.3545454545454545,
+          0.3229665071770335,
+          0.3282296650717703,
+          67.44928229665072,
+          2.4229665071770334
+        ],
+        "max_cpu_per_core": [
+          42.2,
+          40.4,
+          100.0,
+          14.9,
+          42.2,
+          28.9,
+          100.0,
+          100.0
+        ],
+        "avg_memory": 9.555502392344497,
+        "max_memory": 11.4,
+        "total_cpu_cores": 8,
+        "monitoring_duration": 104.14173078536987
+      }
+    }
+  },
+  "test_end_time": "2025-06-26T22:46:00.053474",
+  "total_test_duration": 104.64406299591064
+}
