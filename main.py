@@ -221,53 +221,53 @@ def test_transcription_diarization() -> Dict[str, Any]:
         end_time_transcription = time.time()
         print(62)
 
-        # THIS IS FOR DIARIZATION USING PYANNOTE
-        from pyannote.audio import Pipeline
+        # # THIS IS FOR DIARIZATION USING PYANNOTE
+        # from pyannote.audio import Pipeline
             
-        diarization_pipeline = Pipeline.from_pretrained(
-            "pyannote/speaker-diarization-3.1", 
-            use_auth_token=HUGGING_FACE_TOKEN
-        )
-        print(258, diarization_pipeline)
-        diarization_result = diarization_pipeline(audio_path)
-        print(260, diarization_result)
+        # diarization_pipeline = Pipeline.from_pretrained(
+        #     "pyannote/speaker-diarization-3.1", 
+        #     use_auth_token=HUGGING_FACE_TOKEN
+        # )
+        # print(258, diarization_pipeline)
+        # diarization_result = diarization_pipeline(audio_path)
+        # print(260, diarization_result)
         
-        del diarization_pipeline
-        gc.collect()
-        
-        if diarization_result is None:
-            raise Exception("Diarization returned None - check audio file and HF token")
-        
-        final_result = diarize_text(result, diarization_result)
-
-        print(270, final_result)
-
-        final_result_serialized = serialize_diarization_result(final_result)
-        print(273, final_result_serialized)
-    
-        end_time = time.time()
-        #
-
-        # # THIS IS FOR DIARIZATION USING WHISPERX
-        # model = whisperx.load_model(model, device, compute_type=compute_type)
-        # audio = whisperx.load_audio(audio_path)
-
-        # # Diarization
-        # diarize_model = whisperx.diarize.DiarizationPipeline(
-        #     use_auth_token=HUGGING_FACE_TOKEN,
-        #     device=device)
-        # print(111, diarize_model)
-        # diarize_segments = diarize_model(audio)
-        # print(113, diarize_segments)
-        # result = whisperx.assign_word_speakers(diarize_segments, result)
-        # print(11562, result)
-        
-        # # Cleanup
-        # del model, diarize_model
+        # del diarization_pipeline
         # gc.collect()
         
+        # if diarization_result is None:
+        #     raise Exception("Diarization returned None - check audio file and HF token")
+        
+        # final_result = diarize_text(result, diarization_result)
+
+        # print(270, final_result)
+
+        # final_result_serialized = serialize_diarization_result(final_result)
+        # print(273, final_result_serialized)
+    
         # end_time = time.time()
         # #
+
+        # THIS IS FOR DIARIZATION USING WHISPERX
+        model = whisperx.load_model(model, device, compute_type=compute_type)
+        audio = whisperx.load_audio(audio_path)
+
+        # Diarization
+        diarize_model = whisperx.diarize.DiarizationPipeline(
+            use_auth_token=HUGGING_FACE_TOKEN,
+            device=device)
+        print(111, diarize_model)
+        diarize_segments = diarize_model(audio)
+        print(113, diarize_segments)
+        result = whisperx.assign_word_speakers(diarize_segments, result)
+        print(11562, result)
+        
+        # Cleanup
+        del model, diarize_model
+        gc.collect()
+        
+        end_time = time.time()
+        #
 
         monitor.stop_monitoring()
 
@@ -284,7 +284,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
             'resource_usage': monitor.get_summary(),
             'success': True,
             'segments': result,
-            'final_result_serialized': final_result_serialized
+            # 'final_result_serialized': final_result_serialized
         }
         tester.save_results(final_result)
         
