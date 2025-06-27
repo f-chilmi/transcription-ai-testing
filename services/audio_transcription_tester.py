@@ -274,7 +274,7 @@ class AudioTranscriptionTest:
 
         return results
     
-    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'whisperx_tiny'):
+    def run_performance_test(self, audio_files: Dict[str, str], transcription_method: str = 'faster_whisper_vad_tiny'):
         """Run performance tests using existing transcription methods"""
         
         # Add system info and timing
