@@ -357,7 +357,21 @@ class AudioTranscription:
             aligned_result = whisperx.align(whisperx_segments, model_align, metadata, audio, "cpu")
             del model_align
 
-            self.results = aligned_result
+            word_segments = []
+            for i, word_data in enumerate(aligned_result.word_segments):
+                word_segments.append({
+                    'start': word_data['start'],
+                    'end': word_data['end'],
+                    'text': word_data['word'].strip(),
+                    'words': [{
+                        'start': word_data['start'],
+                        'end': word_data['end'],
+                        'text': word_data['word'].strip(),
+                        'score': word_data.get('score', 1.0)
+                    }]
+                })
+
+            self.results = word_segments
 
             print(59)
             end_time = time.time()
@@ -387,8 +401,8 @@ class AudioTranscription:
                         ] if hasattr(segment, 'words') else []
                     } for segment in segments_list
                 ],
-                'info': json.loads(json.dumps(info, default=str)),
-                'result': aligned_result
+                'aligned_result': aligned_result,
+                'result': word_segments,
             }
             
             

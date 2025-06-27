@@ -90,7 +90,7 @@ class AudioDiarization:
                 'resource_usage': monitor.get_summary()
             }
     
-    def test_pyannote(self, audio_path: str, diarize_threads: int = 2) -> Dict[str, Any]:
+    def test_pyannote(self, audio_path: str, diarize_threads: int = 6) -> Dict[str, Any]:
         """Test: Hybrid Pipeline (Whisper transcription + Pyannote diarization)"""
         logger.info(f"Testing Pyannote: {diarize_threads} threads")
         
