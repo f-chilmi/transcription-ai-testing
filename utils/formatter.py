@@ -39,7 +39,9 @@ class TranscriptFormatter:
                         if isinstance(batch_results, list) and len(batch_results) > 0:
                             # Get first result's segments
                             first_result = batch_results[0]
+                            # first_result = batch_results[0]['diarization_whisper']
                             for key, value in first_result.items():
+                                print(43, key, key is 'segments', isinstance(value, dict) and 'segments' in value)
                                 if isinstance(value, dict) and 'segments' in value:
                                     segments = value['segments']
                                     break

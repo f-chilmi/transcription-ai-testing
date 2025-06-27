@@ -111,7 +111,7 @@ def run_performance_test():
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
         
         # Run comprehensive test
-        results = tester.run_performance_test(AUDIO_FILES, 'whisperx_tiny')
+        results = tester.run_performance_test(AUDIO_FILES, 'faster_whisper_vad_tiny')
 
         print(115, 'run_performance_test')
         
@@ -129,7 +129,7 @@ def run_performance_test():
 
 def format_response(): 
     formatted = format_transcript_file(
-        file_path="transcription_test_results_26-06-2025 23:52:03.json",
+        file_path="transcription_test_results_27-06-2025 07:54:24.json",
         output_path="formatted_conversation.txt",
         # speaker_names={'SPEAKER_00': 'Phil', 'SPEAKER_01': 'Georgie'}
     )

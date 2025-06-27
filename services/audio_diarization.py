@@ -76,7 +76,7 @@ class AudioDiarization:
                 'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
                 'resource_usage': monitor.get_summary(),
                 'success': True,
-                'segments': result['segments'],
+                'segments': result,
             }
             
         except Exception as e:
