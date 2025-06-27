@@ -141,51 +141,6 @@ def format_response():
     print(formatted)
     return formatted
 
-def main():
-    print("🎯 Audio Transcription Testing Suite")
-    print("=" * 50)
-    
-    # Check if token is set
-    if HUGGING_FACE_TOKEN == "hf_your_token_here":
-        print("❌ Please set your Hugging Face token in HUGGING_FACE_TOKEN variable")
-        return
-    
-    # Check files
-    if not check_files():
-        return
-    
-    test_transcription_diarization()
-    
-    # print("\nSelect test mode:")
-    # print("1. Quick test (fast verification)")
-    # print("2. Full test suite (comprehensive)")
-    # print("3. Install requirements only")
-    # print("4. Run performance test")
-    # print("5. Format")
-    
-    # choice = input("\nEnter choice (1-4): ").strip()
-    
-    # if choice == "1":
-    #     if run_quick_test():
-    #         print("\n🎯 Quick test passed! Ready for full testing.")
-        
-    # elif choice == "2":
-    #     run_full_test()
-        
-    # elif choice == "3":
-    #     install_requirements()
-
-    # elif choice == "4":
-    #     run_performance_test()
-    # elif choice == "5":
-    #     format_response()
-        
-    # else:
-    #     print("Invalid choice. Please run again.")
-
-if __name__ == "__main__":
-    main()
-
 
 def test_transcription_diarization() -> Dict[str, Any]:
     """Test: test_whisperx_models (no diarization)"""
@@ -287,3 +242,48 @@ def test_transcription_diarization() -> Dict[str, Any]:
             # 'resource_usage': monitor.get_summary()
         }
         
+
+def main():
+    print("🎯 Audio Transcription Testing Suite")
+    print("=" * 50)
+    
+    # Check if token is set
+    if HUGGING_FACE_TOKEN == "hf_your_token_here":
+        print("❌ Please set your Hugging Face token in HUGGING_FACE_TOKEN variable")
+        return
+    
+    # Check files
+    if not check_files():
+        return
+    
+    test_transcription_diarization()
+    
+    # print("\nSelect test mode:")
+    # print("1. Quick test (fast verification)")
+    # print("2. Full test suite (comprehensive)")
+    # print("3. Install requirements only")
+    # print("4. Run performance test")
+    # print("5. Format")
+    
+    # choice = input("\nEnter choice (1-4): ").strip()
+    
+    # if choice == "1":
+    #     if run_quick_test():
+    #         print("\n🎯 Quick test passed! Ready for full testing.")
+        
+    # elif choice == "2":
+    #     run_full_test()
+        
+    # elif choice == "3":
+    #     install_requirements()
+
+    # elif choice == "4":
+    #     run_performance_test()
+    # elif choice == "5":
+    #     format_response()
+        
+    # else:
+    #     print("Invalid choice. Please run again.")
+
+if __name__ == "__main__":
+    main()
