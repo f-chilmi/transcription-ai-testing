@@ -8,6 +8,7 @@ from typing import Dict, Any
 
 from services.audio_transcription import AudioTranscription
 from services.audio_transcription_tester import AudioTranscriptionTest
+from services.resource_monitor import ResourceMonitor
 from utils.utils import diarize_text, serialize_diarization_result
 os.environ['USE_NNPACK'] = '0'
 import torch
@@ -143,8 +144,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
     language = 'en'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
-    # monitor = ResourceMonitor()
-    # monitor.start_monitoring()
+    monitor = ResourceMonitor()
+    monitor.start_monitoring()
     
     start_time = time.time()
     
@@ -170,87 +171,76 @@ def test_transcription_diarization() -> Dict[str, Any]:
         gc.collect()
         print(59)
         end_time_transcription = time.time()
-        # monitor.stop_monitoring()
         print(62)
 
-        from pyannote.audio import Pipeline
+        ## THIS IS FOR DIARIZATION USING PYANNOTE
+        # from pyannote.audio import Pipeline
             
-        diarization_pipeline = Pipeline.from_pretrained(
-            "pyannote/speaker-diarization-3.1", 
-            use_auth_token=HUGGING_FACE_TOKEN
-        )
-        print(258, diarization_pipeline)
-        diarization_result = diarization_pipeline(audio_path)
-        print(260, diarization_result)
+        # diarization_pipeline = Pipeline.from_pretrained(
+        #     "pyannote/speaker-diarization-3.1", 
+        #     use_auth_token=HUGGING_FACE_TOKEN
+        # )
+        # print(258, diarization_pipeline)
+        # diarization_result = diarization_pipeline(audio_path)
+        # print(260, diarization_result)
         
-        del diarization_pipeline
-        gc.collect()
-        
-        if diarization_result is None:
-            raise Exception("Diarization returned None - check audio file and HF token")
-        
-        final_result = diarize_text(result, diarization_result)
-
-        print(270, final_result)
-
-        final_result_serialized = serialize_diarization_result(final_result)
-        print(273, final_result_serialized)
-    
-        end_time = time.time()
-
-        ## THIS IS FOR DIARIZATION USING WHISPERX
-        # model = whisperx.load_model(model, device, compute_type=compute_type)
-        # audio = whisperx.load_audio(audio_path)
-
-        # # Diarization
-        # diarize_model = whisperx.diarize.DiarizationPipeline(
-        #     use_auth_token=HUGGING_FACE_TOKEN,
-        #     device=device)
-        # print(111, diarize_model)
-        # diarize_segments = diarize_model(audio)
-        # print(113, diarize_segments)
-        # result = whisperx.assign_word_speakers(diarize_segments, result)
-        # print(11562, result)
-        
-        # # Cleanup
-        # del model, diarize_model
+        # del diarization_pipeline
         # gc.collect()
         
+        # if diarization_result is None:
+        #     raise Exception("Diarization returned None - check audio file and HF token")
+        
+        # final_result = diarize_text(result, diarization_result)
+
+        # print(270, final_result)
+
+        # final_result_serialized = serialize_diarization_result(final_result)
+        # print(273, final_result_serialized)
+    
         # end_time = time.time()
-        # monitor.stop_monitoring()
         ##
+
+        # THIS IS FOR DIARIZATION USING WHISPERX
+        model = whisperx.load_model(model, device, compute_type=compute_type)
+        audio = whisperx.load_audio(audio_path)
+
+        # Diarization
+        diarize_model = whisperx.diarize.DiarizationPipeline(
+            use_auth_token=HUGGING_FACE_TOKEN,
+            device=device)
+        print(111, diarize_model)
+        diarize_segments = diarize_model(audio)
+        print(113, diarize_segments)
+        result = whisperx.assign_word_speakers(diarize_segments, result)
+        print(11562, result)
+        
+        # Cleanup
+        del model, diarize_model
+        gc.collect()
+        
+        end_time = time.time()
+        #
+
+        monitor.stop_monitoring()
 
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
 
         final_result = {
             'method': 'test_whisperx',
+            'audio_path': audio_path,
             'threads': threads,
             'processing_time_transcription': end_time_transcription - start_time,
             'processing_time_diarozation': end_time - end_time_transcription,
             'segments_count': len(result['segments']),
             'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-            # 'resource_usage': monitor.get_summary(),
+            'resource_usage': monitor.get_summary(),
             'success': True,
             'segments': result,
-            'final_result_serialized': final_result_serialized
+            # 'final_result_serialized': final_result_serialized
         }
         tester.save_results(final_result)
         
         return final_result
-            
-        
-        # return {
-        #     'method': 'test_whisperx_models',
-        #     'threads': threads,
-        #     'model': model,
-        #     'processing_time': end_time - start_time,
-        #     'segments_count': len(result['segments']),
-        #     'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-        #     # 'resource_usage': monitor.get_summary(),
-        #     'success': True,
-        #     'segments': result['segments'],
-        #     'result': result
-        # }
         
     except Exception as e:
         # monitor.stop_monitoring()
