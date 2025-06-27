@@ -325,13 +325,32 @@ class AudioTranscription:
             del model_a
             gc.collect()
 
-            whisperx_segments = [
-                {
-                    'start': float(seg.start),
-                    'end': float(seg.end),
-                    'text': seg.text
-                } for seg in segments_list
-            ]
+            whisperx_segments = []
+            for seg in segments_list:
+                if hasattr(seg, 'words') and seg.words:
+                    # Use word-level data instead of segment-level
+                    segment_words = []
+                    for word in seg.words:
+                        segment_words.append({
+                            'start': float(word.start),
+                            'end': float(word.end),
+                            'text': word.word.strip(),
+                            'score': float(word.probability)
+                        })
+                    
+                    whisperx_segments.append({
+                        'start': float(seg.start),
+                        'end': float(seg.end),
+                        'text': seg.text,
+                        'words': segment_words
+                    })
+                else:
+                    # Fallback to segment-level if no words
+                    whisperx_segments.append({
+                        'start': float(seg.start),
+                        'end': float(seg.end),
+                        'text': seg.text
+                    })
 
             audio = whisperx.load_audio(audio_path)
             model_align, metadata = whisperx.load_align_model(language_code=language, device="cpu")
@@ -340,9 +359,6 @@ class AudioTranscription:
 
             self.results = aligned_result
 
-            print(341, 'aligned_result', aligned_result)
-
-         
             print(59)
             end_time = time.time()
             monitor.stop_monitoring()
