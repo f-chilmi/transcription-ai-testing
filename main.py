@@ -1,5 +1,10 @@
 # Quick Test Runner - Run this to start testing immediately
+import gc
 import os
+import time
+
+import whisperx
+from typing import Dict, Any
 
 from services.audio_transcription import AudioTranscription
 from services.audio_transcription_tester import AudioTranscriptionTest
@@ -149,32 +154,136 @@ def main():
     if not check_files():
         return
     
-    print("\nSelect test mode:")
-    print("1. Quick test (fast verification)")
-    print("2. Full test suite (comprehensive)")
-    print("3. Install requirements only")
-    print("4. Run performance test")
-    print("5. Format")
+    test_transcription_diarization()
     
-    choice = input("\nEnter choice (1-4): ").strip()
+    # print("\nSelect test mode:")
+    # print("1. Quick test (fast verification)")
+    # print("2. Full test suite (comprehensive)")
+    # print("3. Install requirements only")
+    # print("4. Run performance test")
+    # print("5. Format")
     
-    if choice == "1":
-        if run_quick_test():
-            print("\n🎯 Quick test passed! Ready for full testing.")
+    # choice = input("\nEnter choice (1-4): ").strip()
+    
+    # if choice == "1":
+    #     if run_quick_test():
+    #         print("\n🎯 Quick test passed! Ready for full testing.")
         
-    elif choice == "2":
-        run_full_test()
+    # elif choice == "2":
+    #     run_full_test()
         
-    elif choice == "3":
-        install_requirements()
+    # elif choice == "3":
+    #     install_requirements()
 
-    elif choice == "4":
-        run_performance_test()
-    elif choice == "5":
-        format_response()
+    # elif choice == "4":
+    #     run_performance_test()
+    # elif choice == "5":
+    #     format_response()
         
-    else:
-        print("Invalid choice. Please run again.")
+    # else:
+    #     print("Invalid choice. Please run again.")
 
 if __name__ == "__main__":
     main()
+
+
+def test_transcription_diarization() -> Dict[str, Any]:
+    """Test: test_whisperx_models (no diarization)"""
+    # logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
+    
+    threads = 6
+    model = 'tiny'
+    audio_path = 'audio_mono_arabic.mp3'
+    language = 'ar'
+
+    os.environ["OMP_NUM_THREADS"] = str(threads)
+    # monitor = ResourceMonitor()
+    # monitor.start_monitoring()
+    
+    start_time = time.time()
+    
+    try:
+        device = "cpu"
+        compute_type = "int8"
+        
+        model_a = whisperx.load_model(model, device, compute_type=compute_type)
+        audio = whisperx.load_audio(audio_path)
+        result = model_a.transcribe(audio, language=language, batch_size=4)
+        print(165, result["segments"])
+        
+        del model_a
+        gc.collect()
+
+        # 2. Align whisper output
+        model_b, metadata = whisperx.load_align_model(language_code=language, device=device)
+        result = whisperx.align(result["segments"], model_b, metadata, audio, device, return_char_alignments=False)
+        # self.results = result
+        print(178, result["segments"]) # after alignment
+
+        del model_b
+        gc.collect()
+        print(59)
+        end_time_transcription = time.time()
+        # monitor.stop_monitoring()
+        print(62)
+
+        model = whisperx.load_model("tiny", device, compute_type=compute_type)
+        audio = whisperx.load_audio(audio_path)
+
+        # Diarization
+        diarize_model = whisperx.diarize.DiarizationPipeline(
+            use_auth_token=HUGGING_FACE_TOKEN,
+            device=device)
+        print(111, diarize_model)
+        diarize_segments = diarize_model(audio)
+        print(113, diarize_segments)
+        result = whisperx.assign_word_speakers(diarize_segments, result)
+        print(11562, result)
+        
+        # Cleanup
+        del model, diarize_model
+        gc.collect()
+        
+        end_time = time.time()
+        # monitor.stop_monitoring()
+
+        tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
+        tester.save_results(result)
+        
+        return {
+            'method': 'test_whisperx',
+            'threads': threads,
+            'processing_time_transcription': end_time_transcription - start_time,
+            'processing_time_diarozation': end_time - end_time_transcription,
+            'segments_count': len(result['segments']),
+            'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
+            # 'resource_usage': monitor.get_summary(),
+            'success': True,
+            'segments': result,
+        }
+            
+        
+        # return {
+        #     'method': 'test_whisperx_models',
+        #     'threads': threads,
+        #     'model': model,
+        #     'processing_time': end_time - start_time,
+        #     'segments_count': len(result['segments']),
+        #     'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
+        #     # 'resource_usage': monitor.get_summary(),
+        #     'success': True,
+        #     'segments': result['segments'],
+        #     'result': result
+        # }
+        
+    except Exception as e:
+        # monitor.stop_monitoring()
+        return {
+            'method': 'whisper_only',
+            'threads': threads,
+            'processing_time': time.time() - start_time,
+            'error': str(e),
+            'success': False,
+            # 'resource_usage': monitor.get_summary()
+        }
+        
