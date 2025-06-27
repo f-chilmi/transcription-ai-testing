@@ -142,7 +142,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_multi_swedish.mp3'
+    audio_path = 'audio_mono_swedish.mp3'
     language = 'sv'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
