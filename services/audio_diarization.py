@@ -44,7 +44,7 @@ class AudioDiarization:
             device = "cpu"
             compute_type = "int8"
 
-            result = self.results
+            result = {'segments': self.results}
             print(90230982048304030493095890458948905, result)
             
             # Load model and transcribe
@@ -59,7 +59,7 @@ class AudioDiarization:
             diarize_segments = diarize_model(audio)
             print(113, diarize_segments)
             result = whisperx.assign_word_speakers(diarize_segments, result)
-            print(115, result)
+            print(11562, result)
             
             # Cleanup
             del model, diarize_model
