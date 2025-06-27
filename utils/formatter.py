@@ -17,6 +17,7 @@ def format_transcript(json_data):
         data = json_data
     
     # Extract segments
+    # segments = data.get('final_result_serialized', [])
     segments = data.get('segments', {}).get('segments', [])
     
     # Format output
@@ -79,7 +80,7 @@ if __name__ == "__main__":
     # print(format_transcript_with_timestamps(sample_data))
     
     # If you want to read from a JSON file:
-    with open('transcription_test_results_27-06-2025 10:34:21.json', 'r', encoding='utf-8') as f:
+    with open('transcription_test_results_27-06-2025 10:56:49.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         formatted = format_transcript(data)
         print(formatted)
