@@ -342,7 +342,7 @@ class AudioTranscription:
                     } for segment in segments_list
                 ],
                 'aligned_result': aligned_result,
-                'result': word_segments,
+                'result': {segments: word_segments},
             }
             
             
