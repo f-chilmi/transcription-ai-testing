@@ -141,7 +141,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
     """Test: test_whisperx_models (no diarization)"""
     
     threads = 6
-    model = 'large-v2'
+    model = 'tiny'
     audio_path = 'audio_mono_swedish.mp3'
     language = 'sv'
 
@@ -166,7 +166,7 @@ def test_transcription_diarization() -> Dict[str, Any]:
         gc.collect()
 
         # 2. Align whisper output
-        model_b, metadata = whisperx.load_align_model(language_code=language, device=device)
+        model_b, metadata = whisperx.load_align_model(language_code=language, device=device, model_name="KBLab/wav2vec2-large-voxrex-swedish")
         result = whisperx.align(result["segments"], model_b, metadata, audio, device, return_char_alignments=False)
         # self.results = result
         print(178, result["segments"]) # after alignment
