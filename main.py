@@ -110,7 +110,7 @@ def run_performance_test():
         tester = AudioTranscriptionTest(HUGGING_FACE_TOKEN)
         
         # Run comprehensive test
-        results = tester.run_performance_test(AUDIO_FILES, 'whisperx_tiny')
+        results = tester.run_performance_test(AUDIO_FILES, 'faster_whisper_vad_tiny')
 
         print(115, 'run_performance_test')
         

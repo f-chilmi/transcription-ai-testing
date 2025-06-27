@@ -25,7 +25,7 @@ AUDIO_FILES = {
     # "noisy": "audio_noisy_arabic.mp3"       # Your noisy audio file
     "mono": "audio_mono_english.mp3",       
     # "multi": "audio_multi_arabic.mp3",      
-    "noisy": "audio_noisy_english.mp3"       
+    # "noisy": "audio_noisy_english.mp3"       
 }
 
 # =============================================================================

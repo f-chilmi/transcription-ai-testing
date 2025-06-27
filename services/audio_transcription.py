@@ -325,6 +325,23 @@ class AudioTranscription:
             del model_a
             gc.collect()
 
+            whisperx_segments = [
+                {
+                    'start': float(seg.start),
+                    'end': float(seg.end),
+                    'text': seg.text
+                } for seg in segments_list
+            ]
+
+            audio = whisperx.load_audio(audio_path)
+            model_align, metadata = whisperx.load_align_model(language_code=language, device="cpu")
+            aligned_result = whisperx.align(whisperx_segments, model_align, metadata, audio, "cpu")
+            del model_align
+
+            self.results = aligned_result
+
+            print(341, 'aligned_result', aligned_result)
+
          
             print(59)
             end_time = time.time()
@@ -355,7 +372,9 @@ class AudioTranscription:
                     } for segment in segments_list
                 ],
                 'info': json.loads(json.dumps(info, default=str)),
+                'result': aligned_result
             }
+            
             
         except Exception as e:
             monitor.stop_monitoring()

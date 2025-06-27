@@ -86,6 +86,8 @@ class AudioTranscriptionTest:
                     transcription = self.transcription_service.test_faster_whisper_vad_models('tiny', audio_file, language)
                 
                 print('transcription done for', audio_file)
+
+                print(90, transcription)
                 
                 self.diarization_service.set_transcription_results(transcription)
                 diarization = self.diarization_service.test_whisperx(audio_file)
@@ -303,7 +305,7 @@ class AudioTranscriptionTest:
         if len(audio_files) > 1:
             audio_list = list(audio_files.values())
             performance_results['results']['batch_processing'] = self.test_batch_processing(audio_list, transcription_method)
-            performance_results['results']['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
+            # performance_results['results']['concurrent_processing'] = self.test_concurrent_processing(audio_list, transcription_method)
         
         end_time = time.time()
         
