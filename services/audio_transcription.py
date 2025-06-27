@@ -27,66 +27,6 @@ class AudioTranscription:
     def __init__(self):
         self.results = {}
     
-    def test_whisper_tiny(self, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
-        """Test: WhisperX tiny (no diarization)"""
-        logger.info(f"Testing WhisperX only with {threads} threads")
-        
-        # os.environ["OMP_NUM_THREADS"] = str(threads)
-        monitor = ResourceMonitor()
-        monitor.start_monitoring()
-        
-        start_time = time.time()
-        
-        try:
-            device = "cpu"
-            compute_type = "int8"
-
-            self.results = {}
-            
-            model = whisperx.load_model("tiny", device, compute_type=compute_type)
-            audio = whisperx.load_audio(audio_path)
-            result = model.transcribe(audio, language=language, batch_size=4)
-            print(165, result["segments"])
-            
-            del model
-            gc.collect()
-
-            # 2. Align whisper output
-            model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
-            result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
-            self.results = result
-            print(178, result["segments"]) # after alignment
-
-            del model_a
-            gc.collect()
-            print(59)
-            end_time = time.time()
-            monitor.stop_monitoring()
-            print(62)
-            
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': end_time - start_time,
-                'segments_count': len(result['segments']),
-                'speakers_detected': len(set(seg.get('speaker', 'Unknown') for seg in result['segments'])),
-                'resource_usage': monitor.get_summary(),
-                'success': True,
-                'segments': result['segments'],
-                'result': result
-            }
-            
-        except Exception as e:
-            monitor.stop_monitoring()
-            return {
-                'method': 'whisper_only',
-                'threads': threads,
-                'processing_time': time.time() - start_time,
-                'error': str(e),
-                'success': False,
-                'resource_usage': monitor.get_summary()
-            }
-        
     def test_vad(self, audio_path: str, threads: int = 6) -> Dict[str, Any]:
         import ssl
         from IPython.display import Audio
@@ -134,7 +74,7 @@ class AudioTranscription:
             end_time = time.time()
             monitor.stop_monitoring()
             print(131)
-            transcription = self.test_whisper_tiny('only_speech.wav', threads)
+            transcription = self.test_vad('only_speech.wav', threads)
             print(135)
             
             return {
@@ -160,7 +100,7 @@ class AudioTranscription:
             }
     
     def test_whisperx_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
-        """Test: WhisperX tiny (no diarization)"""
+        """Test: test_whisperx_models (no diarization)"""
         logger.info(f"Testing test_whisperx_models with {threads} threads model {model}")
         
         # os.environ["OMP_NUM_THREADS"] = str(threads)
@@ -175,7 +115,7 @@ class AudioTranscription:
 
             self.results = {}
             
-            model_a = whisperx.load_model("base", device, compute_type=compute_type)
+            model_a = whisperx.load_model(model, device, compute_type=compute_type)
             audio = whisperx.load_audio(audio_path)
             result = model_a.transcribe(audio, language=language, batch_size=4)
             print(165, result["segments"])
@@ -222,7 +162,7 @@ class AudioTranscription:
          
     def test_faster_whisper_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         
-        """Test: WhisperX tiny (no diarization)"""
+        """Test: WhisperX (no diarization)"""
         logger.info(f"Testing test_faster_whisper_models with {threads} threads model {model}")
         
         # os.environ["OMP_NUM_THREADS"] = str(threads)
@@ -298,7 +238,7 @@ class AudioTranscription:
         
     def test_faster_whisper_vad_models(self, model: str, audio_path: str, threads: int = 6, language: str = "en") -> Dict[str, Any]:
         
-        """Test: WhisperX tiny (no diarization)"""
+        """Test: test_faster_whisper_vad_models (no diarization)"""
         logger.info(f"Testing test_faster_whisper_vad_models with {threads} threads model {model}")
         
         # os.environ["OMP_NUM_THREADS"] = str(threads)
