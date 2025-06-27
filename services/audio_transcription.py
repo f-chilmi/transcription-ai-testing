@@ -31,7 +31,7 @@ class AudioTranscription:
         """Test: WhisperX tiny (no diarization)"""
         logger.info(f"Testing WhisperX only with {threads} threads")
         
-        os.environ["OMP_NUM_THREADS"] = str(threads)
+        # os.environ["OMP_NUM_THREADS"] = str(threads)
         monitor = ResourceMonitor()
         monitor.start_monitoring()
         
@@ -239,9 +239,7 @@ class AudioTranscription:
             
             model_a = WhisperModel(model, device=device, compute_type=compute_type)
             segments, info = model_a.transcribe(audio_path, beam_size=5, word_timestamps=True, language=language)
-            print("Info object:", type(info))
-            print("Info attributes:", dir(info))
-        
+    
             print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
             segments_list = list(segments)
