@@ -4,6 +4,7 @@ import logging
 import os
 import time
 
+from faster_whisper import WhisperModel
 import whisperx
 from typing import Dict, Any
 
@@ -142,8 +143,8 @@ def test_transcription_diarization() -> Dict[str, Any]:
     
     threads = 6
     model = 'tiny'
-    audio_path = 'audio_mono_swedish.mp3'
-    language = 'sv'
+    audio_path = 'audio_mono_english.mp3'
+    language = 'en'
 
     os.environ["OMP_NUM_THREADS"] = str(threads)
     monitor = ResourceMonitor()
@@ -156,11 +157,48 @@ def test_transcription_diarization() -> Dict[str, Any]:
     try:
         device = "cpu"
         compute_type = "int8"
-        
-        model_a = whisperx.load_model(model, device, compute_type=compute_type)
-        audio = whisperx.load_audio(audio_path)
-        result = model_a.transcribe(audio, language=language, batch_size=4)
+
+        # THIS IS FOR TRANSCRIPTION USING FASTER-WHISPER
+        model_a = WhisperModel(model, device=device, compute_type=compute_type)
+        segments, info = model_a.transcribe(
+            audio_path, 
+            beam_size=5, 
+            word_timestamps=True, 
+            vad_filter=True,
+            language=language,
+        )
+
+        whisperx_segments = []
+        for segment in segments:
+            whisperx_segment = {
+                "start": segment.start,
+                "end": segment.end,
+                "text": segment.text,
+                "words": []
+            }
+            
+            if hasattr(segment, 'words') and segment.words:
+                for word in segment.words:
+                    whisperx_segment["words"].append({
+                        "word": word.word,
+                        "start": word.start,
+                        "end": word.end,
+                        "score": word.probability
+                    })
+            
+            whisperx_segments.append(whisperx_segment)
+
+        result = {"segments": whisperx_segments, "language": info.language}
         print(165, result["segments"])
+        audio = whisperx.load_audio(audio_path)
+        #
+        
+        # # THIS IS FOR TRANSCRIPTION USING WHISPERX
+        # model_a = whisperx.load_model(model, device, compute_type=compute_type)
+        # audio = whisperx.load_audio(audio_path)
+        # result = model_a.transcribe(audio, language=language, batch_size=4)
+        # print(165, result["segments"])
+        # #
         
         del model_a
         gc.collect()
